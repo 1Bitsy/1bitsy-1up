@@ -13,6 +13,15 @@
   )
 
   (page A4)
+  (title_block
+    (title "1Bitsy 1UP Retro Inspired Handheld Console")
+    (rev V0.1a)
+    (company 1BitSquared)
+    (comment 1 "(C) 2017 Piotr Esden-Tempski <piotr@esden.net>")
+    (comment 2 "(C) 2017 1BitSquared LLC <info@1bitsquared.com>")
+    (comment 3 "License: CC-BY-SA V4.0")
+  )
+
   (layers
     (0 F.Cu signal)
     (31 B.Cu signal)

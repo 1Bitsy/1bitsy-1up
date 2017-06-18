@@ -49,13 +49,13 @@ EELAYER END
 $Descr A3 16535 11693
 encoding utf-8
 Sheet 1 1
-Title "1Bitsy 1UP"
+Title "1Bitsy 1UP Retro Inspired Handheld Console"
 Date ""
 Rev "V0.1a"
 Comp "1BitSquared"
-Comment1 "License: CC-BY-SA 4.0"
-Comment2 "(C) 2016 1BitSquared"
-Comment3 "(C) 2016 Piotr Esden-Tempski <piotr@esden.net>"
+Comment1 "(C) 2017 Piotr Esden-Tempski <piotr@esden.net>"
+Comment2 "(C) 2017 1BitSquared LLC <info@1bitsquared.com>"
+Comment3 "License: CC-BY-SA 4.0"
 Comment4 ""
 $EndDescr
 $Comp
