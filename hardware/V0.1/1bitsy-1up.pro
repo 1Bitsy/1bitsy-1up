@@ -1,4 +1,4 @@
-update=Fri 04 Nov 2016 11:38:13 PM PDT
+update=Tue 13 Jun 2017 04:27:49 PM PDT
 version=1
 last_client=kicad
 [pcbnew]
@@ -71,3 +71,5 @@ LibName39=pkl_sensor
 LibName40=pkl_tag_connect
 LibName41=pkl_texas
 LibName42=1bitsy
+LibName43=pkl_lattice
+LibName44=pkl_memory

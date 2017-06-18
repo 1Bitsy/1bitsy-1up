@@ -62,8 +62,9 @@ U 1 1 57F4B4DD
 P 4200 2450
 F 0 "U?" H 4200 2550 60  0000 C CNN
 F 1 "1bitsy-complete-concise" H 4200 2450 60  0000 C CNN
-F 2 "" H 4200 2550 60  0001 C CNN
+F 2 "1bitsy:1bitsy-basic" H 4200 2550 60  0001 C CNN
 F 3 "" H 4200 2550 60  0001 C CNN
+F 4 "ANY" H 4200 2450 60  0001 C CNN "Source"
 	1    4200 2450
 	1    0    0    -1  
 $EndComp
@@ -245,6 +246,12 @@ $EndComp
 Wire Wire Line
 	9300 3100 9400 3100
 Wire Wire Line
+	8500 3200 8800 3200
+Wire Wire Line
+	8800 3200 9100 3200
+Wire Wire Line
+	9100 3200 9300 3200
+Wire Wire Line
 	9300 3200 9400 3200
 Connection ~ 9300 3200
 Wire Wire Line
@@ -256,9 +263,19 @@ Connection ~ 9300 3400
 Wire Wire Line
 	9200 3700 9400 3700
 Wire Wire Line
-	9200 1100 9200 3700
+	9200 1100 9200 3500
 Wire Wire Line
-	9400 3600 9200 3600
+	9200 3500 9200 3600
+Wire Wire Line
+	9200 3600 9200 3700
+Wire Wire Line
+	8500 3600 8800 3600
+Wire Wire Line
+	8800 3600 9100 3600
+Wire Wire Line
+	9100 3600 9200 3600
+Wire Wire Line
+	9200 3600 9400 3600
 Connection ~ 9200 3600
 Wire Wire Line
 	9400 3500 9200 3500
@@ -288,7 +305,27 @@ $EndComp
 Wire Wire Line
 	10600 2800 10700 2800
 Wire Wire Line
-	10700 1800 10700 3900
+	10700 1800 10700 2800
+Wire Wire Line
+	10700 2800 10700 2900
+Wire Wire Line
+	10700 2900 10700 3000
+Wire Wire Line
+	10700 3000 10700 3100
+Wire Wire Line
+	10700 3100 10700 3200
+Wire Wire Line
+	10700 3200 10700 3300
+Wire Wire Line
+	10700 3300 10700 3400
+Wire Wire Line
+	10700 3400 10700 3500
+Wire Wire Line
+	10700 3500 10700 3600
+Wire Wire Line
+	10700 3600 10700 3700
+Wire Wire Line
+	10700 3700 10700 3900
 Wire Wire Line
 	10600 2900 10700 2900
 Connection ~ 10700 2900
@@ -385,7 +422,9 @@ Wire Wire Line
 	9300 2200 9400 2200
 Connection ~ 9300 2200
 Wire Wire Line
-	9100 2300 9400 2300
+	9100 2300 9300 2300
+Wire Wire Line
+	9300 2300 9400 2300
 Connection ~ 9300 2300
 Wire Wire Line
 	9300 2400 9400 2400
@@ -424,7 +463,7 @@ NoConn ~ 9400 2700
 NoConn ~ 9400 2800
 NoConn ~ 9400 2900
 Text Notes 9150 2800 2    60   ~ 0
-These pins\nare supposidly touch\npanel outputs?! o_O
+These pins\nare only for\nresistive touch.
 $Comp
 L pkl_R_Small R?
 U 1 1 581E975A
@@ -492,7 +531,13 @@ LED4A
 Wire Wire Line
 	8400 1700 8600 1700
 Wire Wire Line
-	8400 1100 8400 1700
+	8400 1100 8400 1400
+Wire Wire Line
+	8400 1400 8400 1500
+Wire Wire Line
+	8400 1500 8400 1600
+Wire Wire Line
+	8400 1600 8400 1700
 Wire Wire Line
 	8600 1600 8400 1600
 Connection ~ 8400 1600
@@ -514,7 +559,29 @@ F 3 "" H 8400 1100 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	9300 1800 9300 3900
+	9300 1800 9300 1900
+Wire Wire Line
+	9300 1900 9300 2000
+Wire Wire Line
+	9300 2000 9300 2100
+Wire Wire Line
+	9300 2100 9300 2200
+Wire Wire Line
+	9300 2200 9300 2300
+Wire Wire Line
+	9300 2300 9300 2400
+Wire Wire Line
+	9300 2400 9300 2500
+Wire Wire Line
+	9300 2500 9300 3100
+Wire Wire Line
+	9300 3100 9300 3200
+Wire Wire Line
+	9300 3200 9300 3300
+Wire Wire Line
+	9300 3300 9300 3400
+Wire Wire Line
+	9300 3400 9300 3900
 $Comp
 L pkl_Q_NMOS_BD_NAMES Q?
 U 1 1 581EB34F
@@ -541,8 +608,9 @@ U 1 1 581E8601
 P 10000 5100
 F 0 "U?" H 10000 5350 60  0000 C CNN
 F 1 "LCD_CAP_TOUCH" H 10000 4750 60  0000 C CNN
-F 2 "" H 10000 5100 60  0001 C CNN
+F 2 "pkl_connectors:ER-CON06HB" H 10000 5100 60  0001 C CNN
 F 3 "" H 10000 5100 60  0001 C CNN
+F 4 "ANY" H 10000 5100 60  0001 C CNN "Source"
 	1    10000 5100
 	1    0    0    -1  
 $EndComp
@@ -605,9 +673,13 @@ F 6 "ANY" H 9200 4800 60  0001 C CNN "Source"
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	9100 5200 9500 5200
+	9100 5200 9400 5200
 Wire Wire Line
-	9100 5300 9500 5300
+	9400 5200 9500 5200
+Wire Wire Line
+	9100 5300 9200 5300
+Wire Wire Line
+	9200 5300 9500 5300
 Wire Wire Line
 	9500 5100 9100 5100
 Wire Wire Line
@@ -621,7 +693,9 @@ Connection ~ 9200 5300
 Wire Wire Line
 	9200 4700 9200 4600
 Wire Wire Line
-	9200 4600 9400 4600
+	9200 4600 9300 4600
+Wire Wire Line
+	9300 4600 9400 4600
 Wire Wire Line
 	9400 4600 9400 4700
 Wire Wire Line
@@ -722,7 +796,9 @@ $EndComp
 Wire Wire Line
 	8500 7000 8600 7000
 Wire Wire Line
-	8600 6700 8600 7400
+	8600 6700 8600 7000
+Wire Wire Line
+	8600 7000 8600 7400
 Wire Wire Line
 	8500 6700 8600 6700
 Connection ~ 8600 7000
@@ -922,7 +998,9 @@ Wire Wire Line
 Wire Wire Line
 	2400 5900 2500 5900
 Wire Wire Line
-	2500 4700 2500 6500
+	2500 4700 2500 5900
+Wire Wire Line
+	2500 5900 2500 6500
 Wire Wire Line
 	1800 5300 1900 5300
 Wire Wire Line
@@ -930,7 +1008,9 @@ Wire Wire Line
 Wire Wire Line
 	3600 5700 3700 5700
 Wire Wire Line
-	3700 5700 3700 6500
+	3700 5700 3700 6200
+Wire Wire Line
+	3700 6200 3700 6500
 Wire Wire Line
 	3600 6200 3700 6200
 Connection ~ 3700 6200
@@ -941,7 +1021,9 @@ Wire Wire Line
 Wire Wire Line
 	4800 5900 4900 5900
 Wire Wire Line
-	4900 6500 4900 4700
+	4900 6500 4900 5900
+Wire Wire Line
+	4900 5900 4900 4700
 Wire Wire Line
 	2400 4700 2500 4700
 Connection ~ 2500 5900
@@ -1029,7 +1111,17 @@ BSELECT
 Text Label 1400 3650 2    60   ~ 0
 BSTART
 Wire Wire Line
-	1900 6500 4900 6500
+	1900 6500 2500 6500
+Wire Wire Line
+	2500 6500 3100 6500
+Wire Wire Line
+	3100 6500 3400 6500
+Wire Wire Line
+	3400 6500 3700 6500
+Wire Wire Line
+	3700 6500 4300 6500
+Wire Wire Line
+	4300 6500 4900 6500
 Connection ~ 2500 6500
 Connection ~ 3100 6500
 Connection ~ 3700 6500
@@ -1083,4 +1175,59 @@ Wire Wire Line
 	6800 3450 7000 3450
 Text Label 7000 3450 0    60   ~ 0
 SDIO_CD
+$Comp
+L pkl_C_Small C?
+U 1 1 581FCB1C
+P 9100 3400
+F 0 "C?" H 9110 3470 50  0000 L CNN
+F 1 "100n" H 9110 3320 50  0000 L CNN
+F 2 "pkl_dipol:C_0402" H 9100 3400 60  0001 C CNN
+F 3 "" H 9100 3400 60  0000 C CNN
+F 4 "cap-cer-0402-100n" H 9100 3400 60  0001 C CNN "Key"
+F 5 "ANY" H 9100 3400 60  0001 C CNN "Source"
+	1    9100 3400
+	-1   0    0    1   
+$EndComp
+$Comp
+L pkl_C_Small C?
+U 1 1 581FCC93
+P 8800 3400
+F 0 "C?" H 8810 3470 50  0000 L CNN
+F 1 "100n" H 8810 3320 50  0000 L CNN
+F 2 "pkl_dipol:C_0402" H 8800 3400 60  0001 C CNN
+F 3 "" H 8800 3400 60  0000 C CNN
+F 4 "cap-cer-0402-100n" H 8800 3400 60  0001 C CNN "Key"
+F 5 "ANY" H 8800 3400 60  0001 C CNN "Source"
+	1    8800 3400
+	-1   0    0    1   
+$EndComp
+$Comp
+L pkl_C C?
+U 1 1 581FCD08
+P 8500 3400
+F 0 "C?" H 8510 3470 50  0000 L CNN
+F 1 "10u" H 8510 3320 50  0000 L CNN
+F 2 "pkl_dipol:C_0603" H 8500 3400 60  0001 C CNN
+F 3 "" H 8500 3400 60  0000 C CNN
+F 4 "cap-cer-0603-10u" H 8500 3400 60  0001 C CNN "Key"
+F 5 "ANY" H 8500 3400 60  0001 C CNN "Source"
+	1    8500 3400
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	8500 3500 8500 3600
+Wire Wire Line
+	8800 3500 8800 3600
+Connection ~ 8800 3600
+Wire Wire Line
+	9100 3500 9100 3600
+Connection ~ 9100 3600
+Wire Wire Line
+	8500 3200 8500 3300
+Wire Wire Line
+	8800 3300 8800 3200
+Connection ~ 8800 3200
+Wire Wire Line
+	9100 3300 9100 3200
+Connection ~ 9100 3200
 $EndSCHEMATC
