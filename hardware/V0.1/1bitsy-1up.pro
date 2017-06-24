@@ -1,4 +1,4 @@
-update=Tue 13 Jun 2017 04:27:49 PM PDT
+update=Fri 23 Jun 2017 02:45:08 PM PDT
 version=1
 last_client=kicad
 [pcbnew]
@@ -73,3 +73,13 @@ LibName41=pkl_texas
 LibName42=1bitsy
 LibName43=pkl_lattice
 LibName44=pkl_memory
+[schematic_editor]
+version=1
+PageLayoutDescrFile=
+PlotDirectoryName=
+SubpartIdSeparator=0
+SubpartFirstId=65
+NetFmtName=
+SpiceForceRefPrefix=0
+SpiceUseNetNumbers=0
+LabSize=60
