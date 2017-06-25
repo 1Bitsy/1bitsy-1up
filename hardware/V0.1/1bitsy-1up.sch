@@ -1706,6 +1706,8 @@ Wire Wire Line
 	4300 6500 4900 6500
 Wire Wire Line
 	4900 6500 5500 6500
+Wire Wire Line
+	5500 6500 6400 6500
 Connection ~ 2500 6500
 Connection ~ 3100 6500
 Connection ~ 3700 6500
@@ -1856,11 +1858,7 @@ Wire Wire Line
 Wire Wire Line
 	3600 8450 3600 8550
 Wire Wire Line
-	3900 9300 4800 9300
-Wire Wire Line
-	4800 9300 4800 9300
-Wire Wire Line
-	4800 9300 5300 9300
+	3900 9300 5300 9300
 Wire Wire Line
 	3500 9500 5300 9500
 Wire Wire Line
@@ -2298,11 +2296,15 @@ Wire Wire Line
 Connection ~ 8400 7650
 Connection ~ 8300 7450
 Wire Wire Line
-	8600 6550 8200 6550
+	7400 6550 8200 6550
+Wire Wire Line
+	8200 6550 8600 6550
 Wire Wire Line
 	8200 6550 8200 6350
 Wire Wire Line
-	8600 6650 8100 6650
+	7400 6650 8100 6650
+Wire Wire Line
+	8100 6650 8600 6650
 Wire Wire Line
 	8100 6650 8100 6350
 Wire Wire Line
@@ -2363,10 +2365,6 @@ Text Notes 7400 6850 2    60   ~ 0
 BE1
 Text Notes 7400 6750 2    60   ~ 0
 BE2
-Text Notes 7400 6650 2    60   ~ 0
-BE3
-Text Notes 7400 6550 2    60   ~ 0
-BE4
 NoConn ~ 9800 7450
 NoConn ~ 9800 5750
 NoConn ~ 6900 2850
@@ -2691,4 +2689,52 @@ Wire Wire Line
 	3900 9100 3900 9300
 Text Notes 3400 8750 2    60   ~ 0
 10k 257tap dual digital\npotentiometer\n(volume control)
+$Comp
+L TACT SW?
+U 1 1 5952A274
+P 6000 5800
+F 0 "SW?" H 6150 5725 60  0000 L CNN
+F 1 "A" H 6150 5875 60  0000 L CNN
+F 2 "pkl_buttons_switches:Tact_Switch_Side_B3U-3000P" H 6000 5775 60  0001 C CNN
+F 3 "" H 6000 5775 60  0000 C CNN
+F 4 "ANY" H 6000 5800 60  0001 C CNN "Source"
+	1    6000 5800
+	1    0    0    -1  
+$EndComp
+$Comp
+L TACT SW?
+U 1 1 5952A537
+P 6000 6200
+F 0 "SW?" H 6150 6125 60  0000 L CNN
+F 1 "A" H 6150 6275 60  0000 L CNN
+F 2 "pkl_buttons_switches:Tact_Switch_Side_B3U-3000P" H 6000 6175 60  0001 C CNN
+F 3 "" H 6000 6175 60  0000 C CNN
+F 4 "ANY" H 6000 6200 60  0001 C CNN "Source"
+	1    6000 6200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5800 5800 5400 5800
+Text Label 5400 5800 2    60   ~ 0
+BVol+
+Wire Wire Line
+	6200 5800 6400 5800
+Wire Wire Line
+	6400 5800 6400 6200
+Wire Wire Line
+	6400 6200 6400 6500
+Connection ~ 5500 6500
+Wire Wire Line
+	6200 6200 6400 6200
+Connection ~ 6400 6200
+Wire Wire Line
+	5800 6200 5400 6200
+Text Label 5400 6200 2    60   ~ 0
+BVol-
+Connection ~ 8200 6550
+Connection ~ 8100 6650
+Text Label 7400 6550 2    60   ~ 0
+BVol+
+Text Label 7400 6650 2    60   ~ 0
+BVol-
 $EndSCHEMATC
