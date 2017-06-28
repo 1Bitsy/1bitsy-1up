@@ -762,13 +762,13 @@ F 4 "ANY" H 12400 2200 60  0001 C CNN "Source"
 	1    0    0    -1  
 $EndComp
 Text Label 12200 1900 2    60   ~ 0
-LCD_TOUCH_SCL
+VOL/TOUCH_SCL
 Text Label 12200 2000 2    60   ~ 0
 VOL/TOUCH_SDA
 Text Label 12200 2200 2    60   ~ 0
 LCD_RST
 Text Label 12200 2100 2    60   ~ 0
-VOL/TOUCH_IRQ
+LCD_TOUCH_IRQ
 $Comp
 L GND #PWR016
 U 1 1 594716A4
