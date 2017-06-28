@@ -2235,7 +2235,7 @@ F 2 "pkl_dipol:R_Array_Convex_4x0402" H 7700 4550 60  0001 C CNN
 F 3 "" H 7700 4550 60  0000 C CNN
 F 4 "ANY" H 7700 4550 60  0001 C CNN "Source"
 	1    7700 4550
-	1    0    0    -1  
+	-1   0    0    1   
 $EndComp
 $Comp
 L pkl_R4_Small R6
@@ -2247,7 +2247,7 @@ F 2 "pkl_dipol:R_Array_Convex_4x0402" H 7800 4550 60  0001 C CNN
 F 3 "" H 7800 4550 60  0000 C CNN
 F 4 "ANY" H 7800 4550 60  0001 C CNN "Source"
 	2    7800 4550
-	1    0    0    -1  
+	-1   0    0    1   
 $EndComp
 $Comp
 L pkl_R4_Small R6
@@ -2259,7 +2259,7 @@ F 2 "pkl_dipol:R_Array_Convex_4x0402" H 7900 4550 60  0001 C CNN
 F 3 "" H 7900 4550 60  0000 C CNN
 F 4 "ANY" H 7900 4550 60  0001 C CNN "Source"
 	3    7900 4550
-	1    0    0    -1  
+	-1   0    0    1   
 $EndComp
 $Comp
 L pkl_R4_Small R6
@@ -2271,7 +2271,7 @@ F 2 "pkl_dipol:R_Array_Convex_4x0402" H 8000 4550 60  0001 C CNN
 F 3 "" H 8000 4550 60  0000 C CNN
 F 4 "ANY" H 8000 4550 60  0001 C CNN "Source"
 	4    8000 4550
-	1    0    0    -1  
+	-1   0    0    1   
 $EndComp
 $Comp
 L pkl_R4_Small R7
@@ -2283,7 +2283,7 @@ F 2 "pkl_dipol:R_Array_Convex_4x0402" H 8100 4550 60  0001 C CNN
 F 3 "" H 8100 4550 60  0000 C CNN
 F 4 "ANY" H 8100 4550 60  0001 C CNN "Source"
 	1    8100 4550
-	1    0    0    -1  
+	-1   0    0    1   
 $EndComp
 $Comp
 L pkl_R4_Small R7
@@ -2295,7 +2295,7 @@ F 2 "pkl_dipol:R_Array_Convex_4x0402" H 8200 4550 60  0001 C CNN
 F 3 "" H 8200 4550 60  0000 C CNN
 F 4 "ANY" H 8200 4550 60  0001 C CNN "Source"
 	2    8200 4550
-	1    0    0    -1  
+	-1   0    0    1   
 $EndComp
 $Comp
 L pkl_R4_Small R7
@@ -2307,7 +2307,7 @@ F 2 "pkl_dipol:R_Array_Convex_4x0402" H 8300 4550 60  0001 C CNN
 F 3 "" H 8300 4550 60  0000 C CNN
 F 4 "ANY" H 8300 4550 60  0001 C CNN "Source"
 	3    8300 4550
-	1    0    0    -1  
+	-1   0    0    1   
 $EndComp
 $Comp
 L pkl_R4_Small R7
@@ -2319,7 +2319,7 @@ F 2 "pkl_dipol:R_Array_Convex_4x0402" H 8400 4550 60  0001 C CNN
 F 3 "" H 8400 4550 60  0000 C CNN
 F 4 "ANY" H 8400 4550 60  0001 C CNN "Source"
 	4    8400 4550
-	1    0    0    -1  
+	-1   0    0    1   
 $EndComp
 $Comp
 L pkl_R4_Small R10
@@ -2331,7 +2331,7 @@ F 2 "pkl_dipol:R_Array_Convex_4x0402" H 7500 6250 60  0001 C CNN
 F 3 "" H 7500 6250 60  0000 C CNN
 F 4 "ANY" H 7500 6250 60  0001 C CNN "Source"
 	1    7500 6250
-	1    0    0    -1  
+	-1   0    0    1   
 $EndComp
 $Comp
 L pkl_R4_Small R10
@@ -2343,7 +2343,7 @@ F 2 "pkl_dipol:R_Array_Convex_4x0402" H 7600 6250 60  0001 C CNN
 F 3 "" H 7600 6250 60  0000 C CNN
 F 4 "ANY" H 7600 6250 60  0001 C CNN "Source"
 	2    7600 6250
-	1    0    0    -1  
+	-1   0    0    1   
 $EndComp
 $Comp
 L pkl_R4_Small R10
@@ -2355,7 +2355,7 @@ F 2 "pkl_dipol:R_Array_Convex_4x0402" H 7700 6250 60  0001 C CNN
 F 3 "" H 7700 6250 60  0000 C CNN
 F 4 "ANY" H 7700 6250 60  0001 C CNN "Source"
 	3    7700 6250
-	1    0    0    -1  
+	-1   0    0    1   
 $EndComp
 $Comp
 L pkl_R4_Small R10
@@ -2367,7 +2367,7 @@ F 2 "pkl_dipol:R_Array_Convex_4x0402" H 7800 6250 60  0001 C CNN
 F 3 "" H 7800 6250 60  0000 C CNN
 F 4 "ANY" H 7800 6250 60  0001 C CNN "Source"
 	4    7800 6250
-	1    0    0    -1  
+	-1   0    0    1   
 $EndComp
 $Comp
 L pkl_R4_Small R11
@@ -2379,7 +2379,7 @@ F 2 "pkl_dipol:R_Array_Convex_4x0402" H 7900 6250 60  0001 C CNN
 F 3 "" H 7900 6250 60  0000 C CNN
 F 4 "ANY" H 7900 6250 60  0001 C CNN "Source"
 	1    7900 6250
-	1    0    0    -1  
+	-1   0    0    1   
 $EndComp
 $Comp
 L pkl_R4_Small R11
@@ -2391,7 +2391,7 @@ F 2 "pkl_dipol:R_Array_Convex_4x0402" H 8000 6250 60  0001 C CNN
 F 3 "" H 8000 6250 60  0000 C CNN
 F 4 "ANY" H 8000 6250 60  0001 C CNN "Source"
 	2    8000 6250
-	1    0    0    -1  
+	-1   0    0    1   
 $EndComp
 $Comp
 L pkl_R4_Small R11
@@ -2403,7 +2403,7 @@ F 2 "pkl_dipol:R_Array_Convex_4x0402" H 8100 6250 60  0001 C CNN
 F 3 "" H 8100 6250 60  0000 C CNN
 F 4 "ANY" H 8100 6250 60  0001 C CNN "Source"
 	3    8100 6250
-	1    0    0    -1  
+	-1   0    0    1   
 $EndComp
 $Comp
 L pkl_R4_Small R11
@@ -2415,7 +2415,7 @@ F 2 "pkl_dipol:R_Array_Convex_4x0402" H 8200 6250 60  0001 C CNN
 F 3 "" H 8200 6250 60  0000 C CNN
 F 4 "ANY" H 8200 6250 60  0001 C CNN "Source"
 	4    8200 6250
-	1    0    0    -1  
+	-1   0    0    1   
 $EndComp
 Text Notes 14300 6950 0    60   ~ 0
 Not really 5V just the battery voltage\nwhen connected and enabled.
