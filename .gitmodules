@@ -7,3 +7,6 @@
 [submodule "lib/pkl"]
 	path = lib/pkl
 	url = https://github.com/esden/pretty-kicad-libs.git
+[submodule "firmware/libopencm3"]
+	path = firmware/libopencm3
+	url = https://github.com/libopencm3/libopencm3.git
