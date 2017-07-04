@@ -23,27 +23,27 @@
 
 #include "math-util.h"
 
-extern void gfx_init_pixslice(gfx_pixslice *tile,
+extern void gfx_init_pixslice(gfx_pixslice *slice,
                              void *buffer,
                              int x, int y,
                              size_t w, size_t h,
                              size_t stride)
 {
-    tile->pixels = (gfx_rgb565 *)buffer - y * stride - x;
-    tile->x      = x;
-    tile->y      = y;
-    tile->w      = w;
-    tile->h      = h;
-    tile->stride = stride;
+    slice->pixels = (gfx_rgb565 *)buffer - y * stride - x;
+    slice->x      = x;
+    slice->y      = y;
+    slice->w      = w;
+    slice->h      = h;
+    slice->stride = stride;
 }
 
-extern gfx_rgb565 *gfx_pixel_address(gfx_pixslice *tile, int x, int y)
+extern gfx_rgb565 *gfx_pixel_address(gfx_pixslice *slice, int x, int y)
 {
-    if (x < tile->x || x >= (ssize_t)(tile->x + tile->w))
+    if (x < slice->x || x >= (ssize_t)(slice->x + slice->w))
         return NULL;
-    if (y < tile->y || y >= (ssize_t)(tile->y + tile->h))
+    if (y < slice->y || y >= (ssize_t)(slice->y + slice->h))
         return NULL;
-    return gfx_pixel_address_unchecked(tile, x, y);
+    return gfx_pixel_address_unchecked(slice, x, y);
 }
 
 void gfx_copy_pixslice(gfx_pixslice       *dest,

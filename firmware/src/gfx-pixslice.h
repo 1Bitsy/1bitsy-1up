@@ -31,19 +31,19 @@ struct gfx_pixslice {
     ssize_t     stride;         // row stride in pixels
 };
 
-extern void gfx_init_pixslice(gfx_pixslice *tile,
+extern void gfx_init_pixslice(gfx_pixslice *slice,
                              void *buffer,
                              int x, int y,
                              size_t w, size_t h,
                              size_t stride);
                          
-static inline gfx_rgb565 *gfx_pixel_address_unchecked(gfx_pixslice *tile,
+static inline gfx_rgb565 *gfx_pixel_address_unchecked(gfx_pixslice *slice,
                                                       int x, int y)
 {
-    return tile->pixels + y * tile->stride + x;
+    return slice->pixels + y * slice->stride + x;
 }
 
-extern gfx_rgb565 *gfx_pixel_address(gfx_pixslice *tile, int x, int y);
+extern gfx_rgb565 *gfx_pixel_address(gfx_pixslice *slice, int x, int y);
 
 // Copy source pixmap into destination.
 // offset translates src coordinates to dest.

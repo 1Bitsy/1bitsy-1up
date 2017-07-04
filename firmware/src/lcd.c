@@ -58,7 +58,7 @@ typedef enum pixslice_state {
 } pixslice_state;
 
 typedef struct pixslice_impl {
-    gfx_pixslice            tile; // must be first.
+    gfx_pixslice            slice; // must be first.
     volatile pixslice_state state;
     void                  *buffer;
 } pixslice_impl;
@@ -66,9 +66,9 @@ typedef struct pixslice_impl {
 static pixslice_impl pixslices[PIXSLICE_COUNT];
 static volatile gfx_rgb565 bg_color = 0x0000;
 
-static inline size_t pixslice_size_bytes(const gfx_pixslice *tile)
+static inline size_t pixslice_size_bytes(const gfx_pixslice *slice)
 {
-    return tile->h * tile->w * sizeof *tile->pixels;
+    return slice->h * slice->w * sizeof *slice->pixels;
 }
 
 
@@ -262,7 +262,7 @@ static void init_clear_dma(void)
 static void start_clear_dma(const pixslice_impl *impl)
 {
     uintptr_t base = (uintptr_t)impl->buffer;
-    size_t size = LCD_MAX_TILE_BYTES;
+    size_t size = LCD_MAX_SLICE_BYTES;
     assert(RAM_BASE <= base);
     assert(base + size <= RAM_BASE + RAM_SIZE);
     assert(size >= 16);
@@ -334,9 +334,9 @@ void dma2_stream7_isr(void)
     }
 }
 
-static void clear_pixslice(gfx_pixslice *tile)
+static void clear_pixslice(gfx_pixslice *slice)
 {
-    pixslice_impl *impl = (pixslice_impl *)tile;
+    pixslice_impl *impl = (pixslice_impl *)slice;
     bool busy = false;
     WITH_INTERRUPTS_MASKED {
         busy = clear_dma_busy;
@@ -358,7 +358,7 @@ static volatile bool video_dma_busy;
 
 static void start_video_dma(const pixslice_impl *impl)
 {
-    const gfx_pixslice *tile = &impl->tile;
+    const gfx_pixslice *slice = &impl->slice;
     // Configure DMA.
     {
         DMA2_S1CR &= ~DMA_SxCR_EN;
@@ -376,7 +376,7 @@ static void start_video_dma(const pixslice_impl *impl)
 
         DMA2_S1PAR  = par;
         DMA2_S1M0AR = impl->buffer;
-        DMA2_S1NDTR = pixslice_size_bytes(tile);
+        DMA2_S1NDTR = pixslice_size_bytes(slice);
         DMA2_S1FCR  = (DMA_SxFCR_FEIE                 |
                        DMA_SxFCR_DMDIS                |
                        DMA_SxFCR_FTH_4_4_FULL);
@@ -463,12 +463,12 @@ static void start_video_dma(const pixslice_impl *impl)
 
     // Bit-bang the ILI9341 RAM address range.
     bang8(ILI9341_CASET, true, false);
-    bang16(tile->x, false);
-    bang16(tile->x + tile->w - 1, false);
+    bang16(slice->x, false);
+    bang16(slice->x + slice->w - 1, false);
 
     bang8(ILI9341_PASET, true, false);
-    bang16(tile->y, false);
-    bang16(tile->y + tile->h - 1, false);
+    bang16(slice->y, false);
+    bang16(slice->y + slice->h - 1, false);
 
     // Bit-bang the command word.
     bang8(ILI9341_RAMWR, true, false);
@@ -527,7 +527,7 @@ void dma2_stream1_isr(void)
         for (size_t i = 0; i < PIXSLICE_COUNT; i++) {
             pixslice_impl *impl = &pixslices[i];
             if (impl->state == TS_SENDING) {
-                clear_pixslice(&impl->tile);
+                clear_pixslice(&impl->slice);
             } else if (impl->state == TS_SEND_WAIT && !video_dma_busy) {
                 impl->state = TS_SENDING;
                 video_dma_busy = true;
@@ -590,7 +590,7 @@ static void init_pixslices(void)
         pixslice_impl *impl = pixslices + i;
         uintptr_t addr = RAM_BASE + i * PIXSLICE_MAX_SIZE_BYTES;
         impl->buffer = (void *)addr;
-        clear_pixslice(&impl->tile);
+        clear_pixslice(&impl->slice);
     }
 }
 
@@ -617,13 +617,13 @@ gfx_pixslice *lcd_alloc_pixslice(int x, int y, size_t w, size_t h)
             }
         }
     }
-    gfx_init_pixslice(&impl->tile, impl->buffer, x, y, w, h, w);
-    return &impl->tile;
+    gfx_init_pixslice(&impl->slice, impl->buffer, x, y, w, h, w);
+    return &impl->slice;
 }
 
-void lcd_send_pixslice(gfx_pixslice *tile)
+void lcd_send_pixslice(gfx_pixslice *slice)
 {
-    pixslice_impl *impl = (pixslice_impl *)tile;
+    pixslice_impl *impl = (pixslice_impl *)slice;
     bool busy = false;
     WITH_INTERRUPTS_MASKED {
         busy = video_dma_busy;
@@ -654,7 +654,7 @@ void lcd_set_bg_color(gfx_rgb565 color, bool immediate)
         }
         for (size_t i = 0; i < PIXSLICE_COUNT; i++)
             if (needs_clearing[i])
-                clear_pixslice(&pixslices[i].tile);
+                clear_pixslice(&pixslices[i].slice);
     } else {
         bg_color = color;
     }

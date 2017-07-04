@@ -26,25 +26,25 @@
 
 #define LCD_WIDTH              240
 #define LCD_HEIGHT             320
-#define LCD_MAX_TILE_BYTES   65536
-#define LCD_MAX_TILE_PIXELS  (LCD_MAX_TILE_BYTES / sizeof (gfx_rgb565))
-#define LCD_MAX_TILE_ROWS    (LCD_MAX_TILE_PIXELS / LCD_WIDTH)
+#define LCD_MAX_SLICE_BYTES   65536
+#define LCD_MAX_SLICE_PIXELS  (LCD_MAX_SLICE_BYTES / sizeof (gfx_rgb565))
+#define LCD_MAX_SLICE_ROWS    (LCD_MAX_SLICE_PIXELS / LCD_WIDTH)
 
 // Init the clocks, GPIO pins, timer, DMA controller, ILI9341 chip,
 // and pixslice DMA buffers.
 extern void lcd_init(void);
 
-// Use alloc_pixslice to get DMA-capable tiles.
+// Use alloc_pixslice to get DMA-capable slices.
 // Maximum size is 64 KB (32 Kpixels).
-// Tiles are pre-cleared to the background color.
+// Slices are pre-cleared to the background color.
 gfx_pixslice *lcd_alloc_pixslice(int x, int y, size_t w, size_t h);
 
-// Send pixels to screen and deallocate tile.
+// Send pixels to screen and deallocate slice.
 void lcd_send_pixslice(gfx_pixslice *);
 
 // Set the background pixel color.
 //
-// If immediate, the next tile allocated will have the new color.
+// If immediate, the next slice allocated will have the new color.
 // Otherwise, color change will take effect after 0-2 allocations.
 extern void lcd_set_bg_color(gfx_rgb565 color, bool immediate);
 
