@@ -2,6 +2,7 @@
  * This file is part of the 1Bitsy 1UP retro inspired game console project.
  *
  * Copyright (C) 2017 Bob Miller <kbob@jogger-egg.com>
+ * Copyright (C) 2017 Piotr Esden-Tempski <piotr@esden.net>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,6 +22,7 @@
 
 #include <libopencm3/stm32/flash.h>
 #include <libopencm3/stm32/rcc.h>
+#include <libopencm3/stm32/gpio.h>
 
 #include "lcd.h"
 
@@ -28,14 +30,40 @@
 #include "math-util.h"
 #include "button_boot.h"
 
-// The classic Munching Square eye candy.
+/* "Apps" */
+#include "munch_app.h"
+#include "tile_app.h"
 
 #define MY_CLOCK (rcc_hse_25mhz_3v3[RCC_CLOCK_3V3_168MHZ])
 #define BG_COLOR 0x0000         // black
-#define MAGIC 27                // try different values
 
 uint32_t   fps;
-gfx_rgb565 base_color;
+
+/* Function pointers to available apps. The first one executes by default.
+ * Do not forget to adjust the enum if you are messing around with this list.
+ */
+struct app {
+	void (*init)(void);
+	void (*animate)(void);
+	void (*render)(void);
+} apps[] = {
+	{
+		.init = munch_init,
+		.animate = munch_animate,
+		.render = munch_render
+	},
+	{
+		.init = tile_init,
+		.animate = tile_animate,
+		.render = tile_render
+	}
+};
+
+enum app_ids {
+    munch_app,
+    tile_app,
+    end_app
+} active_app = 0;
 
 static void setup(void)
 {
@@ -50,42 +78,6 @@ static void setup(void)
     lcd_init();
 }
 
-static void animate(void)
-{
-    base_color += 0x0021;
-}
-
-static void draw_tile(gfx_pixslice *tile)
-{
-    const int y_off = 32;
-    const int x_off = -8;
-
-    int y0 = MAX(0, tile->y - y_off);
-    int y1 = MIN(256, tile->y + (int)tile->h - y_off);
-    int x0 = tile->x - x_off;
-    int x1 = x0 + tile->w - x_off;
-    gfx_rgb565 base = base_color;
-    for (int y = y0; y < y1; y++) {
-        gfx_rgb565 *p =
-            gfx_pixel_address_unchecked(tile, x0 + x_off, y + y_off);
-        for (int x = x0; x < x1; x++)
-            *p++ = base + MAGIC * (x ^ y);
-    }
-}
-
-static void draw_frame(void)
-{
-    size_t h;
-
-    for (size_t y = 0; y < LCD_HEIGHT; y += h) {
-        h = MIN(LCD_MAX_TILE_ROWS, LCD_HEIGHT - y);
-        gfx_pixslice *tile = lcd_alloc_pixslice(0, y, LCD_WIDTH, h);
-        draw_tile(tile);
-        lcd_send_pixslice(tile);
-    }
-
-}
-
 static void calc_fps(void)
 {
     static uint32_t next_time;
@@ -98,11 +90,33 @@ static void calc_fps(void)
     }
 }
 
+static void check_app_switch(void)
+{
+    static bool state = false;
+
+    if (!state) {
+        if (button_pressed_debounce()) {
+            active_app++;
+            if (active_app == end_app) {
+                active_app = 0;
+            }
+            state = true;
+            gpio_clear(GPIOA, GPIO8);
+        }
+    } else {
+        if (button_released_debounce()) {
+            state = false;
+            gpio_set(GPIOA, GPIO8);
+        }
+    }
+}
+
 static void run(void)
 {
     while (true) {
-        animate();
-        draw_frame();
+        apps[active_app].animate();
+        apps[active_app].render();
+        check_app_switch();
         calc_fps();
     }
 }

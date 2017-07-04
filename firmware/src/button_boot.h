@@ -30,4 +30,14 @@ void button_boot(void);
  */
 bool button_pressed(void);
 
+/* A version of button_pressed with built in debouncer state. It will only return
+ * true when after 32 calls of the function the button is still depressed.
+ */
+bool button_pressed_debounce(void);
+
+/* A version of button_released with built in debouncer state. It will only return
+ * true when after 32 calls of the function the button is still released.
+ */
+bool button_released_debounce(void);
+
 #endif /* COMMON_BUTTON_BOOT_H */

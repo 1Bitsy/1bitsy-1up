@@ -27,12 +27,15 @@
 
 #define BLDR_ADDRESS	0x1FFF0000
 
+uint32_t button_debounce = 0;
+
 void button_boot(void) {
   /* Enable GPIOC clock. */
 	rcc_periph_clock_enable(RCC_GPIOC);
-
+	rcc_periph_clock_enable(RCC_GPIOA);
 	/* Set GPIO1 (in GPIO port C) to 'input open-drain'. */
 	gpio_mode_setup(GPIOC, GPIO_MODE_INPUT, GPIO_PUPD_NONE, GPIO1);
+	gpio_mode_setup(GPIOA, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO8);
 
   /* Check if the user button is depressed, if so launch the factory bootloader */
   if ((GPIOC_IDR & (1 << 1)) == 0) {
@@ -48,4 +51,27 @@ void button_boot(void) {
 
 bool button_pressed(void) {
 	return ((GPIOC_IDR & (1 << 1)) == 0);
+}
+
+bool button_pressed_debounce(void) {
+
+	if (button_pressed()) {
+		button_debounce <<= 1;
+		button_debounce |= 1;
+	} else {
+		button_debounce = 0;
+	}
+
+	return (button_debounce == 0xFFFFFFFF);
+}
+
+bool button_released_debounce(void) {
+
+	if (!button_pressed()) {
+		button_debounce <<= 1;
+	} else {
+		button_debounce = 0xFFFFFFFF;
+	}
+
+	return (button_debounce == 0);
 }
