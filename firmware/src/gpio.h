@@ -17,8 +17,8 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef GPIO_included
-#define GPIO_included
+#ifndef GPIO_H
+#define GPIO_H
 
 #include <stddef.h>
 
@@ -39,4 +39,4 @@ extern void gpio_init_pin(const gpio_pin *);
 
 extern void gpio_init_pins(const gpio_pin *, size_t count);
 
-#endif /* !GPIO_included */
+#endif /* GPIO_H */

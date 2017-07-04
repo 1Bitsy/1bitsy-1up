@@ -17,8 +17,8 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef GFX_TYPES_included
-#define GFX_TYPES_included
+#ifndef GFX_TYPES_H
+#define GFX_TYPES_H
 
 #include <stddef.h>
 #include <stdint.h>
@@ -52,4 +52,4 @@ typedef struct gfx_triangle {
     gfx_point v[3];
 } gfx_triangle;
 
-#endif /* !GFX_TYPES_included */
+#endif /* GFX_TYPES_H */

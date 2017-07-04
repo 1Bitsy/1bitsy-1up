@@ -17,8 +17,8 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef GFX_PIXTILE_included
-#define GFX_PIXTILE_included
+#ifndef GFX_PIXTILE_H
+#define GFX_PIXTILE_H
 
 #include <unistd.h>
 
@@ -52,4 +52,4 @@ extern void gfx_copy_pixtile(gfx_pixtile       *dest,
                              gfx_pixtile const *src,
                              gfx_ipoint         offset);
 
-#endif /* !GFX_PIXTILE_included */
+#endif /* GFX_PIXTILE_H */

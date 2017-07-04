@@ -17,8 +17,8 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SYSTICK_included
-#define SYSTICK_included
+#ifndef SYSTICK_H
+#define SYSTICK_H
 
 #include <stdint.h>
 
@@ -41,4 +41,4 @@ extern void delay_msec(uint32_t msec);
 }
 #endif
 
-#endif /* !SYSTICK_included */
+#endif /* SYSTICK_H */

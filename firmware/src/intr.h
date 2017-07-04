@@ -17,8 +17,8 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INTR_included
-#define INTR_included
+#ifndef INTR_H
+#define INTR_H
 
 #include <libopencm3/cm3/cortex.h>
 
@@ -29,4 +29,4 @@
           wim_interrupts_are_masked ? (void)0 : cm_enable_interrupts(), \
           wim_first_time = false)
 
-#endif /* !INTR_included */
+#endif /* INTR_H */

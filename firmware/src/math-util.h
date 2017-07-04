@@ -1,5 +1,5 @@
-#ifndef UTIL_included
-#define UTIL_included
+#ifndef UTIL_H
+#define UTIL_H
 
 #define CAT2_H(a, b) a##b
 #define CAT_H(a, b) CAT2_H(a, b)
@@ -61,4 +61,4 @@
 
 #define ROUND(x)            FLOOR(x + 0.5)
 
-#endif /* !UTIL_included */
+#endif /* UTIL_H */

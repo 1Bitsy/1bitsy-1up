@@ -17,8 +17,8 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LCD_included
-#define LCD_included
+#ifndef LCD_H
+#define LCD_H
 
 #include <stdbool.h>
 
@@ -52,4 +52,4 @@ extern void lcd_set_bg_color(gfx_rgb565 color, bool immediate);
 extern gfx_rgb565 lcd_bg_color(void);
 
 
-#endif /* !LCD_included */
+#endif /* !LCD_H */
