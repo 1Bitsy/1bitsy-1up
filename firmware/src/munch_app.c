@@ -24,9 +24,9 @@
 
 /* The classic Munching Square eye candy app. */
 
-gfx_rgb565 base_color;
+gfx_rgb565 munch_base_color;
 
-#define MAGIC 27                // try different values
+uint16_t munch_magic = 27;               // try different values
 
 void munch_init(void)
 {
@@ -35,7 +35,17 @@ void munch_init(void)
 
 void munch_animate(void)
 {
-	base_color += 0x0021;
+    /* We want to change the magic number on every color overflow. */
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wstrict-overflow"
+    if (munch_base_color > (munch_base_color + 0x0021)) {
+#pragma GCC diagnostic pop
+        munch_magic+=10;
+        if (munch_magic > 100) {
+            munch_magic = 10;
+        }
+    }
+	munch_base_color += 0x0021;
 }
 
 static void munch_render_slice(gfx_pixslice *slice)
@@ -47,12 +57,12 @@ static void munch_render_slice(gfx_pixslice *slice)
     int y1 = MIN(256, slice->y + (int)slice->h - y_off);
     int x0 = slice->x - x_off;
     int x1 = x0 + slice->w - x_off;
-    gfx_rgb565 base = base_color;
+    gfx_rgb565 base = munch_base_color;
     for (int y = y0; y < y1; y++) {
         gfx_rgb565 *p =
             gfx_pixel_address_unchecked(slice, x0 + x_off, y + y_off);
         for (int x = x0; x < x1; x++)
-            *p++ = base + MAGIC * (x ^ y);
+            *p++ = base + munch_magic * (x ^ y);
     }
 }
 

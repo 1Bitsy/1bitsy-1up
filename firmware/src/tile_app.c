@@ -22,6 +22,8 @@
 #include "lcd.h"
 #include "math-util.h"
 
+#include "assets/assets.h"
+
 #define TILE_SLICE_MAX_H (uint32_t)112 /* max height of a pixslice to procees in the renderer */
 
 gfx_rgb565 color = 0;
@@ -39,16 +41,20 @@ void tile_animate(void)
 static void tile_render_slice(gfx_pixslice *slice)
 {
 
-
 	for (size_t y = slice->y; y < (slice->y + slice->h); y++ ) {
 		gfx_rgb565 *px =
 			gfx_pixel_address_unchecked(slice, 0, y);
 		for (size_t x = 0; x < slice->w; x++) {
-			*px++ = color;
+			if ((x < (TS_PIXMAP_HEIGHT*2))&&(y < (TS_PIXMAP_WIDTH*2))) {
+				if(ts_pixmap[x/2][y/2]!=0xF81F) {
+					*px++ = ts_pixmap[x/2][y/2];
+				} else {
+					px++;
+				}
+			}
 		}
 	}
 
-	color += 0x6666;
 }
 
 void tile_render(void)

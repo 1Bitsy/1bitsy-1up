@@ -24,13 +24,29 @@ OBJS = main.o systick.o lcd.o pixslice.o gpio.o button_boot.o \
 
 LDSCRIPT = 1bitsy-stm32f415rgt-gfx.ld
 
+include ../libopencm3.target.mk
+
 # You can enable size optimization for project deployment, but it can get
 # in the way of debugging your code
-#CFLAGS		+= -Os
+cflags := $(filter_out -O%, $(CFLAGS)) -Werror -g
+# In theory this -O should be valid for everything but video.o but somehow it
+# affects everything? :(
+OPT 	:= -O0
+CFLAGS	:= $(cflags) $(OPT)
 
 # If your project is using a specific C standard you can set it by uncommenting
 # the following line and adjusting the -std flag accordingly
 #CFLAGS		+= -std=gnu11 -pedantic
 
-include ../libopencm3.target.mk
+video.o: OPT = -O0
+
+tile_app.o: assets/assets.h
+
+assets/assets.h: assets/gen-assets.py assets/*.png
+	@printf "  ASSETS  $?\n"
+	$(Q)cd assets; python3 ./gen-assets.py > assets.h
+
+clean::
+	$(Q)$(RM) -f assets/assets.h
+
 
