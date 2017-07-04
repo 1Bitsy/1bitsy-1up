@@ -17,6 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <stdbool.h>
+
 #include <libopencm3/stm32/flash.h>
 #include <libopencm3/stm32/rcc.h>
 
@@ -24,6 +26,7 @@
 
 #include "systick.h"
 #include "math-util.h"
+#include "button_boot.h"
 
 // The classic Munching Square eye candy.
 
@@ -106,6 +109,11 @@ static void run(void)
 
 int main(void)
 {
+    /* Launch the ROM DFU bootloader if the user button is pressed just after
+     * reset.
+     */
+    button_boot();
+
     setup();
     run();
 }
