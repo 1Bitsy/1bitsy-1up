@@ -31,7 +31,7 @@
 #include <libopencm3/stm32/timer.h>
 
 // Current Library headers
-#include "gfx-pixtile.h"
+#include "gfx-pixslice.h"
 #include "gpio.h"
 #include "intr.h"
 #include "systick.h"
@@ -43,30 +43,30 @@
 #define RAM_SIZE (128 << 10)    /* 128 Kbytes */
 
 
-// --  Pixtile  -  --  --  --  --  --  --  --  --  --  --  --  --  --  -
+// --  Pixslice  -  --  --  --  --  --  --  --  --  --  --  --  --  --  -
 
-#define PIXTILE_COUNT          2
-#define PIXTILE_MAX_SIZE_BYTES (RAM_SIZE / PIXTILE_COUNT)
+#define PIXSLICE_COUNT          2
+#define PIXSLICE_MAX_SIZE_BYTES (RAM_SIZE / PIXSLICE_COUNT)
 
-typedef enum pixtile_state {
+typedef enum pixslice_state {
     TS_CLEARED,
     TS_DRAWING,
     TS_SEND_WAIT,
     TS_SENDING,
     TS_CLEAR_WAIT,
     TS_CLEARING,
-} pixtile_state;
+} pixslice_state;
 
-typedef struct pixtile_impl {
-    gfx_pixtile            tile; // must be first.
-    volatile pixtile_state state;
+typedef struct pixslice_impl {
+    gfx_pixslice            tile; // must be first.
+    volatile pixslice_state state;
     void                  *buffer;
-} pixtile_impl;
+} pixslice_impl;
 
-static pixtile_impl pixtiles[PIXTILE_COUNT];
+static pixslice_impl pixslices[PIXSLICE_COUNT];
 static volatile gfx_rgb565 bg_color = 0x0000;
 
-static inline size_t pixtile_size_bytes(const gfx_pixtile *tile)
+static inline size_t pixslice_size_bytes(const gfx_pixslice *tile)
 {
     return tile->h * tile->w * sizeof *tile->pixels;
 }
@@ -259,7 +259,7 @@ static void init_clear_dma(void)
     nvic_enable_irq(NVIC_DMA2_STREAM7_IRQ);
 }
 
-static void start_clear_dma(const pixtile_impl *impl)
+static void start_clear_dma(const pixslice_impl *impl)
 {
     uintptr_t base = (uintptr_t)impl->buffer;
     size_t size = LCD_MAX_TILE_BYTES;
@@ -322,8 +322,8 @@ void dma2_stream7_isr(void)
     DMA2_HIFCR = CLEAR_BITS;
 
     clear_dma_busy = false;
-    for (size_t i = 0; i < PIXTILE_COUNT; i++) {
-        pixtile_impl *impl = &pixtiles[i];
+    for (size_t i = 0; i < PIXSLICE_COUNT; i++) {
+        pixslice_impl *impl = &pixslices[i];
         if (impl->state == TS_CLEARING) {
             impl->state = TS_CLEARED;
         } else if (impl->state == TS_CLEAR_WAIT && !clear_dma_busy) {
@@ -334,9 +334,9 @@ void dma2_stream7_isr(void)
     }
 }
 
-static void clear_pixtile(gfx_pixtile *tile)
+static void clear_pixslice(gfx_pixslice *tile)
 {
-    pixtile_impl *impl = (pixtile_impl *)tile;
+    pixslice_impl *impl = (pixslice_impl *)tile;
     bool busy = false;
     WITH_INTERRUPTS_MASKED {
         busy = clear_dma_busy;
@@ -356,9 +356,9 @@ static void clear_pixtile(gfx_pixtile *tile)
 
 static volatile bool video_dma_busy;
 
-static void start_video_dma(const pixtile_impl *impl)
+static void start_video_dma(const pixslice_impl *impl)
 {
-    const gfx_pixtile *tile = &impl->tile;
+    const gfx_pixslice *tile = &impl->tile;
     // Configure DMA.
     {
         DMA2_S1CR &= ~DMA_SxCR_EN;
@@ -376,7 +376,7 @@ static void start_video_dma(const pixtile_impl *impl)
 
         DMA2_S1PAR  = par;
         DMA2_S1M0AR = impl->buffer;
-        DMA2_S1NDTR = pixtile_size_bytes(tile);
+        DMA2_S1NDTR = pixslice_size_bytes(tile);
         DMA2_S1FCR  = (DMA_SxFCR_FEIE                 |
                        DMA_SxFCR_DMDIS                |
                        DMA_SxFCR_FTH_4_4_FULL);
@@ -524,10 +524,10 @@ void dma2_stream1_isr(void)
         DMA2_LIFCR = CLEAR_BITS;
 
         video_dma_busy = false;
-        for (size_t i = 0; i < PIXTILE_COUNT; i++) {
-            pixtile_impl *impl = &pixtiles[i];
+        for (size_t i = 0; i < PIXSLICE_COUNT; i++) {
+            pixslice_impl *impl = &pixslices[i];
             if (impl->state == TS_SENDING) {
-                clear_pixtile(&impl->tile);
+                clear_pixslice(&impl->tile);
             } else if (impl->state == TS_SEND_WAIT && !video_dma_busy) {
                 impl->state = TS_SENDING;
                 video_dma_busy = true;
@@ -582,15 +582,15 @@ static void init_video_dma(void)
 }
 
 
-// --  Pixtile DMA buffers --  --  --  --  --  --  --  --  --  --  --  -
+// --  Pixslice DMA buffers --  --  --  --  --  --  --  --  --  --  --  -
 
-static void init_pixtiles(void)
+static void init_pixslices(void)
 {
-    for (size_t i = 0; i < PIXTILE_COUNT; i++) {
-        pixtile_impl *impl = pixtiles + i;
-        uintptr_t addr = RAM_BASE + i * PIXTILE_MAX_SIZE_BYTES;
+    for (size_t i = 0; i < PIXSLICE_COUNT; i++) {
+        pixslice_impl *impl = pixslices + i;
+        uintptr_t addr = RAM_BASE + i * PIXSLICE_MAX_SIZE_BYTES;
         impl->buffer = (void *)addr;
-        clear_pixtile(&impl->tile);
+        clear_pixslice(&impl->tile);
     }
 }
 
@@ -601,29 +601,29 @@ void lcd_init(void)
 {
     init_video_dma();
     init_clear_dma();
-    init_pixtiles();
+    init_pixslices();
 }
 
-gfx_pixtile *lcd_alloc_pixtile(int x, int y, size_t w, size_t h)
+gfx_pixslice *lcd_alloc_pixslice(int x, int y, size_t w, size_t h)
 {
-    pixtile_impl *impl = NULL;
+    pixslice_impl *impl = NULL;
     while (!impl) {
-        for (size_t i = 0; i < PIXTILE_COUNT && !impl; i++) {
+        for (size_t i = 0; i < PIXSLICE_COUNT && !impl; i++) {
             WITH_INTERRUPTS_MASKED {
-                if (pixtiles[i].state == TS_CLEARED) {
-                    impl = &pixtiles[i];
+                if (pixslices[i].state == TS_CLEARED) {
+                    impl = &pixslices[i];
                     impl->state = TS_DRAWING;
                 }
             }
         }
     }
-    gfx_init_pixtile(&impl->tile, impl->buffer, x, y, w, h, w);
+    gfx_init_pixslice(&impl->tile, impl->buffer, x, y, w, h, w);
     return &impl->tile;
 }
 
-void lcd_send_pixtile(gfx_pixtile *tile)
+void lcd_send_pixslice(gfx_pixslice *tile)
 {
-    pixtile_impl *impl = (pixtile_impl *)tile;
+    pixslice_impl *impl = (pixslice_impl *)tile;
     bool busy = false;
     WITH_INTERRUPTS_MASKED {
         busy = video_dma_busy;
@@ -641,20 +641,20 @@ void lcd_send_pixtile(gfx_pixtile *tile)
 void lcd_set_bg_color(gfx_rgb565 color, bool immediate)
 {
     if (immediate) {
-        bool needs_clearing[PIXTILE_COUNT] = { false, false };
+        bool needs_clearing[PIXSLICE_COUNT] = { false, false };
         WITH_INTERRUPTS_MASKED {
             bg_color = color;
-            for (size_t i = 0; i < PIXTILE_COUNT; i++) {
-                if (pixtiles[i].state == TS_CLEARED) {
-                    pixtiles[i].state = TS_DRAWING;
+            for (size_t i = 0; i < PIXSLICE_COUNT; i++) {
+                if (pixslices[i].state == TS_CLEARED) {
+                    pixslices[i].state = TS_DRAWING;
                     needs_clearing[i] = true;
                 } else
                     needs_clearing[i] = false;
             }
         }
-        for (size_t i = 0; i < PIXTILE_COUNT; i++)
+        for (size_t i = 0; i < PIXSLICE_COUNT; i++)
             if (needs_clearing[i])
-                clear_pixtile(&pixtiles[i].tile);
+                clear_pixslice(&pixslices[i].tile);
     } else {
         bg_color = color;
     }

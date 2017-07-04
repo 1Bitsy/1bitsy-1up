@@ -52,7 +52,7 @@ static void animate(void)
     base_color += 0x0021;
 }
 
-static void draw_tile(gfx_pixtile *tile)
+static void draw_tile(gfx_pixslice *tile)
 {
     const int y_off = 32;
     const int x_off = -8;
@@ -76,9 +76,9 @@ static void draw_frame(void)
 
     for (size_t y = 0; y < LCD_HEIGHT; y += h) {
         h = MIN(LCD_MAX_TILE_ROWS, LCD_HEIGHT - y);
-        gfx_pixtile *tile = lcd_alloc_pixtile(0, y, LCD_WIDTH, h);
+        gfx_pixslice *tile = lcd_alloc_pixslice(0, y, LCD_WIDTH, h);
         draw_tile(tile);
-        lcd_send_pixtile(tile);
+        lcd_send_pixslice(tile);
     }
 
 }

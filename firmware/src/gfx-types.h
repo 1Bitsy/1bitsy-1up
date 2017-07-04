@@ -27,7 +27,7 @@ typedef uint16_t gfx_rgb565;
 typedef uint32_t gfx_rgb888;
 typedef uint8_t  gfx_alpha8;
 
-typedef struct gfx_pixtile gfx_pixtile;
+typedef struct gfx_pixslice gfx_pixslice;
 
 typedef union gfx_point {
     struct {

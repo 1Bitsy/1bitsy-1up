@@ -19,7 +19,7 @@
 
 BINARY = 1up-native
 
-OBJS = main.o systick.o lcd.o pixtile.o gpio.o
+OBJS = main.o systick.o lcd.o pixslice.o gpio.o
 
 LDSCRIPT = 1bitsy-stm32f415rgt-gfx.ld
 

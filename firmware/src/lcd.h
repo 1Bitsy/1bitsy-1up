@@ -22,7 +22,7 @@
 
 #include <stdbool.h>
 
-#include "gfx-pixtile.h"
+#include "gfx-pixslice.h"
 
 #define LCD_WIDTH              240
 #define LCD_HEIGHT             320
@@ -31,16 +31,16 @@
 #define LCD_MAX_TILE_ROWS    (LCD_MAX_TILE_PIXELS / LCD_WIDTH)
 
 // Init the clocks, GPIO pins, timer, DMA controller, ILI9341 chip,
-// and pixtile DMA buffers.
+// and pixslice DMA buffers.
 extern void lcd_init(void);
 
-// Use alloc_pixtile to get DMA-capable tiles.
+// Use alloc_pixslice to get DMA-capable tiles.
 // Maximum size is 64 KB (32 Kpixels).
 // Tiles are pre-cleared to the background color.
-gfx_pixtile *lcd_alloc_pixtile(int x, int y, size_t w, size_t h);
+gfx_pixslice *lcd_alloc_pixslice(int x, int y, size_t w, size_t h);
 
 // Send pixels to screen and deallocate tile.
-void lcd_send_pixtile(gfx_pixtile *);
+void lcd_send_pixslice(gfx_pixslice *);
 
 // Set the background pixel color.
 //

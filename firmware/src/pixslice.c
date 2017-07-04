@@ -17,13 +17,13 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "gfx-pixtile.h"
+#include "gfx-pixslice.h"
 
 #include <string.h>
 
 #include "math-util.h"
 
-extern void gfx_init_pixtile(gfx_pixtile *tile,
+extern void gfx_init_pixslice(gfx_pixslice *tile,
                              void *buffer,
                              int x, int y,
                              size_t w, size_t h,
@@ -37,7 +37,7 @@ extern void gfx_init_pixtile(gfx_pixtile *tile,
     tile->stride = stride;
 }
 
-extern gfx_rgb565 *gfx_pixel_address(gfx_pixtile *tile, int x, int y)
+extern gfx_rgb565 *gfx_pixel_address(gfx_pixslice *tile, int x, int y)
 {
     if (x < tile->x || x >= (ssize_t)(tile->x + tile->w))
         return NULL;
@@ -46,8 +46,8 @@ extern gfx_rgb565 *gfx_pixel_address(gfx_pixtile *tile, int x, int y)
     return gfx_pixel_address_unchecked(tile, x, y);
 }
 
-void gfx_copy_pixtile(gfx_pixtile       *dest,
-                      gfx_pixtile const *src,
+void gfx_copy_pixslice(gfx_pixslice       *dest,
+                      gfx_pixslice const *src,
                       gfx_ipoint         offset)
 {
     int x0s = MAX(src->x, dest->x - offset.x);
@@ -63,7 +63,7 @@ void gfx_copy_pixtile(gfx_pixtile       *dest,
     int y0d = y0s + offset.y;
     for (int ys = y0s, yd = y0d; ys < y1s; ys++, yd++) {
         const gfx_rgb565 *ps =
-            gfx_pixel_address_unchecked((gfx_pixtile *)src, x0s, ys);
+            gfx_pixel_address_unchecked((gfx_pixslice *)src, x0s, ys);
         gfx_rgb565 *pd = gfx_pixel_address_unchecked(dest, x0d, yd);
         memcpy(pd, ps, nx * sizeof *pd);
     }
