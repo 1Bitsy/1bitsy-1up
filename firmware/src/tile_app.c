@@ -28,6 +28,9 @@
 
 gfx_rgb565 color = 0;
 
+static int16_t tile_y_inc = +1;
+static int16_t tile_y = 0;
+
 void tile_init(void)
 {
 
@@ -35,7 +38,14 @@ void tile_init(void)
 
 void tile_animate(void)
 {
-
+    tile_y += tile_y_inc;
+    if (tile_y + (TS_PIXMAP_HEIGHT*2) > LCD_HEIGHT) {
+        tile_y_inc = -1;
+        tile_y -= 2;
+    } else if (tile_y < 0) {
+        tile_y_inc = +1;
+        tile_y += 1;
+    }
 }
 
 static void tile_render_slice(gfx_pixslice *slice)
@@ -56,12 +66,15 @@ static void tile_render_slice(gfx_pixslice *slice)
 #endif
 
 	for (size_t y = slice->y; y < (slice->y + slice->h); y++ ) {
+            	int32_t yy = (int32_t)y - tile_y;
+                if (yy < 0 || yy >= (TS_PIXMAP_HEIGHT*2))
+                    continue;
 		gfx_rgb565 *px =
 			gfx_pixel_address_unchecked(slice, 0, y);
 		for (size_t x = 0; x < slice->w; x++) {
-			if ((x < (TS_PIXMAP_WIDTH*2))&&(y < (TS_PIXMAP_HEIGHT*2))) {
-				if(ts_pixmap[y/2][x/2]!=0xF81F) {
-					*px++ = ts_pixmap[y/2][x/2];
+			if (x < (TS_PIXMAP_WIDTH*2)) {
+				if(ts_pixmap[yy/2][x/2]!=0xF81F) {
+					*px++ = ts_pixmap[yy/2][x/2];
 				} else {
 					px++;
 				}
