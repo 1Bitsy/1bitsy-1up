@@ -4,6 +4,7 @@ from itertools import groupby
 import sys
 
 from PIL import Image
+from xml.etree import ElementTree
 
 white_pixel = 255
 
@@ -21,6 +22,12 @@ def pack_rgb565(tup):
     return (tup[0] >> 3 << 11 |
             tup[1] >> 2 << 5 |
             tup[2] >> 3 << 0)
+
+
+def rgb888_to_rgb565(val):
+    return (((val & 0xFF0000) >> 19) << 11 |
+            ((val & 0x00FF00) >> 10) << 5 |
+            ((val & 0x0000FF) >> 3) << 0)
 
 ########################################################################
 # Tilesheet
@@ -52,7 +59,56 @@ static const uint16_t ts_pixmap[TS_PIXMAP_HEIGHT][TS_PIXMAP_WIDTH] = {{
 
 ts_def = ts_template.format(h=ts_h, w=ts_w, bytes=ts_bytes)
 
+########################################################################
+# Level Tilemap
+########################################################################
 
+tml1_path = '1bitsy-1up-game1.tmx'
+tml1e = ElementTree.parse(tml1_path).getroot()
+tml1_width = int(tml1e.attrib['width'])
+tml1_height = int(tml1e.attrib['height'])
+tml1_background = rgb888_to_rgb565(int(tml1e.attrib['backgroundcolor'].replace("#", ""), 16))
+
+#print("tml w:%d h:%d bgcol: %X" % (tml1_width, tml1_height, tml1_background))
+
+
+def filter_empty(x):
+    return list(filter(lambda d: len(d) > 0, x))
+
+# Split the data apart and remove empty stuff while doing it and convert the numbers to ints.
+tml1_layers = list(map(lambda l: list(map(lambda d: list(map(lambda i: int(i), filter_empty(d.split(",")))),
+                                          filter_empty(l.find('data').text.split("\n")))), tml1e.findall('layer')))
+
+# Convert the gathered layer data into a usable C array.
+tml1_struct = ',\n'.join('{{ {} }}'
+                         .format(',\n  '
+                                 .join('{{ {} }}'
+                                       .format(',\n    '.join(','.join('{:3d}'.format(b)
+                                                                   for b in line)
+                                                          for line in by_n(16, row)))
+                                       for row in layer))
+                         for layer in tml1_layers)
+
+# We should restrict the tile indexes to 8bit, we can have multiple tilesets if needed... I don't think we need more
+# Than 255 tiles per tilemap.
+tml1_template = '''
+#define TML1_TILEMAP_LAYERS {l}
+#define TML1_TILEMAP_HEIGHT {h}
+#define TML1_TILEMAP_WIDTH {w}
+#define TML1_TILEMAP_BG_COLOR {bg_color}
+
+static const uint16_t tml1_tilemap[TML1_TILEMAP_LAYERS][TML1_TILEMAP_HEIGHT][TML1_TILEMAP_WIDTH] = {{
+{struct}
+}};'''.lstrip()
+
+tml1_def = tml1_template.format(l=len(tml1_layers),
+                                h=tml1_height,
+                                w=tml1_width,
+                                bg_color=tml1_background,
+                                struct=tml1_struct)
+
+########################################################################
+# Asset header body and output
 ########################################################################
 
 template = '''
@@ -64,6 +120,8 @@ template = '''
 #include <stdint.h>
 
 {ts_def}
+
+{tml1_def}
 
 #endif /* ASSETS_H */
 '''.lstrip()
@@ -82,4 +140,5 @@ def format_map(index, name):
                                   bytes=s)
 
 print(template.format(program=sys.argv[0],
-                      ts_def=ts_def))
+                      ts_def=ts_def,
+                      tml1_def=tml1_def))
