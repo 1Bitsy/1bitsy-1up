@@ -24,7 +24,7 @@
 
 #include "assets/assets.h"
 
-#define TILE_SLICE_MAX_H (uint32_t)112 /* max height of a pixslice to procees in the renderer */
+#define TILE_SLICE_MAX_H (uint32_t)80 /* max height of a pixslice to procees in the renderer */
 
 gfx_rgb565 color = 0;
 
@@ -41,13 +41,27 @@ void tile_animate(void)
 static void tile_render_slice(gfx_pixslice *slice)
 {
 
+#if 0
+	/* Draw some lines to indicate drawing direction and pixslice start/end */
+	gfx_rgb565 *px =
+		gfx_pixel_address_unchecked(slice, 0, slice->y);
+	for (size_t x = 0; x < 10; x++) {
+		*px++ = 0xFFFF;
+	}
+	px =
+		gfx_pixel_address_unchecked(slice, 0, slice->y + slice->h - 2);
+	for (size_t x = 0; x < 10; x++) {
+		*px++ = 0xF800;
+	}
+#endif
+
 	for (size_t y = slice->y; y < (slice->y + slice->h); y++ ) {
 		gfx_rgb565 *px =
 			gfx_pixel_address_unchecked(slice, 0, y);
 		for (size_t x = 0; x < slice->w; x++) {
-			if ((x < (TS_PIXMAP_HEIGHT*2))&&(y < (TS_PIXMAP_WIDTH*2))) {
-				if(ts_pixmap[x/2][y/2]!=0xF81F) {
-					*px++ = ts_pixmap[x/2][y/2];
+			if ((x < (TS_PIXMAP_WIDTH*2))&&(y < (TS_PIXMAP_HEIGHT*2))) {
+				if(ts_pixmap[y/2][x/2]!=0xF81F) {
+					*px++ = ts_pixmap[y/2][x/2];
 				} else {
 					px++;
 				}

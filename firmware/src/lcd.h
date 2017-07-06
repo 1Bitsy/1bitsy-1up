@@ -24,8 +24,8 @@
 
 #include "gfx-pixslice.h"
 
-#define LCD_WIDTH              240
-#define LCD_HEIGHT             320
+#define LCD_WIDTH              320
+#define LCD_HEIGHT             240
 #define LCD_MAX_SLICE_BYTES   65536
 #define LCD_MAX_SLICE_PIXELS  (LCD_MAX_SLICE_BYTES / sizeof (gfx_rgb565))
 #define LCD_MAX_SLICE_ROWS    (LCD_MAX_SLICE_PIXELS / LCD_WIDTH)

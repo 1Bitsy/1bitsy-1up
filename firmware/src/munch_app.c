@@ -50,13 +50,13 @@ void munch_animate(void)
 
 static void munch_render_slice(gfx_pixslice *slice)
 {
-    const int y_off = 32;
-    const int x_off = -8;
+    const int y_off = -8;
+    const int x_off = 32;
 
     int y0 = MAX(0, slice->y - y_off);
     int y1 = MIN(256, slice->y + (int)slice->h - y_off);
-    int x0 = slice->x - x_off;
-    int x1 = x0 + slice->w - x_off;
+    int x0 = MAX(0, slice->x - x_off);
+    int x1 = MIN(256, x0 + slice->w - x_off);
     gfx_rgb565 base = munch_base_color;
     for (int y = y0; y < y1; y++) {
         gfx_rgb565 *p =

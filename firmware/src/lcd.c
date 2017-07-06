@@ -219,8 +219,30 @@ static const uint8_t ILI9341_init_commands[] = {
     /* Set endianess to LSB */
     4,  ILI9341_IFCTL, 0x00, 0x00, 0x20, 
 
-    /* Memory Access Control: memory to LCD data order */
-    2,  ILI9341_MADCTL, 0x48,
+    /* Memory Access Control: Vertical mode.
+     * Memory to LCD data order.
+     * D7: 0 -> Top to Bottom
+     * D6: 1 -> Right to Left
+     * D5: 0 -> Normal Mode
+     * D4: 0 -> LCD Refresh Top to Bottom
+     * D3: 1 -> BGR color order
+     * D2: 0 -> LCD Refresh Left to Right
+     * D1-0: 0 -> Switching between Segment outputs and RAM
+     */
+    /*2,  ILI9341_MADCTL, 0x48,*/
+
+    /* Memory Access Control: Landscape mode.
+     * Memory to LCD data order.
+     * D7: 1 -> Bottom to Top
+     * D6: 1 -> Right to Left
+     * D5: 1 -> Reverse Mode
+     * D4: 0 -> LCD Refresh Top to Bottom
+     * D3: 1 -> BGR color order
+     * D2: 0 -> LCD Refresh Left to Right
+     * D1-0: 0 -> Switching between Segment outputs and RAM
+     */
+    2,  ILI9341_MADCTL, 0xE8,
+
     /* XXX: datasheet says this command takes 2 params?
      * Param 2?: 0x55 -> RGB & MCU iface fmt 16bit.
      */
