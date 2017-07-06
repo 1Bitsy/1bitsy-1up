@@ -186,6 +186,11 @@ static const size_t LCD_gpio_pin_count = (&LCD_gpio_pins)[1] - LCD_gpio_pins;
 // #define ILI9341_PWCTR6  0xFC
 #define ILI9341_IFCTL   0xF6
 
+/* The first bunch of commands is undocumented. It turns out this is what ILItek provided
+ * and is necessary even though we do not know what it does.
+ * The relevant link for this this forum entry:
+ * https://forums.adafruit.com/viewtopic.php?f=47&t=63229
+ */
 static const uint8_t ILI9341_init_commands[] = {
     4,  0xEF, 0x03, 0x80, 0x02,
     4,  0xCF, 0x00, 0XC1, 0X30,
@@ -194,28 +199,81 @@ static const uint8_t ILI9341_init_commands[] = {
     6,  0xCB, 0x39, 0x2C, 0x00, 0x34, 0x02,
     2,  0xF7, 0x20,
     3,  0xEA, 0x00, 0x00,
-    2,  ILI9341_PWCTR1, 0x23, // Power control
-    2,  ILI9341_PWCTR2, 0x10, // Power control
-    3,  ILI9341_VMCTR1, 0x3e, 0x28, // VCM control
-    2,  ILI9341_VMCTR2, 0x86, // VCM control2
+    /* GVDD level, VOCM & grayscale.
+     * Param 1: 0x23 -> 3.8V
+     */
+    2,  ILI9341_PWCTR1, 0x23,
+    /* Step-up circuit factor.
+     * Param 1: 0x10 -> -VCI x 4
+     */
+    2,  ILI9341_PWCTR2, 0x10,
+    /* VCOMH & VOML voltage.
+     * Param 1: 0x3e -> 3.45V 0x28 -> -1.5
+     */
+    3,  ILI9341_VMCTR1, 0x3e, 0x28,
+    /* VCOM offset.
+     * Param 1: 0x86 -> VCOMH=VMH+6 VCOML=VMH+6
+     */
+    2,  ILI9341_VMCTR2, 0x86,
 
-    4,  ILI9341_IFCTL, 0x00, 0x00, 0x20,
+    /* Set endianess to LSB */
+    4,  ILI9341_IFCTL, 0x00, 0x00, 0x20, 
 
-    2,  ILI9341_MADCTL, 0x48, // Memory Access Control
+    /* Memory Access Control: memory to LCD data order */
+    2,  ILI9341_MADCTL, 0x48,
+    /* XXX: datasheet says this command takes 2 params?
+     * Param 2?: 0x55 -> RGB & MCU iface fmt 16bit.
+     */
     2,  ILI9341_PIXFMT, 0x55,
+    /* Frame Rate Ctrl:
+     * Param 1: 0x00 -> div ratio fsoc/1, 0x18 -> Frame Rate 79fps
+     */
     3,  ILI9341_FRMCTR1, 0x00, 0x18,
-    4,  ILI9341_DFUNCTR, 0x08, 0x82, 0x27, // Display Function Control
-    2,  0xF2, 0x00, // Gamma Function Disable
-    2,  ILI9341_GAMMASET, 0x01, // Gamma curve selected
+    /* Display Function Control:
+     * Param 1: 0x08
+     * PTG: Set the scan mode in non-dislay area: Interval scan
+     * PT: Determine source/VCOM output in a non-display area in the partial
+     *     display mode:
+     *  Source output on non-display area
+     *   Positive polarity: V63
+     *   Negative polarity: V0
+     *  VCOM output on non-display area
+     *   Positive polarity: VCOML
+     *   Negative polarity: VCOMH
+     * Param 2: 0x82
+     * REV: Set display to Normally white.
+     * GS: Gate output scan direction: G1 -> G320
+     * SS: Source output scan direction: S1 -> S720
+     * SM: Set gate driver arrangement: Even & Odd number parallel
+     * Param 3: 0x27
+     * Set the number of lines to drive in 8 line intervals.
+     * NL: 320 lines
+     * Param 4: skipped
+     */
+    4,  ILI9341_DFUNCTR, 0x08, 0x82, 0x27,
+    /* Gamma Function Disable. Undocumented register. */
+    2,  0xF2, 0x00,
+    /* Gamma curve select
+     * Param 1: 0x01
+     * GC: Select gamma curve 1 (G2.2)
+     */
+    2,  ILI9341_GAMMASET, 0x01,
+    /* Set Positive Gamma Correction
+     * Values adjust the gray scale voltage to adjust the gamma characteristics
+     * of the TFT panel.
+     */
     16, ILI9341_GMCTRP1, 0x0F, 0x31, 0x2B, 0x0C, 0x0E, 0x08,
                          0x4E, 0xF1, 0x37, 0x07, 0x10, 0x03,
-                         0x0E, 0x09, 0x00, // Set Gamma
+                         0x0E, 0x09, 0x00,
+     /* Set Negative Gamma Correction
+      * Inverse of the above? The datasheet is not very verbose on how this
+      * works. :(
+      */
     16, ILI9341_GMCTRN1, 0x00, 0x0E, 0x14, 0x03, 0x11, 0x07,
                          0x31, 0xC1, 0x48, 0x08, 0x0F, 0x0C,
-                         0x31, 0x36, 0x0F, // Set Gamma
+                         0x31, 0x36, 0x0F,
     0
 };
-
 
 // --  Bit Banging  -  --  --  --  --  --  --  --  --  --  --  --  --  -
 
