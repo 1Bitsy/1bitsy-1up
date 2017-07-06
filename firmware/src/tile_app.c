@@ -38,14 +38,14 @@ void tile_init(void)
 
 void tile_animate(void)
 {
-    tile_y += tile_y_inc;
-    if (tile_y + (TS_PIXMAP_HEIGHT*2) > LCD_HEIGHT) {
-        tile_y_inc = -1;
-        tile_y -= 2;
-    } else if (tile_y < 0) {
-        tile_y_inc = +1;
-        tile_y += 1;
-    }
+	tile_y += tile_y_inc;
+	if (tile_y + (TS_PIXMAP_HEIGHT*2) > LCD_HEIGHT) {
+		tile_y_inc = -1;
+		tile_y -= 2;
+	} else if (tile_y < 0) {
+		tile_y_inc = +1;
+		tile_y += 1;
+	}
 }
 
 static void tile_render_slice(gfx_pixslice *slice)
