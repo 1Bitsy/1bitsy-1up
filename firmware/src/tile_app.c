@@ -75,17 +75,31 @@ void tile_draw_tile(gfx_pixslice *slice, uint16_t tile_id, int px, int py)
 		return;
 	}
 
+	int tile_0 = 0;
+	int tile_w = 8;
+	if (px < 0) {
+		tile_0 += -px / 2;
+		px = 0;
+	}
+	else if (px + 16 > LCD_WIDTH) {
+		tile_w -= (px + 16 - LCD_WIDTH) / 2;
+	}
+
+
 	for (int y = 0; y < 8; y++) {
 		gfx_rgb565 *px0 =
 			gfx_pixel_address_unchecked(slice, px, py + (y * 2));
 		gfx_rgb565 *px1 =
 			gfx_pixel_address_unchecked(slice, px, py + (y * 2) + 1);
-		for (int x = 0; x < 8; x++) {
-			if (ts_pixmap[tile_y + y][tile_x + x] != 0xF81F) {
-				*px0++ = ts_pixmap[tile_y + y][tile_x + x];
-				*px0++ = ts_pixmap[tile_y + y][tile_x + x];
-				*px1++ = ts_pixmap[tile_y + y][tile_x + x];
-				*px1++ = ts_pixmap[tile_y + y][tile_x + x];
+
+		for (int x = tile_0; x < tile_w; x++) {
+			uint16_t c = ts_pixmap[tile_y + y][tile_x + x];
+
+			if (c != 0xF81F) {
+				*px0++ = c;
+				*px0++ = c;
+				*px1++ = c;
+				*px1++ = c;
 			} else {
 				px0+=2;
 				px1+=2;
@@ -196,9 +210,14 @@ static void tile_render_slice(gfx_pixslice *slice)
 //	}
 
 	for (size_t y = slice->y / 16; y < (slice->y + slice->h)/16; y++) {
-		for (size_t x = 0; x < slice->w / 16; x++) {
-			if (tml1_tilemap[0][y + 3][x + (map_x_off / 8)] != 0) {
-				tile_draw_tile(slice, tml1_tilemap[0][y + 3][x + (map_x_off / 8)]-1, x * 16 - (map_x_off % 8) * 2, y*16);
+		for (size_t x = 0; x <= slice->w / 16; x++) {
+			const uint16_t tid =
+				tml1_tilemap[0][y + 3][x + map_x_off / 8];
+			if (tid) {
+				tile_draw_tile(slice,
+				               tid - 1,
+				               x * 16 - (map_x_off % 8) * 2,
+				               y*16);
 			}
 		}
 
