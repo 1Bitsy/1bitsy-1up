@@ -108,6 +108,47 @@ tml1_def = tml1_template.format(l=len(tml1_layers),
                                 struct=tml1_struct)
 
 ########################################################################
+# Miniwi font
+########################################################################
+
+# Load font
+from PIL import BdfFontFile
+
+miniwi_path = "miniwi/miniwi-8.bdf"
+
+miniwi_ff = BdfFontFile.BdfFontFile(open(miniwi_path, 'rb'))
+
+miniwi_glyphs = []
+
+for c in range(33, 127):
+    glyph = []
+    glyph_pix = miniwi_ff.glyph[c][3].load()
+    for col in range(0, 4):
+        col_byte = 0
+        for row in range(0, 8):
+            if glyph_pix[col, row] != 0:
+                col_byte = col_byte | (0x1 << row)
+        glyph.append(col_byte)
+    miniwi_glyphs.append(glyph)
+
+miniwi_struct = ",\n".join('{{ {} }}'.format(", ".join('{:#04x}'.format(b)
+                                                        for b in glyph))
+                           for glyph in miniwi_glyphs)
+
+miniwi_template = '''
+#define MINIWI_FONT_WIDTH 4
+#define MINIWI_FONT_HEIGHT 8
+#define MINIWI_FONT_OFFSET 33
+#define MINIWI_FONT_GLYPH_COUNT {l}
+
+static const uint8_t miniwi_font[MINIWI_FONT_GLYPH_COUNT][MINIWI_FONT_WIDTH] = {{
+{struct}
+}};'''.lstrip()
+
+miniwi_def = miniwi_template.format(l=len(miniwi_glyphs),
+                                    struct=miniwi_struct)
+
+########################################################################
 # Asset header body and output
 ########################################################################
 
@@ -123,22 +164,12 @@ template = '''
 
 {tml1_def}
 
+{miniwi_def}
+
 #endif /* ASSETS_H */
 '''.lstrip()
 
-
-def format_map(index, name):
-    pixels = reg_data[index]
-    s = ',\n'.join('    {{ {} }}'
-                   .format(',\n      '.join(', '.join('{:3d}'.format(b)
-                                                     for b in line)
-                                           for line in by_n(12, row)))
-                   for row in pixels)
-    return pixmap_template.format(name=name,
-                                  height=region_height,
-                                  width=region_width,
-                                  bytes=s)
-
 print(template.format(program=sys.argv[0],
                       ts_def=ts_def,
-                      tml1_def=tml1_def))
+                      tml1_def=tml1_def,
+                      miniwi_def=miniwi_def))
