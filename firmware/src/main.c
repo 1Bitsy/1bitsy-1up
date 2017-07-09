@@ -76,6 +76,8 @@ static void setup(void)
 
     lcd_set_bg_color(BG_COLOR, false);
     lcd_init();
+
+    gpio_mode_setup(GPIOA, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO1);
 }
 
 static void calc_fps(void)
@@ -83,6 +85,7 @@ static void calc_fps(void)
     static uint32_t next_time;
     static uint32_t frame_count;
     frame_count++;
+    gpio_toggle(GPIOA, GPIO1);
     if (system_millis >= next_time) {
         fps = frame_count;
         frame_count = 0;
