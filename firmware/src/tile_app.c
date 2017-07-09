@@ -129,7 +129,25 @@ void tile_draw_tile(gfx_pixslice *slice, uint16_t tile_id, int px, int py)
 	#endif
 }
 
-void tile_draw_char(gfx_pixslice *slice, char ch, int x, int y)
+void tile_draw_char8(gfx_pixslice *slice, char ch, int x, int y)
+{
+	int xoff = x * 4;
+	int yoff = y * 8;
+
+	for (int py = 0; py < 8; py++) {
+		gfx_rgb565 *px0 =
+			gfx_pixel_address_unchecked(slice, xoff, yoff + py);
+		for (int px = 0; px < 4; px++) {
+			if ((miniwi_font[(int)ch - MINIWI_FONT_OFFSET][px] & (1 << py)) != 0) {
+				*px0++ = 0xFFFF;
+			} else {
+				px0++;
+			}
+		}
+	}
+}
+
+void tile_draw_char16(gfx_pixslice *slice, char ch, int x, int y)
 {
 	int xoff = x * 8;
 	int yoff = y * 16;
@@ -161,7 +179,8 @@ void tile_draw_fps(gfx_pixslice *slice)
 	int pos = 0;
 
 	for (; lfps > 0; lfps /= 10) {
-		tile_draw_char(slice, (lfps % 10) + '0', LCD_WIDTH / 8 - (pos + 1), 0);
+		tile_draw_char8(slice, (lfps % 10) + '0', LCD_WIDTH / 4 - (pos + 1), 0);
+		//tile_draw_char16(slice, (lfps % 10) + '0', LCD_WIDTH / 8 - (pos + 1), 0);
 		pos++;
 	}
 }
