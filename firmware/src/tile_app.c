@@ -30,9 +30,6 @@
 
 gfx_rgb565 color = 0;
 
-//static int16_t tile_y_inc = +1;
-//static int16_t tile_y = 0;
-
 static int16_t map_x_off = 0;
 static int16_t map_x_dir = +1;
 
@@ -131,7 +128,7 @@ void tile_draw_tile(gfx_pixslice *slice, uint16_t tile_id, int px, int py)
 	#endif
 }
 
-void tile_draw_char8(gfx_pixslice *slice, char ch, int x, int y)
+void tile_draw_char8(gfx_pixslice *slice, char ch, int x, int y, gfx_rgb565 color)
 {
 	int xoff = x * 4;
 	int yoff = y * 8;
@@ -145,7 +142,7 @@ void tile_draw_char8(gfx_pixslice *slice, char ch, int x, int y)
 			gfx_pixel_address_unchecked(slice, xoff, yoff + py);
 		for (int px = 0; px < 4; px++) {
 			if ((miniwi_font[(int)ch - MINIWI_FONT_OFFSET][px] & (1 << py)) != 0) {
-				*px0++ = 0xFFFF;
+				*px0++ = color;
 			} else {
 				px0++;
 			}
@@ -153,7 +150,7 @@ void tile_draw_char8(gfx_pixslice *slice, char ch, int x, int y)
 	}
 }
 
-void tile_draw_char16(gfx_pixslice *slice, char ch, int x, int y)
+void tile_draw_char16(gfx_pixslice *slice, char ch, int x, int y, gfx_rgb565 color)
 {
 	int xoff = x * 8;
 	int yoff = y * 16;
@@ -169,10 +166,10 @@ void tile_draw_char16(gfx_pixslice *slice, char ch, int x, int y)
 			gfx_pixel_address_unchecked(slice, xoff, yoff + (py * 2) + 1);
 		for (int px = 0; px < 4; px++) {
 			if ((miniwi_font[(int)ch - MINIWI_FONT_OFFSET][px] & (1 << py)) != 0) {
-				*px0++ = 0xFFFF;
-				*px0++ = 0xFFFF;
-				*px1++ = 0xFFFF;
-				*px1++ = 0xFFFF;
+				*px0++ = color;
+				*px0++ = color;
+				*px1++ = color;
+				*px1++ = color;
 			} else {
 				px0+=2;
 				px1+=2;
@@ -190,13 +187,14 @@ void tile_draw_fps(gfx_pixslice *slice)
 	char *prefix = "fps: ";
 
 	for (; lfps > 0; lfps /= 10) {
-		tile_draw_char8(slice, (lfps % 10) + '0', LCD_WIDTH / 4 - (pos + 1), 0);
-		//tile_draw_char16(slice, (lfps % 10) + '0', LCD_WIDTH / 8 - (pos + 1), 0);
+		tile_draw_char8(slice, (lfps % 10) + '0', LCD_WIDTH / 4 - (pos + 1), 0, 0x0000);
+		//tile_draw_char16(slice, (lfps % 10) + '0', LCD_WIDTH / 8 - (pos + 1), 0, 0x0000);
 		pos++;
 	}
 
 	for (int i = 0; i < 5; i++) {
-		tile_draw_char8(slice, prefix[4 - i], LCD_WIDTH / 4 - (pos + 1), 0);
+		tile_draw_char8(slice, prefix[4 - i], LCD_WIDTH / 4 - (pos + 1), 0, 0x0000);
+		//tile_draw_char16(slice, prefix[4 -i], LCD_WIDTH / 8 - (pos + 1), 0, 0x0000);
 		pos++;
 	}
 }
@@ -308,6 +306,10 @@ void tile_render(void)
 	size_t h;
 
 	color = 0;
+
+	if (lcd_bg_color() != TML1_TILEMAP_BG_COLOR) {
+		lcd_set_bg_color(TML1_TILEMAP_BG_COLOR, true);
+	}
 
     for (size_t y = 0; y < LCD_HEIGHT; y += h) {
         h = MIN(TILE_SLICE_MAX_H, LCD_HEIGHT - y);
