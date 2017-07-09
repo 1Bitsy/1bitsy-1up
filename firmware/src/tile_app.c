@@ -17,6 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <libopencm3/stm32/gpio.h>
+
 #include "tile_app.h"
 
 #include "lcd.h"
@@ -134,6 +136,10 @@ void tile_draw_char8(gfx_pixslice *slice, char ch, int x, int y)
 	int xoff = x * 4;
 	int yoff = y * 8;
 
+	if ((ch < MINIWI_FONT_OFFSET) || (ch >= (MINIWI_FONT_OFFSET + MINIWI_FONT_GLYPH_COUNT))) {
+		return;
+	}
+
 	for (int py = 0; py < 8; py++) {
 		gfx_rgb565 *px0 =
 			gfx_pixel_address_unchecked(slice, xoff, yoff + py);
@@ -151,6 +157,10 @@ void tile_draw_char16(gfx_pixslice *slice, char ch, int x, int y)
 {
 	int xoff = x * 8;
 	int yoff = y * 16;
+
+	if ((ch < MINIWI_FONT_OFFSET) || (ch > (MINIWI_FONT_OFFSET + MINIWI_FONT_GLYPH_COUNT))) {
+		return;
+	}
 
 	for (int py = 0; py < 8; py++) {
 		gfx_rgb565 *px0 =
@@ -177,10 +187,16 @@ void tile_draw_fps(gfx_pixslice *slice)
 {
 	uint32_t lfps = fps;
 	int pos = 0;
+	char *prefix = "fps: ";
 
 	for (; lfps > 0; lfps /= 10) {
 		tile_draw_char8(slice, (lfps % 10) + '0', LCD_WIDTH / 4 - (pos + 1), 0);
 		//tile_draw_char16(slice, (lfps % 10) + '0', LCD_WIDTH / 8 - (pos + 1), 0);
+		pos++;
+	}
+
+	for (int i = 0; i < 5; i++) {
+		tile_draw_char8(slice, prefix[4 - i], LCD_WIDTH / 4 - (pos + 1), 0);
 		pos++;
 	}
 }
@@ -265,6 +281,7 @@ static void tile_render_slice(gfx_pixslice *slice)
 //		tile_draw_tile(slice, 1, 10, 10);
 //	}
 
+    gpio_set(GPIOA, GPIO3);
 	for (size_t y = slice->y / 16; y < (slice->y + slice->h)/16; y++) {
 		for (size_t x = 0; x <= slice->w / 16; x++) {
 			const uint16_t tid =
@@ -283,6 +300,7 @@ static void tile_render_slice(gfx_pixslice *slice)
 		tile_draw_fps(slice);
 	}
 
+    gpio_clear(GPIOA, GPIO3);
 }
 
 void tile_render(void)

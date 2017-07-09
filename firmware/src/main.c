@@ -77,7 +77,10 @@ static void setup(void)
     lcd_set_bg_color(BG_COLOR, false);
     lcd_init();
 
+    /* Toggles with every frame */
     gpio_mode_setup(GPIOA, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO1);
+    /* Is high when a slice is being rendered by the app. */
+    gpio_mode_setup(GPIOA, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO3);
 }
 
 static void calc_fps(void)
