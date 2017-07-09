@@ -106,6 +106,7 @@ static void check_app_switch(void)
             if (active_app == end_app) {
                 active_app = 0;
             }
+            apps[active_app].init();
             state = true;
             gpio_clear(GPIOA, GPIO8);
         }

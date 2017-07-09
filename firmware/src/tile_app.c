@@ -18,11 +18,13 @@
  */
 
 #include <libopencm3/stm32/gpio.h>
+#include <string.h>
 
 #include "tile_app.h"
 
 #include "lcd.h"
 #include "math-util.h"
+#include "gamepad.h"
 
 #include "assets/assets.h"
 
@@ -32,6 +34,7 @@ gfx_rgb565 color = 0;
 
 static int16_t map_x_off = 0;
 static int16_t map_x_dir = +1;
+static int16_t map_y_off = 3 * 8;
 
 static struct tile_video_state {
 	uint16_t const *tilemap;
@@ -57,6 +60,7 @@ void tile_init(void)
 	tile_video_state.x_off = 0;
 	tile_video_state.y_off = 0;
 
+	gamepad_init();
 }
 
 void tile_draw_tile(gfx_pixslice *slice, uint16_t tile_id, int px, int py)
@@ -74,24 +78,34 @@ void tile_draw_tile(gfx_pixslice *slice, uint16_t tile_id, int px, int py)
 		return;
 	}
 
-	int tile_0 = 0;
+	int tile_x0 = 0;
 	int tile_w = 8;
 	if (px < 0) {
-		tile_0 += -px / 2;
+		tile_x0 += -px / 2;
 		px = 0;
 	}
 	else if (px + 16 > LCD_WIDTH) {
 		tile_w -= (px + 16 - LCD_WIDTH) / 2;
 	}
 
+	int tile_y0 = 0;
+	int tile_h = 8;
+	if (py < 0) {
+		tile_y0 += -py / 2;
+		py = 0;
+	}
+	else if (py + 16 > LCD_HEIGHT) {
+		tile_h -= (py + 16 - LCD_HEIGHT) / 2;
+	}
 
-	for (int y = 0; y < 8; y++) {
+
+	for (int y = tile_y0; y < tile_h; y++) {
 		gfx_rgb565 *px0 =
 			gfx_pixel_address_unchecked(slice, px, py + (y * 2));
 		gfx_rgb565 *px1 =
 			gfx_pixel_address_unchecked(slice, px, py + (y * 2) + 1);
 
-		for (int x = tile_0; x < tile_w; x++) {
+		for (int x = tile_x0; x < tile_w; x++) {
 			uint16_t c = ts_pixmap[tile_y + y][tile_x + x];
 
 			if (c != 0xF81F) {
@@ -199,6 +213,25 @@ void tile_draw_fps(gfx_pixslice *slice)
 	}
 }
 
+void tile_draw_gamepad(gfx_pixslice *slice)
+{
+	char *prefix = "gamepad: ";
+	uint16_t gamepad = gamepad_get();
+
+	for (int i = 0; i < 16; i++) {
+		if ((gamepad & (1 << i)) != 0) {
+			tile_draw_char8(slice, '1', LCD_WIDTH / 4 - (i + 1), 1, 0x0000);
+		} else {
+			tile_draw_char8(slice, '0', LCD_WIDTH / 4 - (i + 1), 1, 0x0000);
+		}
+	}
+
+	for (int i = 0; prefix[i] != 0; i++) {
+		tile_draw_char8(slice, prefix[i],
+			LCD_WIDTH / 4 - (16 + strlen(prefix)) + i, 1, 0x0000);
+	}
+}
+
 void tile_animate(void)
 {
 #if 0
@@ -213,29 +246,50 @@ void tile_animate(void)
 #endif
 	static uint16_t delay = 0;
 	static uint16_t stay = 0;
+	uint16_t gamepad = gamepad_get();
 
-	if (delay == 1) {
-		delay = 0;
-
-		map_x_off += map_x_dir;
-		if (map_x_off == 108*8) {
-			map_x_dir = 0;
-			stay++;
-			if (stay == 10) {
-				stay = 0;
-				map_x_dir = -1;
+	if (gamepad != 0xFFFF ) {
+		if ((gamepad & GAMEPAD_BLEFT) != 0) {
+			if (map_x_off > 0) {
+				map_x_off--;
+			}
+		} else if ((gamepad & GAMEPAD_BRIGHT) != 0) {
+			if (map_x_off < (108 * 8)) {
+				map_x_off++;
 			}
 		}
-		if (map_x_off == 0) {
-			map_x_dir = 0;
-			stay++;
-			if (stay == 10) {
-				stay = 0;
-				map_x_dir = +1;
+		if ((gamepad & GAMEPAD_BUP) != 0) {
+			if (map_y_off > 0) {
+				map_y_off--;
+			}
+		} else if ((gamepad & GAMEPAD_BDOWN) != 0) {
+			if (map_y_off < (3 * 8)) {
+				map_y_off++;
 			}
 		}
 	} else {
-		delay++;
+		if (delay == 1) {
+			delay = 0;
+			map_x_off += map_x_dir;
+			if (map_x_off == 108*8) {
+				map_x_dir = 0;
+				stay++;
+				if (stay == 10) {
+					stay = 0;
+					map_x_dir = -1;
+				}
+			}
+			if (map_x_off == 0) {
+				map_x_dir = 0;
+				stay++;
+				if (stay == 10) {
+					stay = 0;
+					map_x_dir = +1;
+				}
+			}
+		} else {
+			delay++;
+		}
 	}
 }
 
@@ -280,22 +334,22 @@ static void tile_render_slice(gfx_pixslice *slice)
 //	}
 
     gpio_set(GPIOA, GPIO3);
-	for (size_t y = slice->y / 16; y < (slice->y + slice->h)/16; y++) {
+	for (size_t y = slice->y / 16; y <= (slice->y + slice->h)/16; y++) {
 		for (size_t x = 0; x <= slice->w / 16; x++) {
 			const uint16_t tid =
-				tml1_tilemap[0][y + 3][x + map_x_off / 8];
+				tml1_tilemap[0][y + map_y_off / 8][x + map_x_off / 8];
 			if (tid) {
 				tile_draw_tile(slice,
 				               tid - 1,
 				               x * 16 - (map_x_off % 8) * 2,
-				               y*16);
+				               y * 16 - (map_y_off % 8) * 2);
 			}
 		}
-
 	}
 
 	if(slice->y == 0) {
 		tile_draw_fps(slice);
+		tile_draw_gamepad(slice);
 	}
 
     gpio_clear(GPIOA, GPIO3);
