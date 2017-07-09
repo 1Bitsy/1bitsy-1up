@@ -48,6 +48,9 @@ void munch_animate(void)
 	munch_base_color += 0x0021;
 }
 
+/* Borrow the framerate function from tile app. */
+extern void tile_draw_fps(gfx_pixslice *slice);
+
 static void munch_render_slice(gfx_pixslice *slice)
 {
     const int y_off = -8;
@@ -63,6 +66,10 @@ static void munch_render_slice(gfx_pixslice *slice)
             gfx_pixel_address_unchecked(slice, x0 + x_off, y + y_off);
         for (int x = x0; x < x1; x++)
             *p++ = base + munch_magic * (x ^ y);
+    }
+
+    if (slice->y == 0) {
+        tile_draw_fps(slice);
     }
 }
 
