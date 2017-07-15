@@ -60,6 +60,36 @@ static const uint16_t ts_pixmap[TS_PIXMAP_HEIGHT][TS_PIXMAP_WIDTH] = {{
 ts_def = ts_template.format(h=ts_h, w=ts_w, bytes=ts_bytes)
 
 ########################################################################
+# Tilesheet
+########################################################################
+
+ss_path = 'spritesheet.png'
+ss_img = Image.open(ss_path)
+ss_img = ss_img.convert("RGBA")
+ss_pix = ss_img.load()
+ss_w, ss_h = ss_img.size
+
+ss_packed = [[pack_rgb565(ss_pix[x, y])
+              for x in range(ss_w)]
+             for y in range(ss_h)]
+
+ss_bytes = ',\n'.join('    {{ {} }}'
+                      .format(',\n      '.join(', '.join('{:3d}'.format(b)
+                                                         for b in line)
+                                               for line in by_n(8, row)))
+                      for row in ss_packed)
+
+ss_template = '''
+#define SS_PIXMAP_HEIGHT {h}
+#define SS_PIXMAP_WIDTH {w}
+
+static const uint16_t ss_pixmap[SS_PIXMAP_HEIGHT][SS_PIXMAP_WIDTH] = {{
+{bytes}
+}};'''.lstrip()
+
+ss_def = ss_template.format(h=ss_h, w=ss_w, bytes=ss_bytes)
+
+########################################################################
 # Level Tilemap
 ########################################################################
 
@@ -68,8 +98,6 @@ tml1e = ElementTree.parse(tml1_path).getroot()
 tml1_width = int(tml1e.attrib['width'])
 tml1_height = int(tml1e.attrib['height'])
 tml1_background = rgb888_to_rgb565(int(tml1e.attrib['backgroundcolor'].replace("#", ""), 16))
-
-#print("tml w:%d h:%d bgcol: %X" % (tml1_width, tml1_height, tml1_background))
 
 
 def filter_empty(x):
@@ -162,6 +190,8 @@ template = '''
 
 {ts_def}
 
+{ss_def}
+
 {tml1_def}
 
 {miniwi_def}
@@ -171,5 +201,6 @@ template = '''
 
 print(template.format(program=sys.argv[0],
                       ts_def=ts_def,
+                      ss_def=ss_def,
                       tml1_def=tml1_def,
                       miniwi_def=miniwi_def))
