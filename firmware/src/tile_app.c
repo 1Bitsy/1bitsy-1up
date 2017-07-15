@@ -101,9 +101,9 @@ void tile_draw_tile(gfx_pixslice *slice, uint16_t tile_id, int px, int py)
 
 	for (int y = tile_y0; y < tile_h; y++) {
 		gfx_rgb565 *px0 =
-			gfx_pixel_address_unchecked(slice, px, py + (y * 2));
+			gfx_pixel_address_unchecked(slice, px, py + ((y - tile_y0) * 2));
 		gfx_rgb565 *px1 =
-			gfx_pixel_address_unchecked(slice, px, py + (y * 2) + 1);
+			gfx_pixel_address_unchecked(slice, px, py + ((y - tile_y0) * 2) + 1);
 
 		for (int x = tile_x0; x < tile_w; x++) {
 			uint16_t c = ts_pixmap[tile_y + y][tile_x + x];
@@ -201,14 +201,14 @@ void tile_draw_fps(gfx_pixslice *slice)
 	char *prefix = "fps: ";
 
 	for (; lfps > 0; lfps /= 10) {
-		tile_draw_char8(slice, (lfps % 10) + '0', LCD_WIDTH / 4 - (pos + 1), 0, 0x0000);
-		//tile_draw_char16(slice, (lfps % 10) + '0', LCD_WIDTH / 8 - (pos + 1), 0, 0x0000);
+		//tile_draw_char8(slice, (lfps % 10) + '0', LCD_WIDTH / 4 - (pos + 1), 0, 0x0000);
+		tile_draw_char16(slice, (lfps % 10) + '0', LCD_WIDTH / 8 - (pos + 1), 0, 0x0000);
 		pos++;
 	}
 
 	for (int i = 0; i < 5; i++) {
-		tile_draw_char8(slice, prefix[4 - i], LCD_WIDTH / 4 - (pos + 1), 0, 0x0000);
-		//tile_draw_char16(slice, prefix[4 -i], LCD_WIDTH / 8 - (pos + 1), 0, 0x0000);
+		//tile_draw_char8(slice, prefix[4 - i], LCD_WIDTH / 4 - (pos + 1), 0, 0x0000);
+		tile_draw_char16(slice, prefix[4 -i], LCD_WIDTH / 8 - (pos + 1), 0, 0x0000);
 		pos++;
 	}
 }
@@ -220,15 +220,19 @@ void tile_draw_gamepad(gfx_pixslice *slice)
 
 	for (int i = 0; i < 16; i++) {
 		if ((gamepad & (1 << i)) != 0) {
-			tile_draw_char8(slice, '1', LCD_WIDTH / 4 - (i + 1), 1, 0x0000);
+			//tile_draw_char8(slice, '1', LCD_WIDTH / 4 - (i + 1), 1, 0x0000);
+			tile_draw_char16(slice, '1', LCD_WIDTH / 8 - (i + 1), 1, 0x0000);
 		} else {
-			tile_draw_char8(slice, '0', LCD_WIDTH / 4 - (i + 1), 1, 0x0000);
+			//tile_draw_char8(slice, '0', LCD_WIDTH / 4 - (i + 1), 1, 0x0000);
+			tile_draw_char16(slice, '0', LCD_WIDTH / 8 - (i + 1), 1, 0x0000);
 		}
 	}
 
 	for (int i = 0; prefix[i] != 0; i++) {
-		tile_draw_char8(slice, prefix[i],
-			LCD_WIDTH / 4 - (16 + strlen(prefix)) + i, 1, 0x0000);
+		//tile_draw_char8(slice, prefix[i],
+		//	LCD_WIDTH / 4 - (16 + strlen(prefix)) + i, 1, 0x0000);
+		tile_draw_char16(slice, prefix[i],
+			LCD_WIDTH / 8 - (16 + strlen(prefix)) + i, 1, 0x0000);
 	}
 }
 
