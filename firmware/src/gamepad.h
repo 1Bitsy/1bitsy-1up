@@ -20,6 +20,7 @@
 #ifndef GAMEPAD_H
 #define GAMEPAD_H
 
+/* Snes Controller buttons */
 #define GAMEPAD_BB		(1 << 15)
 #define GAMEPAD_BY		(1 << 14)
 #define GAMEPAD_BSELECT	(1 << 13)

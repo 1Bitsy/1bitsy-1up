@@ -42,15 +42,16 @@ uint16_t gamepad_get(void)
 {
 	uint16_t ret = 0;
 
-	/* latch */
-	gpio_set(GPIOC, GPIO4);
-	for (int i = 0; i < 10; i++) asm("nop");
+	/* assert latch */
 	gpio_clear(GPIOC, GPIO4);
+	for (int i = 0; i < 30; i++) asm("nop");
+	gpio_set(GPIOC, GPIO4);
+	for (int i = 0; i < 30; i++) asm("nop");
 
 	/* read bit 1 */
 	if (gpio_get(GPIOA, GPIO6) != 0) {
-		ret |= 1;
 		ret <<= 1;
+		ret |= 1;
 	} else {
 		ret <<= 1;
 	}
@@ -58,11 +59,12 @@ uint16_t gamepad_get(void)
 	/* Read another 16 bit */
 	for (int i = 0; i < 15; i++) {
 		gpio_set(GPIOA, GPIO7);
-		for (int d = 0; d < 10; d++) asm("nop");
+		for (int d = 0; d < 30; d++) asm("nop");
 		gpio_clear(GPIOA, GPIO7);
+		for (int d = 0; d < 30; d++) asm("nop");
 		if (gpio_get(GPIOA, GPIO6) != 0) {
-			ret |= 1;
 			ret <<= 1;
+			ret |= 1;
 		} else {
 			ret <<= 1;
 		}
