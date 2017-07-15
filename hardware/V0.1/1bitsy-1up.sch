@@ -66,7 +66,8 @@ F 0 "U1" H 4300 2700 60  0000 C CNN
 F 1 "1bitsy-complete-concise" H 4300 2600 60  0000 C CNN
 F 2 "1bitsy:1bitsy-sl-1xx-xx-19" H 4300 2700 60  0001 C CNN
 F 3 "" H 4300 2700 60  0001 C CNN
-F 4 "ANY" H 4300 2600 60  0001 C CNN "Source"
+F 4 "1bitsy" H 4300 2600 60  0001 C CNN "Key"
+F 5 "ANY" H 4300 2600 60  0001 C CNN "Source"
 	1    4300 2600
 	1    0    0    -1  
 $EndComp
@@ -276,7 +277,8 @@ F 0 "Q1" H 13300 3250 50  0000 R CNN
 F 1 "NMOS" H 13300 2950 50  0000 R CNN
 F 2 "TO_SOT_Packages_SMD:SOT-23" H 13500 3200 29  0001 C CNN
 F 3 "" H 13300 3100 60  0000 C CNN
-F 4 "ANY" H 13300 3100 60  0001 C CNN "Source"
+F 4 "mosfet-nmos-sot-23-gsd" H 13300 3100 60  0001 C CNN "Key"
+F 5 "ANY" H 13300 3100 60  0001 C CNN "Source"
 	1    13300 3100
 	1    0    0    -1  
 $EndComp
@@ -290,7 +292,8 @@ F 0 "U3" H 14700 5550 60  0000 C CNN
 F 1 "lcd_cap_touch_buydisplay" H 14700 4950 60  0000 C CNN
 F 2 "pkl_connectors:ER-CON06HB" H 14700 5300 60  0001 C CNN
 F 3 "" H 14700 5300 60  0001 C CNN
-F 4 "ANY" H 14700 5300 60  0001 C CNN "Source"
+F 4 "conn-ffc-smd-05mm-6-bc-slide" H 14700 5300 60  0001 C CNN "Key"
+F 5 "ANY" H 14700 5300 60  0001 C CNN "Source"
 	1    14700 5300
 	1    0    0    -1  
 $EndComp
@@ -412,7 +415,8 @@ F 0 "CON1" H 8850 2150 50  0000 C CNN
 F 1 "pkl_Micro_SD" H 10100 1050 50  0000 C CNN
 F 2 "pkl_misc:SCHA4B0419" H 9650 1900 50  0001 C CNN
 F 3 "" H 9500 1600 60  0000 C CNN
-F 4 "ANY" H 9500 1600 60  0001 C CNN "Source"
+F 4 "conn-micro-sd-smd-push-push" H 9500 1600 60  0001 C CNN "Description"
+F 5 "ANY" H 9500 1600 60  0001 C CNN "Source"
 	1    9500 1600
 	1    0    0    -1  
 $EndComp
@@ -471,7 +475,8 @@ F 0 "SW1" H 2350 5025 60  0000 L CNN
 F 1 "UP" H 2350 5175 60  0000 L CNN
 F 2 "pkl_buttons_switches:Tact_Switch_Top_TH_7.8MM_Snap" H 2200 5075 60  0001 C CNN
 F 3 "" H 2200 5075 60  0000 C CNN
-F 4 "ANY" H 2200 5100 60  0001 C CNN "Source"
+F 4 "sw-tact-top-th-silicone" H 2200 5100 60  0001 C CNN "Key"
+F 5 "ANY" H 2200 5100 60  0001 C CNN "Source"
 	1    2200 5100
 	1    0    0    -1  
 $EndComp
@@ -483,7 +488,8 @@ F 0 "SW3" H 1750 5625 60  0000 L CNN
 F 1 "LEFT" H 1750 5775 60  0000 L CNN
 F 2 "pkl_buttons_switches:Tact_Switch_Top_TH_7.8MM_Snap" H 1600 5675 60  0001 C CNN
 F 3 "" H 1600 5675 60  0000 C CNN
-F 4 "ANY" H 1600 5700 60  0001 C CNN "Source"
+F 4 "sw-tact-top-th-silicone" H 1600 5700 60  0001 C CNN "Key"
+F 5 "ANY" H 1600 5700 60  0001 C CNN "Source"
 	1    1600 5700
 	1    0    0    -1  
 $EndComp
@@ -495,7 +501,8 @@ F 0 "SW4" H 2950 5625 60  0000 L CNN
 F 1 "RIGHT" H 2950 5775 60  0000 L CNN
 F 2 "pkl_buttons_switches:Tact_Switch_Top_TH_7.8MM_Snap" H 2800 5675 60  0001 C CNN
 F 3 "" H 2800 5675 60  0000 C CNN
-F 4 "ANY" H 2800 5700 60  0001 C CNN "Source"
+F 4 "sw-tact-top-th-silicone" H 2800 5700 60  0001 C CNN "Key"
+F 5 "ANY" H 2800 5700 60  0001 C CNN "Source"
 	1    2800 5700
 	1    0    0    -1  
 $EndComp
@@ -507,7 +514,8 @@ F 0 "SW8" H 2350 6225 60  0000 L CNN
 F 1 "DOWN" H 2350 6375 60  0000 L CNN
 F 2 "pkl_buttons_switches:Tact_Switch_Top_TH_7.8MM_Snap" H 2200 6275 60  0001 C CNN
 F 3 "" H 2200 6275 60  0000 C CNN
-F 4 "ANY" H 2200 6300 60  0001 C CNN "Source"
+F 4 "sw-tact-top-th-silicone" H 2200 6300 60  0001 C CNN "Key"
+F 5 "ANY" H 2200 6300 60  0001 C CNN "Source"
 	1    2200 6300
 	1    0    0    -1  
 $EndComp
@@ -519,7 +527,8 @@ F 0 "SW2" H 4750 5025 60  0000 L CNN
 F 1 "Y" H 4750 5175 60  0000 L CNN
 F 2 "pkl_buttons_switches:Tact_Switch_Top_TH_7.8MM_Snap" H 4600 5075 60  0001 C CNN
 F 3 "" H 4600 5075 60  0000 C CNN
-F 4 "ANY" H 4600 5100 60  0001 C CNN "Source"
+F 4 "sw-tact-top-th-silicone" H 4600 5100 60  0001 C CNN "Key"
+F 5 "ANY" H 4600 5100 60  0001 C CNN "Source"
 	1    4600 5100
 	1    0    0    -1  
 $EndComp
@@ -531,7 +540,8 @@ F 0 "SW5" H 4150 5625 60  0000 L CNN
 F 1 "X" H 4150 5775 60  0000 L CNN
 F 2 "pkl_buttons_switches:Tact_Switch_Top_TH_7.8MM_Snap" H 4000 5675 60  0001 C CNN
 F 3 "" H 4000 5675 60  0000 C CNN
-F 4 "ANY" H 4000 5700 60  0001 C CNN "Source"
+F 4 "sw-tact-top-th-silicone" H 4000 5700 60  0001 C CNN "Key"
+F 5 "ANY" H 4000 5700 60  0001 C CNN "Source"
 	1    4000 5700
 	1    0    0    -1  
 $EndComp
@@ -543,7 +553,8 @@ F 0 "SW6" H 5350 5625 60  0000 L CNN
 F 1 "A" H 5350 5775 60  0000 L CNN
 F 2 "pkl_buttons_switches:Tact_Switch_Top_TH_7.8MM_Snap" H 5200 5675 60  0001 C CNN
 F 3 "" H 5200 5675 60  0000 C CNN
-F 4 "ANY" H 5200 5700 60  0001 C CNN "Source"
+F 4 "sw-tact-top-th-silicone" H 5200 5700 60  0001 C CNN "Key"
+F 5 "ANY" H 5200 5700 60  0001 C CNN "Source"
 	1    5200 5700
 	1    0    0    -1  
 $EndComp
@@ -555,7 +566,8 @@ F 0 "SW9" H 4750 6225 60  0000 L CNN
 F 1 "B" H 4750 6375 60  0000 L CNN
 F 2 "pkl_buttons_switches:Tact_Switch_Top_TH_7.8MM_Snap" H 4600 6275 60  0001 C CNN
 F 3 "" H 4600 6275 60  0000 C CNN
-F 4 "ANY" H 4600 6300 60  0001 C CNN "Source"
+F 4 "sw-tact-top-th-silicone" H 4600 6300 60  0001 C CNN "Key"
+F 5 "ANY" H 4600 6300 60  0001 C CNN "Source"
 	1    4600 6300
 	1    0    0    -1  
 $EndComp
@@ -567,7 +579,8 @@ F 0 "SW7" H 3550 6025 60  0000 L CNN
 F 1 "SELECT" H 3550 6175 60  0000 L CNN
 F 2 "pkl_buttons_switches:Tact_Switch_Top_TH_7.8MM_Snap" H 3400 6075 60  0001 C CNN
 F 3 "" H 3400 6075 60  0000 C CNN
-F 4 "ANY" H 3400 6100 60  0001 C CNN "Source"
+F 4 "sw-tact-top-th-silicone" H 3400 6100 60  0001 C CNN "Key"
+F 5 "ANY" H 3400 6100 60  0001 C CNN "Source"
 	1    3400 6100
 	1    0    0    -1  
 $EndComp
@@ -579,7 +592,8 @@ F 0 "SW10" H 3550 6525 60  0000 L CNN
 F 1 "START" H 3550 6675 60  0000 L CNN
 F 2 "pkl_buttons_switches:Tact_Switch_Top_TH_7.8MM_Snap" H 3400 6575 60  0001 C CNN
 F 3 "" H 3400 6575 60  0000 C CNN
-F 4 "ANY" H 3400 6600 60  0001 C CNN "Source"
+F 4 "sw-tact-top-th-silicone" H 3400 6600 60  0001 C CNN "Key"
+F 5 "ANY" H 3400 6600 60  0001 C CNN "Source"
 	1    3400 6600
 	1    0    0    -1  
 $EndComp
@@ -709,7 +723,8 @@ F 0 "U2" H 14500 1050 60  0000 C CNN
 F 1 "lcd_50pin_logic" H 14500 4400 60  0000 C CNN
 F 2 "pkl_connectors:ER-CON50HT" H 14500 3600 60  0001 C CNN
 F 3 "" H 14500 3600 60  0001 C CNN
-F 4 "ANY" H 14500 2700 60  0001 C CNN "Source"
+F 4 "conn-ffc-smd-05mm-50-tc-slide" H 14500 2700 60  0001 C CNN "Key"
+F 5 "ANY" H 14500 2700 60  0001 C CNN "Source"
 	1    14500 2700
 	1    0    0    -1  
 $EndComp
@@ -722,6 +737,7 @@ F 1 "pkl_jumper" H 13300 2050 60  0001 C CNN
 F 2 "pkl_jumpers:J_0402" H 13300 1900 60  0001 C CNN
 F 3 "" H 13300 1900 60  0000 C CNN
 F 4 "ANY" H 13300 1900 60  0001 C CNN "Source"
+F 5 "DNP" H 13300 1900 60  0001 C CNN "DNP"
 	1    13300 1900
 	1    0    0    -1  
 $EndComp
@@ -734,6 +750,7 @@ F 1 "pkl_jumper" H 13300 2150 60  0001 C CNN
 F 2 "pkl_jumpers:J_0402" H 13300 2000 60  0001 C CNN
 F 3 "" H 13300 2000 60  0000 C CNN
 F 4 "ANY" H 13300 2000 60  0001 C CNN "Source"
+F 5 "DNP" H 13300 2000 60  0001 C CNN "DNP"
 	1    13300 2000
 	1    0    0    -1  
 $EndComp
@@ -746,6 +763,7 @@ F 1 "pkl_jumper" H 13300 2250 60  0001 C CNN
 F 2 "pkl_jumpers:J_0402" H 13300 2100 60  0001 C CNN
 F 3 "" H 13300 2100 60  0000 C CNN
 F 4 "ANY" H 13300 2100 60  0001 C CNN "Source"
+F 5 "DNP" H 13300 2100 60  0001 C CNN "DNP"
 	1    13300 2100
 	1    0    0    -1  
 $EndComp
@@ -758,6 +776,7 @@ F 1 "pkl_jumper" H 13300 2350 60  0001 C CNN
 F 2 "pkl_jumpers:J_0402" H 13300 2200 60  0001 C CNN
 F 3 "" H 13300 2200 60  0000 C CNN
 F 4 "ANY" H 13300 2200 60  0001 C CNN "Source"
+F 5 "DNP" H 13300 2200 60  0001 C CNN "DNP"
 	1    13300 2200
 	1    0    0    -1  
 $EndComp
@@ -802,7 +821,8 @@ F 0 "U7" H 5900 8950 60  0000 C CNN
 F 1 "TPA6135A2" H 5900 10250 60  0000 C CNN
 F 2 "pkl_housings_dfn_qfn:QFN-16-1EP_3x3mm_Pitch0.5mm" H 7650 8850 60  0001 C CNN
 F 3 "" H 7650 8850 60  0001 C CNN
-F 4 "ANY" H 5900 9700 60  0001 C CNN "Source"
+F 4 "ic-tpa6135a2-headphone-amp" H 5900 9700 60  0001 C CNN "Key"
+F 5 "ANY" H 5900 9700 60  0001 C CNN "Source"
 	1    5900 9700
 	1    0    0    -1  
 $EndComp
@@ -914,6 +934,7 @@ F 1 "Jumper_Dual" H 4300 10150 60  0001 C CNN
 F 2 "pkl_jumpers:J_0602" H 4300 10000 60  0001 C CNN
 F 3 "" H 4300 10000 60  0000 C CNN
 F 4 "ANY" H 4300 10000 60  0001 C CNN "Source"
+F 5 "DNP" H 4300 10000 60  0001 C CNN "DNP"
 	1    4300 10000
 	0    -1   -1   0   
 $EndComp
@@ -1055,7 +1076,8 @@ F 0 "U6" H 13100 6750 60  0000 C CNN
 F 1 "BQ24075" H 13100 8150 60  0000 C CNN
 F 2 "pkl_housings_dfn_qfn:QFN-16-1EP_3x3mm_Pitch0.5mm" H 15250 6350 60  0001 C CNN
 F 3 "" H 15250 6350 60  0001 C CNN
-F 4 "ANY" H 13100 7400 60  0001 C CNN "Source"
+F 4 "ic-bq24075" H 13100 7400 60  0001 C CNN "Key"
+F 5 "ANY" H 13100 7400 60  0001 C CNN "Source"
 	1    13100 7400
 	1    0    0    -1  
 $EndComp
@@ -1067,7 +1089,8 @@ F 0 "D2" H 15100 8100 50  0000 C CNN
 F 1 "GRN" H 15100 7900 50  0000 C CNN
 F 2 "pkl_dipol:D_0603" H 15100 8000 60  0001 C CNN
 F 3 "" H 15100 8000 60  0000 C CNN
-F 4 "ANY" H 15100 8000 60  0001 C CNN "Source"
+F 4 "led-0603-grn" H 15100 8000 60  0001 C CNN "Key"
+F 5 "ANY" H 15100 8000 60  0001 C CNN "Source"
 	1    15100 8000
 	-1   0    0    1   
 $EndComp
@@ -1079,7 +1102,8 @@ F 0 "D1" H 15100 7800 50  0000 C CNN
 F 1 "YEL" H 15100 7600 50  0000 C CNN
 F 2 "pkl_dipol:D_0603" H 15100 7700 60  0001 C CNN
 F 3 "" H 15100 7700 60  0000 C CNN
-F 4 "ANY" H 15100 7700 60  0001 C CNN "Source"
+F 4 "led-0603-yel" H 15100 7700 60  0001 C CNN "Key"
+F 5 "ANY" H 15100 7700 60  0001 C CNN "Source"
 	1    15100 7700
 	-1   0    0    1   
 $EndComp
@@ -1274,7 +1298,8 @@ F 0 "SW11" H 14450 7325 60  0000 L CNN
 F 1 "pkl_SWITCH-SPDT" H 14450 7475 60  0000 L CNN
 F 2 "pkl_buttons_switches:SW_SPDT_PCM12" H 14300 7375 60  0001 C CNN
 F 3 "" H 14300 7375 60  0000 C CNN
-F 4 "ANY" H 14300 7400 60  0001 C CNN "Source"
+F 4 "switch-slide-smd-spdt" H 14300 7400 60  0001 C CNN "Key"
+F 5 "ANY" H 14300 7400 60  0001 C CNN "Source"
 	1    14300 7400
 	1    0    0    -1  
 $EndComp
@@ -1350,7 +1375,11 @@ F 0 "P1" H 6050 950 60  0000 C CNN
 F 1 "PogoPin" V 6150 1100 60  0000 C CNN
 F 2 "pkl_pads:PAD_MILL-MAX_0906" H 6050 850 60  0001 C CNN
 F 3 "" H 6050 950 60  0000 C CNN
-F 4 "ANY" H 6050 1100 60  0001 C CNN "Source"
+F 4 "pin-pogo-millmax-0906-1-15-20-75-14-11-0" H 6050 1100 60  0001 C CNN "Key"
+F 5 "SMD with location Pogo Pin" H 6050 1100 60  0001 C CNN "Description"
+F 6 "MillMax" H 6050 1100 60  0001 C CNN "Manufacturer"
+F 7 "0906-1-15-20-75-14-11-0" H 6050 1100 60  0001 C CNN "MFN"
+F 8 "ANY" H 6050 1100 60  0001 C CNN "Source"
 	1    6050 1100
 	-1   0    0    1   
 $EndComp
@@ -1377,7 +1406,8 @@ F 0 "U4" H 9200 5050 60  0000 C CNN
 F 1 "74HC165" H 9200 6600 60  0000 C CNN
 F 2 "pkl_housings_sop:TSSOP-16_4.4x5mm_Pitch0.65mm" H 11390 4630 60  0001 C CNN
 F 3 "" H 11390 4630 60  0001 C CNN
-F 4 "ANY" H 9200 5850 60  0001 C CNN "Source"
+F 4 "ic-74hc165-8bit-shift-reg" H 9200 5850 60  0001 C CNN "Key"
+F 5 "ANY" H 9200 5850 60  0001 C CNN "Source"
 	1    9200 5850
 	1    0    0    -1  
 $EndComp
@@ -2051,7 +2081,8 @@ F 0 "U5" H 9200 6750 60  0000 C CNN
 F 1 "74HC165" H 9200 8300 60  0000 C CNN
 F 2 "pkl_housings_sop:TSSOP-16_4.4x5mm_Pitch0.65mm" H 11390 6330 60  0001 C CNN
 F 3 "" H 11390 6330 60  0001 C CNN
-F 4 "ANY" H 9200 7550 60  0001 C CNN "Source"
+F 4 "ic-74hc165-8bit-shift-reg" H 9200 7550 60  0001 C CNN "Key"
+F 5 "ANY" H 9200 7550 60  0001 C CNN "Source"
 	1    9200 7550
 	1    0    0    -1  
 $EndComp
@@ -2233,7 +2264,8 @@ F 0 "R6" V 7650 5150 50  0000 L CNN
 F 1 "10k" V 7650 4950 50  0000 R CNN
 F 2 "pkl_dipol:R_Array_Convex_4x0402" H 7700 5050 60  0001 C CNN
 F 3 "" H 7700 5050 60  0000 C CNN
-F 4 "ANY" H 7700 5050 60  0001 C CNN "Source"
+F 4 "res-1206cv-array-4-10k" H 7700 5050 60  0001 C CNN "Key"
+F 5 "ANY" H 7700 5050 60  0001 C CNN "Source"
 	1    7700 5050
 	-1   0    0    1   
 $EndComp
@@ -2245,7 +2277,8 @@ F 0 "R6" V 7750 5150 50  0000 L CNN
 F 1 "10k" V 7750 4950 50  0000 R CNN
 F 2 "pkl_dipol:R_Array_Convex_4x0402" H 7800 5050 60  0001 C CNN
 F 3 "" H 7800 5050 60  0000 C CNN
-F 4 "ANY" H 7800 5050 60  0001 C CNN "Source"
+F 4 "res-1206cv-array-4-10k" H 7800 5050 60  0001 C CNN "Key"
+F 5 "ANY" H 7800 5050 60  0001 C CNN "Source"
 	2    7800 5050
 	-1   0    0    1   
 $EndComp
@@ -2257,7 +2290,8 @@ F 0 "R6" V 7850 5150 50  0000 L CNN
 F 1 "10k" V 7850 4950 50  0000 R CNN
 F 2 "pkl_dipol:R_Array_Convex_4x0402" H 7900 5050 60  0001 C CNN
 F 3 "" H 7900 5050 60  0000 C CNN
-F 4 "ANY" H 7900 5050 60  0001 C CNN "Source"
+F 4 "res-1206cv-array-4-10k" H 7900 5050 60  0001 C CNN "Key"
+F 5 "ANY" H 7900 5050 60  0001 C CNN "Source"
 	3    7900 5050
 	-1   0    0    1   
 $EndComp
@@ -2269,7 +2303,8 @@ F 0 "R6" V 7950 5150 50  0000 L CNN
 F 1 "10k" V 7950 4950 50  0000 R CNN
 F 2 "pkl_dipol:R_Array_Convex_4x0402" H 8000 5050 60  0001 C CNN
 F 3 "" H 8000 5050 60  0000 C CNN
-F 4 "ANY" H 8000 5050 60  0001 C CNN "Source"
+F 4 "res-1206cv-array-4-10k" H 8000 5050 60  0001 C CNN "Key"
+F 5 "ANY" H 8000 5050 60  0001 C CNN "Source"
 	4    8000 5050
 	-1   0    0    1   
 $EndComp
@@ -2281,7 +2316,8 @@ F 0 "R7" V 8050 5150 50  0000 L CNN
 F 1 "10k" V 8050 4950 50  0000 R CNN
 F 2 "pkl_dipol:R_Array_Convex_4x0402" H 8100 5050 60  0001 C CNN
 F 3 "" H 8100 5050 60  0000 C CNN
-F 4 "ANY" H 8100 5050 60  0001 C CNN "Source"
+F 4 "res-1206cv-array-4-10k" H 8100 5050 60  0001 C CNN "Key"
+F 5 "ANY" H 8100 5050 60  0001 C CNN "Source"
 	1    8100 5050
 	-1   0    0    1   
 $EndComp
@@ -2293,7 +2329,8 @@ F 0 "R7" V 8150 5150 50  0000 L CNN
 F 1 "10k" V 8150 4950 50  0000 R CNN
 F 2 "pkl_dipol:R_Array_Convex_4x0402" H 8200 5050 60  0001 C CNN
 F 3 "" H 8200 5050 60  0000 C CNN
-F 4 "ANY" H 8200 5050 60  0001 C CNN "Source"
+F 4 "res-1206cv-array-4-10k" H 8200 5050 60  0001 C CNN "Key"
+F 5 "ANY" H 8200 5050 60  0001 C CNN "Source"
 	2    8200 5050
 	-1   0    0    1   
 $EndComp
@@ -2305,7 +2342,8 @@ F 0 "R7" V 8250 5150 50  0000 L CNN
 F 1 "10k" V 8250 4950 50  0000 R CNN
 F 2 "pkl_dipol:R_Array_Convex_4x0402" H 8300 5050 60  0001 C CNN
 F 3 "" H 8300 5050 60  0000 C CNN
-F 4 "ANY" H 8300 5050 60  0001 C CNN "Source"
+F 4 "res-1206cv-array-4-10k" H 8300 5050 60  0001 C CNN "Key"
+F 5 "ANY" H 8300 5050 60  0001 C CNN "Source"
 	3    8300 5050
 	-1   0    0    1   
 $EndComp
@@ -2317,7 +2355,8 @@ F 0 "R7" V 8350 5150 50  0000 L CNN
 F 1 "10k" V 8350 4950 50  0000 R CNN
 F 2 "pkl_dipol:R_Array_Convex_4x0402" H 8400 5050 60  0001 C CNN
 F 3 "" H 8400 5050 60  0000 C CNN
-F 4 "ANY" H 8400 5050 60  0001 C CNN "Source"
+F 4 "res-1206cv-array-4-10k" H 8400 5050 60  0001 C CNN "Key"
+F 5 "ANY" H 8400 5050 60  0001 C CNN "Source"
 	4    8400 5050
 	-1   0    0    1   
 $EndComp
@@ -2329,7 +2368,8 @@ F 0 "R10" V 7450 6850 50  0000 L CNN
 F 1 "10k" V 7450 6650 50  0000 R CNN
 F 2 "pkl_dipol:R_Array_Convex_4x0402" H 7500 6750 60  0001 C CNN
 F 3 "" H 7500 6750 60  0000 C CNN
-F 4 "ANY" H 7500 6750 60  0001 C CNN "Source"
+F 4 "res-1206cv-array-4-10k" H 7500 6750 60  0001 C CNN "Key"
+F 5 "ANY" H 7500 6750 60  0001 C CNN "Source"
 	1    7500 6750
 	-1   0    0    1   
 $EndComp
@@ -2341,7 +2381,8 @@ F 0 "R10" V 7550 6850 50  0000 L CNN
 F 1 "10k" V 7550 6650 50  0000 R CNN
 F 2 "pkl_dipol:R_Array_Convex_4x0402" H 7600 6750 60  0001 C CNN
 F 3 "" H 7600 6750 60  0000 C CNN
-F 4 "ANY" H 7600 6750 60  0001 C CNN "Source"
+F 4 "res-1206cv-array-4-10k" H 7600 6750 60  0001 C CNN "Key"
+F 5 "ANY" H 7600 6750 60  0001 C CNN "Source"
 	2    7600 6750
 	-1   0    0    1   
 $EndComp
@@ -2353,7 +2394,8 @@ F 0 "R10" V 7650 6850 50  0000 L CNN
 F 1 "10k" V 7650 6650 50  0000 R CNN
 F 2 "pkl_dipol:R_Array_Convex_4x0402" H 7700 6750 60  0001 C CNN
 F 3 "" H 7700 6750 60  0000 C CNN
-F 4 "ANY" H 7700 6750 60  0001 C CNN "Source"
+F 4 "res-1206cv-array-4-10k" H 7700 6750 60  0001 C CNN "Key"
+F 5 "ANY" H 7700 6750 60  0001 C CNN "Source"
 	3    7700 6750
 	-1   0    0    1   
 $EndComp
@@ -2365,7 +2407,8 @@ F 0 "R10" V 7750 6850 50  0000 L CNN
 F 1 "10k" V 7750 6650 50  0000 R CNN
 F 2 "pkl_dipol:R_Array_Convex_4x0402" H 7800 6750 60  0001 C CNN
 F 3 "" H 7800 6750 60  0000 C CNN
-F 4 "ANY" H 7800 6750 60  0001 C CNN "Source"
+F 4 "res-1206cv-array-4-10k" H 7800 6750 60  0001 C CNN "Key"
+F 5 "ANY" H 7800 6750 60  0001 C CNN "Source"
 	4    7800 6750
 	-1   0    0    1   
 $EndComp
@@ -2377,7 +2420,8 @@ F 0 "R11" V 7850 6850 50  0000 L CNN
 F 1 "10k" V 7850 6650 50  0000 R CNN
 F 2 "pkl_dipol:R_Array_Convex_4x0402" H 7900 6750 60  0001 C CNN
 F 3 "" H 7900 6750 60  0000 C CNN
-F 4 "ANY" H 7900 6750 60  0001 C CNN "Source"
+F 4 "res-1206cv-array-4-10k" H 7900 6750 60  0001 C CNN "Key"
+F 5 "ANY" H 7900 6750 60  0001 C CNN "Source"
 	1    7900 6750
 	-1   0    0    1   
 $EndComp
@@ -2389,7 +2433,8 @@ F 0 "R11" V 7950 6850 50  0000 L CNN
 F 1 "10k" V 7950 6650 50  0000 R CNN
 F 2 "pkl_dipol:R_Array_Convex_4x0402" H 8000 6750 60  0001 C CNN
 F 3 "" H 8000 6750 60  0000 C CNN
-F 4 "ANY" H 8000 6750 60  0001 C CNN "Source"
+F 4 "res-1206cv-array-4-10k" H 8000 6750 60  0001 C CNN "Key"
+F 5 "ANY" H 8000 6750 60  0001 C CNN "Source"
 	2    8000 6750
 	-1   0    0    1   
 $EndComp
@@ -2401,7 +2446,8 @@ F 0 "R11" V 8050 6850 50  0000 L CNN
 F 1 "10k" V 8050 6650 50  0000 R CNN
 F 2 "pkl_dipol:R_Array_Convex_4x0402" H 8100 6750 60  0001 C CNN
 F 3 "" H 8100 6750 60  0000 C CNN
-F 4 "ANY" H 8100 6750 60  0001 C CNN "Source"
+F 4 "res-1206cv-array-4-10k" H 8100 6750 60  0001 C CNN "Key"
+F 5 "ANY" H 8100 6750 60  0001 C CNN "Source"
 	3    8100 6750
 	-1   0    0    1   
 $EndComp
@@ -2413,7 +2459,8 @@ F 0 "R11" V 8150 6850 50  0000 L CNN
 F 1 "10k" V 8150 6650 50  0000 R CNN
 F 2 "pkl_dipol:R_Array_Convex_4x0402" H 8200 6750 60  0001 C CNN
 F 3 "" H 8200 6750 60  0000 C CNN
-F 4 "ANY" H 8200 6750 60  0001 C CNN "Source"
+F 4 "res-1206cv-array-4-10k" H 8200 6750 60  0001 C CNN "Key"
+F 5 "ANY" H 8200 6750 60  0001 C CNN "Source"
 	4    8200 6750
 	-1   0    0    1   
 $EndComp
@@ -2427,7 +2474,8 @@ F 0 "U8" H 2900 8850 60  0000 C CNN
 F 1 "MCP4661-103E/ML" H 2900 10150 60  0000 C CNN
 F 2 "pkl_housings_dfn_qfn:QFN-16-1EP_4x4mm_Pitch0.65mm" H 4800 9000 60  0001 C CNN
 F 3 "" H 4800 9000 60  0001 C CNN
-F 4 "ANY" H 2900 9500 60  0001 C CNN "Source"
+F 4 "ic-mcp4661-103eml-digital-dual-pot" H 2900 9500 60  0001 C CNN "Key"
+F 5 "ANY" H 2900 9500 60  0001 C CNN "Source"
 	1    2900 9500
 	1    0    0    -1  
 $EndComp
@@ -2517,10 +2565,11 @@ L TACT SW12
 U 1 1 5952A274
 P 6000 6200
 F 0 "SW12" H 6150 6125 60  0000 L CNN
-F 1 "A" H 6150 6275 60  0000 L CNN
+F 1 "~" H 6150 6275 60  0000 L CNN
 F 2 "pkl_buttons_switches:Tact_Switch_Side_B3U-3000P" H 6000 6175 60  0001 C CNN
 F 3 "" H 6000 6175 60  0000 C CNN
-F 4 "ANY" H 6000 6200 60  0001 C CNN "Source"
+F 4 "sw-tact-top-3.0-2.5" H 6000 6200 60  0001 C CNN "Key"
+F 5 "ANY" H 6000 6200 60  0001 C CNN "Source"
 	1    6000 6200
 	1    0    0    -1  
 $EndComp
@@ -2529,10 +2578,11 @@ L TACT SW13
 U 1 1 5952A537
 P 6000 6600
 F 0 "SW13" H 6150 6525 60  0000 L CNN
-F 1 "A" H 6150 6675 60  0000 L CNN
+F 1 "~" H 6150 6675 60  0000 L CNN
 F 2 "pkl_buttons_switches:Tact_Switch_Side_B3U-3000P" H 6000 6575 60  0001 C CNN
 F 3 "" H 6000 6575 60  0000 C CNN
-F 4 "ANY" H 6000 6600 60  0001 C CNN "Source"
+F 4 "sw-tact-top-3.0-2.5" H 6000 6600 60  0001 C CNN "Key"
+F 5 "ANY" H 6000 6600 60  0001 C CNN "Source"
 	1    6000 6600
 	1    0    0    -1  
 $EndComp
@@ -2566,7 +2616,8 @@ F 0 "J5" H 11100 7200 50  0000 C CNN
 F 1 "CONN_01X02" V 11200 7050 50  0000 C CNN
 F 2 "Connectors_JST_PH:Connectors_JST_S2B-PH-SM4-TB" H 11100 7050 50  0001 C CNN
 F 3 "" H 11100 7050 50  0001 C CNN
-F 4 "ANY" H 11100 7050 60  0001 C CNN "Source"
+F 4 "conn-2mm-2pin-jst-s2b" H 11100 7050 60  0001 C CNN "Key"
+F 5 "ANY" H 11100 7050 60  0001 C CNN "Source"
 	1    11100 7050
 	-1   0    0    -1  
 $EndComp
@@ -2594,7 +2645,8 @@ F 0 "J7" H 7200 9200 50  0000 C CNN
 F 1 "pkl_JACK_3C1S" H 7400 9850 50  0000 C CNN
 F 2 "pkl_connectors:SJ2-35853B-SMT" H 7550 9500 50  0001 C CNN
 F 3 "" H 7550 9500 50  0001 C CNN
-F 4 "ANY" H 7550 9500 60  0001 C CNN "Source"
+F 4 "conn-smd-3_5mm-headphone-3c1s" H 7550 9500 60  0001 C CNN "Key"
+F 5 "ANY" H 7550 9500 60  0001 C CNN "Source"
 	1    7550 9500
 	-1   0    0    -1  
 $EndComp
@@ -2622,7 +2674,8 @@ F 0 "BT1" H 11300 7600 50  0000 L CNN
 F 1 "Battery_Cell" H 11300 7500 50  0000 L CNN
 F 2 "pkl_misc:BATTERY_CLIP_18650" V 11200 7560 50  0001 C CNN
 F 3 "" V 11200 7560 50  0001 C CNN
-F 4 "ANY" H 11200 7500 60  0001 C CNN "Source"
+F 4 "conn-battery-clip-18650" H 11200 7500 60  0001 C CNN "Key"
+F 5 "ANY" H 11200 7500 60  0001 C CNN "Source"
 	1    11200 7500
 	-1   0    0    -1  
 $EndComp
