@@ -86,6 +86,8 @@ static inline size_t pixslice_size_bytes(const gfx_pixslice *slice)
 #define LCD_RDX_PIN     GPIO0
 #define LCD_DATA_PORT   GPIOB
 #define LCD_DATA_PINS ((GPIO15 << 1) - GPIO8)
+#define LCD_BL_PORT     GPIOB
+#define LCD_BL_PIN      GPIO4
 
 static const gpio_pin LCD_gpio_pins[] = {
 
@@ -123,6 +125,11 @@ static const gpio_pin LCD_gpio_pins[] = {
         .gp_pin   = LCD_DATA_PINS,
         .gp_mode  = GPIO_MODE_OUTPUT,
     },
+    {                           // BL (backlight control)
+        .gp_port  = LCD_BL_PORT,
+        .gp_pin   = LCD_BL_PIN,
+        .gp_mode  = GPIO_MODE_OUTPUT,
+    }
 };
         
 static const size_t LCD_gpio_pin_count = (&LCD_gpio_pins)[1] - LCD_gpio_pins;
@@ -534,6 +541,8 @@ static void start_video_dma(const pixslice_impl *impl)
         TIM8_PSC    = 0;
         // TIM8_ARR    = 34/2;
         // TIM8_CCR3   = 17/2;
+        //TIM8_ARR    = 17 + 2;
+        //TIM8_CCR3   = 12 + 4;
         TIM8_ARR    = 11 + 2;
         TIM8_CCR3   = 5 + 4;
         TIM8_BDTR   = TIM_BDTR_MOE | TIM_BDTR_OSSR;
@@ -674,6 +683,24 @@ static void init_pixslices(void)
     }
 }
 
+// --  Backlight control API   --  --  --  --  --  --  --  --  --  --  -
+
+void lcd_bl_on(void)
+{
+    /* Enable backlight. */
+    gpio_set(LCD_BL_PORT, LCD_BL_PIN);
+}
+
+void lcd_bl_off(void)
+{
+    /* Disable backlight. */
+    gpio_clear(LCD_BL_PORT, LCD_BL_PIN);
+}
+
+void lcd_bl_init(void)
+{
+    lcd_bl_on();
+}
 
 // --  Facade API  --  --  --  --  --  --  --  --  --  --  --  --  --  -
 

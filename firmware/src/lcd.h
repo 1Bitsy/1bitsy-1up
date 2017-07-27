@@ -51,5 +51,8 @@ extern void lcd_set_bg_color(gfx_rgb565 color, bool immediate);
 // Get the background pixel color.
 extern gfx_rgb565 lcd_bg_color(void);
 
+// Backlight control
+extern void lcd_bl_on(void);
+extern void lcd_bl_off(void);
 
 #endif /* !LCD_H */
