@@ -45,7 +45,31 @@ static struct tile_video_state {
 	uint16_t tilesheet_h;
 	uint16_t x_off;
 	uint16_t y_off;
+	uint32_t frames; /* just a counter of frames since time began. */
 } tile_video_state;
+
+/* Selects type of the sprite including fully disabled. */
+enum sprite_type {
+	S_off,
+	S_8x8,
+	S_8x16,
+	S_16x8,
+	S_16x16,
+};
+
+/* Sprite attributes. */
+/* We are using up to 4 tiles from the sprite sheet to represent a single
+ * sprite object. */
+struct sprite {
+	uint16_t tiles[4];
+	enum sprite_type type;
+	uint16_t x;
+	uint16_t y;
+};
+
+#define SPRITE_MAX_COUNT 16
+
+struct sprite sprites[SPRITE_MAX_COUNT];
 
 void tile_init(void)
 {
@@ -59,6 +83,18 @@ void tile_init(void)
 
 	tile_video_state.x_off = 0;
 	tile_video_state.y_off = 0;
+
+	tile_video_state.frames = 0; /* reset time */
+
+	sprites[0].type = S_8x16;
+	sprites[0].tiles[0] = 22;
+	sprites[0].tiles[1] = 64;
+	sprites[0].x = 10;
+	sprites[0].y = 10;
+
+	for(int i = 0; i < SPRITE_MAX_COUNT; i++) {
+		sprites[i].type = S_off;
+	}
 
 	gamepad_init();
 }
@@ -140,6 +176,115 @@ void tile_draw_tile(gfx_pixslice *slice, uint16_t tile_id, int px, int py)
 		}
 	}
 	#endif
+}
+
+void tile_draw_sprite_tile(gfx_pixslice *slice, uint16_t tile_id, int px, int py)
+{
+	int tile_x = (tile_id * 8) % SS_PIXMAP_WIDTH;
+	int tile_y = ((tile_id * 8) / SS_PIXMAP_WIDTH) * 8;
+
+	/* Check if the tile exists. */
+	if (tile_x >= SS_PIXMAP_WIDTH)
+	{
+		return;
+	}
+
+	if (tile_y >= SS_PIXMAP_HEIGHT)
+	{
+		return;
+	}
+
+	/* Trying to draw out of bounds. */
+	if ((px < -16) ||
+	    (px >= LCD_WIDTH) ||
+	    (py < (slice->y - 16)) ||
+	    (py >= (slice->y + slice->h))) {
+		return;
+	}
+
+	/* Trim draw bounds. */
+	int tile_x0 = 0;
+	int tile_w = 8;
+	if (px < 0) {
+		tile_x0 += -px / 2;
+		px = 0;
+	}
+	else if (px + 16 > LCD_WIDTH) {
+		tile_w -= (px + 16 - LCD_WIDTH) / 2;
+	}
+
+	int tile_y0 = 0;
+	int tile_h = 8;
+	if (py < 0) {
+		tile_y0 += -py / 2;
+		py = 0;
+	}
+	else if (py + 16 > LCD_HEIGHT) {
+		tile_h -= (py + 16 - LCD_HEIGHT) / 2;
+	}
+
+	/* Draw tile. */
+	for (int y = tile_y0; y < tile_h; y++) {
+		gfx_rgb565 *px0 =
+			gfx_pixel_address_unchecked(slice, px, py + ((y - tile_y0) * 2));
+		gfx_rgb565 *px1 =
+			gfx_pixel_address_unchecked(slice, px, py + ((y - tile_y0) * 2) + 1);
+
+		for (int x = tile_x0; x < tile_w; x++) {
+			uint16_t c = ss_pixmap[tile_y + y][tile_x + x];
+
+			if (c != 0xF81F) {
+				*px0++ = c;
+				*px0++ = c;
+				*px1++ = c;
+				*px1++ = c;
+			} else {
+				px0+=2;
+				px1+=2;
+			}
+		}
+	}
+}
+
+void tile_draw_sprite(gfx_pixslice *slice, struct sprite *sprite)
+{
+	switch(sprite->type) {
+		case S_off:
+			return;
+		case S_8x8:
+			tile_draw_sprite_tile(slice, sprite->tiles[0],
+					 sprite->x, sprite->y);
+			break;
+		case S_8x16:
+			tile_draw_sprite_tile(slice, sprite->tiles[0],
+					 sprite->x, sprite->y);
+			tile_draw_sprite_tile(slice, sprite->tiles[1],
+					 sprite->x, sprite->y + 16);
+			break;
+		case S_16x8:
+			tile_draw_sprite_tile(slice, sprite->tiles[0],
+					 sprite->x, sprite->y);
+			tile_draw_sprite_tile(slice, sprite->tiles[1],
+					 sprite->x + 16, sprite->y);
+			break;
+		case S_16x16:
+			tile_draw_sprite_tile(slice, sprite->tiles[0],
+					 sprite->x, sprite->y);
+			tile_draw_sprite_tile(slice, sprite->tiles[1],
+					 sprite->x + 16, sprite->y);
+			tile_draw_sprite_tile(slice, sprite->tiles[2],
+					 sprite->x, sprite->y + 16);
+			tile_draw_sprite_tile(slice, sprite->tiles[3],
+					 sprite->x + 16, sprite->y + 16);
+			break;
+	}
+}
+
+void tile_draw_sprites(gfx_pixslice *slice)
+{
+	for(int i=SPRITE_MAX_COUNT; i > 0; i++) {
+		tile_draw_sprite(slice, &sprites[i-1]);
+	}
 }
 
 void tile_draw_char8(gfx_pixslice *slice, char ch, int x, int y, gfx_rgb565 color)
@@ -337,7 +482,9 @@ static void tile_render_slice(gfx_pixslice *slice)
 //		tile_draw_tile(slice, 1, 10, 10);
 //	}
 
-    gpio_set(GPIOA, GPIO3);
+	gpio_set(GPIOA, GPIO3);
+
+	/* Tilemap */
 	for (size_t y = slice->y / 16; y <= (slice->y + slice->h)/16; y++) {
 		for (size_t x = 0; x <= slice->w / 16; x++) {
 			const uint16_t tid =
@@ -351,12 +498,16 @@ static void tile_render_slice(gfx_pixslice *slice)
 		}
 	}
 
+	/* Sprites */
+	tile_draw_sprites(slice);
+
+	/* Text */
 	if(slice->y == 0) {
 		tile_draw_fps(slice);
 		tile_draw_gamepad(slice);
 	}
 
-    gpio_clear(GPIOA, GPIO3);
+	gpio_clear(GPIOA, GPIO3);
 }
 
 void tile_render(void)
@@ -375,4 +526,6 @@ void tile_render(void)
         tile_render_slice(slice);
         lcd_send_pixslice(slice);
     }
+
+    tile_video_state.frames++; /* increment time */
 }
