@@ -46,6 +46,7 @@ static struct tile_video_state {
 	uint16_t x_off;
 	uint16_t y_off;
 	uint32_t frames; /* just a counter of frames since time began. */
+	uint32_t idle; /* time since no gamepad input */
 } tile_video_state;
 
 /* Selects type of the sprite including fully disabled. */
@@ -397,7 +398,11 @@ void tile_animate(void)
 	static uint16_t stay = 0;
 	uint16_t gamepad = gamepad_get();
 
-	if (gamepad != 0xFFFF ) {
+	if (gamepad != 0x0000) {
+		tile_video_state.idle = 0;
+	}
+
+	if ((gamepad != 0xFFFF) && (tile_video_state.idle < (80 * 10))) {
 		if ((gamepad & GAMEPAD_BLEFT) != 0) {
 			if (map_x_off > 0) {
 				map_x_off--;
@@ -536,4 +541,5 @@ void tile_render(void)
     }
 
     tile_video_state.frames++; /* increment time */
+    tile_video_state.idle++; /* increment idle time */
 }
