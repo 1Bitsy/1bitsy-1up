@@ -36,6 +36,11 @@ static int16_t map_x_off = 0;
 static int16_t map_x_dir = +1;
 static int16_t map_y_off = 3 * 8;
 
+static int16_t spr_x = 10;
+static int16_t spr_y = 10;
+static int16_t spr_x_dir = +1;
+static int16_t spr_y_dir = +1;
+
 static struct tile_video_state {
 	uint16_t const *tilemap;
 	uint16_t tilemap_w;
@@ -421,6 +426,25 @@ void tile_animate(void)
 				map_y_off++;
 			}
 		}
+
+		if ((gamepad & GAMEPAD_BY) != 0) {
+			if (spr_x > 0) {
+				spr_x--;
+			}
+		} else if ((gamepad & GAMEPAD_BA) != 0) {
+			if (spr_x < (19 * 8 * 2)) {
+				spr_x++;
+			}
+		}
+		if ((gamepad & GAMEPAD_BX) != 0) {
+			if (spr_y > 0) {
+				spr_y--;
+			}
+		} else if ((gamepad & GAMEPAD_BB) != 0) {
+			if (spr_y < (13 * 8 * 2)) {
+				spr_y++;
+			}
+		}
 	} else {
 		if (delay == 1) {
 			delay = 0;
@@ -444,6 +468,25 @@ void tile_animate(void)
 		} else {
 			delay++;
 		}
+
+		spr_x += spr_x_dir;
+		spr_y += spr_y_dir;
+
+		if ((spr_x + 14) == (LCD_WIDTH-1)) {
+			spr_x_dir = -1;
+		}
+
+		if (spr_x == 0) {
+			spr_x_dir = 1;
+		}
+
+		if ((spr_y + 22) == (LCD_HEIGHT-1)) {
+			spr_y_dir = -1;
+		}
+
+		if (spr_y == 0) {
+			spr_y_dir = 1;
+		}
 	}
 
 	if ((tile_video_state.frames / 40) % 2) { /* every 80 frames */
@@ -453,6 +496,9 @@ void tile_animate(void)
 		sprites[0].tiles[0] = 21;
 		sprites[0].tiles[1] = 63;
 	}
+
+	sprites[0].x = spr_x;
+	sprites[0].y = spr_y;
 }
 
 static void tile_render_slice(gfx_pixslice *slice)
