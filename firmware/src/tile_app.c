@@ -86,15 +86,15 @@ void tile_init(void)
 
 	tile_video_state.frames = 0; /* reset time */
 
+	for(int i = 0; i < SPRITE_MAX_COUNT; i++) {
+		sprites[i].type = S_off;
+	}
+
 	sprites[0].type = S_8x16;
 	sprites[0].tiles[0] = 22;
 	sprites[0].tiles[1] = 64;
 	sprites[0].x = 10;
 	sprites[0].y = 10;
-
-	for(int i = 0; i < SPRITE_MAX_COUNT; i++) {
-		sprites[i].type = S_off;
-	}
 
 	gamepad_init();
 }
@@ -282,7 +282,7 @@ void tile_draw_sprite(gfx_pixslice *slice, struct sprite *sprite)
 
 void tile_draw_sprites(gfx_pixslice *slice)
 {
-	for(int i=SPRITE_MAX_COUNT; i > 0; i++) {
+	for(int i=SPRITE_MAX_COUNT; i > 0; i--) {
 		tile_draw_sprite(slice, &sprites[i-1]);
 	}
 }
@@ -439,6 +439,14 @@ void tile_animate(void)
 		} else {
 			delay++;
 		}
+	}
+
+	if ((tile_video_state.frames / 40) % 2) { /* every 80 frames */
+		sprites[0].tiles[0] = 43;
+		sprites[0].tiles[1] = 64;
+	} else {
+		sprites[0].tiles[0] = 21;
+		sprites[0].tiles[1] = 63;
 	}
 }
 
