@@ -54,5 +54,6 @@ extern gfx_rgb565 lcd_bg_color(void);
 // Backlight control
 extern void lcd_bl_on(void);
 extern void lcd_bl_off(void);
+extern void lcd_bl_toggle(void);
 
 #endif /* !LCD_H */

@@ -129,6 +129,8 @@ static const gpio_pin LCD_gpio_pins[] = {
         .gp_port  = LCD_BL_PORT,
         .gp_pin   = LCD_BL_PIN,
         .gp_mode  = GPIO_MODE_OUTPUT,
+        .gp_pupd  = GPIO_PUPD_NONE,
+        .gp_level = 1,
     }
 };
         
@@ -697,9 +699,15 @@ void lcd_bl_off(void)
     gpio_clear(LCD_BL_PORT, LCD_BL_PIN);
 }
 
+void lcd_bl_toggle(void)
+{
+    /* Toggle the backlight state. */
+    gpio_toggle(LCD_BL_PORT, LCD_BL_PIN);
+}
+
 void lcd_bl_init(void)
 {
-    lcd_bl_on();
+    /* Nothing to be done. */
 }
 
 // --  Facade API  --  --  --  --  --  --  --  --  --  --  --  --  --  -
@@ -709,6 +717,7 @@ void lcd_init(void)
     init_video_dma();
     init_clear_dma();
     init_pixslices();
+    lcd_bl_init();
 }
 
 gfx_pixslice *lcd_alloc_pixslice(int x, int y, size_t w, size_t h)
