@@ -89,7 +89,7 @@ static inline size_t pixslice_size_bytes(const gfx_pixslice *slice)
 #define LCD_BL_PORT     GPIOB
 #define LCD_BL_PIN      GPIO4
 
-static const gpio_pin LCD_gpio_pins[] = {
+static const gpio_pin lcd_gpio_pins[] = {
 
     {                           // CSX (chip select)
         .gp_port  = LCD_CSX_PORT,
@@ -134,7 +134,7 @@ static const gpio_pin LCD_gpio_pins[] = {
     }
 };
         
-static const size_t LCD_gpio_pin_count = (&LCD_gpio_pins)[1] - LCD_gpio_pins;
+static const size_t lcd_gpio_pin_count = (&lcd_gpio_pins)[1] - lcd_gpio_pins;
 
 
 // -- ILI9341 Definitions  --  --  --  --  --  --  --  --  --  --  --  -
@@ -635,7 +635,7 @@ static void init_video_dma(void)
     rcc_periph_clock_enable(RCC_GPIOC);
 
     // GPIO
-    gpio_init_pins(LCD_gpio_pins, LCD_gpio_pin_count);
+    gpio_init_pins(lcd_gpio_pins, lcd_gpio_pin_count);
         
     // TIMER
     rcc_periph_clock_enable(RCC_TIM8);
