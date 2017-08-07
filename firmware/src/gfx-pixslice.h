@@ -31,7 +31,7 @@ struct gfx_pixslice {
     ssize_t     stride;         // row stride in pixels
 };
 
-extern void gfx_init_pixslice(gfx_pixslice *slice,
+void gfx_init_pixslice(gfx_pixslice *slice,
                              void *buffer,
                              int x, int y,
                              size_t w, size_t h,
@@ -43,12 +43,12 @@ static inline gfx_rgb565 *gfx_pixel_address_unchecked(gfx_pixslice *slice,
     return slice->pixels + y * slice->stride + x;
 }
 
-extern gfx_rgb565 *gfx_pixel_address(gfx_pixslice *slice, int x, int y);
+gfx_rgb565 *gfx_pixel_address(gfx_pixslice *slice, int x, int y);
 
 // Copy source pixmap into destination.
 // offset translates src coordinates to dest.
 // dest coord = src coord + offset.
-extern void gfx_copy_pixslice(gfx_pixslice       *dest,
+void gfx_copy_pixslice(gfx_pixslice       *dest,
                              gfx_pixslice const *src,
                              gfx_ipoint         offset);
 

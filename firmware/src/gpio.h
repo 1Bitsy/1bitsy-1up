@@ -35,8 +35,8 @@ typedef struct gpio_pin {
     uint8_t  gp_level  : 1;     // 0 or 1
 } gpio_pin;
 
-extern void gpio_init_pin(const gpio_pin *);
+void gpio_init_pin(const gpio_pin *);
 
-extern void gpio_init_pins(const gpio_pin *, size_t count);
+void gpio_init_pins(const gpio_pin *, size_t count);
 
 #endif /* GPIO_H */

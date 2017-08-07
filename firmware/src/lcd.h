@@ -32,7 +32,7 @@
 
 // Init the clocks, GPIO pins, timer, DMA controller, ILI9341 chip,
 // and pixslice DMA buffers.
-extern void lcd_init(void);
+void lcd_init(void);
 
 // Use alloc_pixslice to get DMA-capable slices.
 // Maximum size is 64 KB (32 Kpixels).
@@ -46,14 +46,14 @@ void lcd_send_pixslice(gfx_pixslice *);
 //
 // If immediate, the next slice allocated will have the new color.
 // Otherwise, color change will take effect after 0-2 allocations.
-extern void lcd_set_bg_color(gfx_rgb565 color, bool immediate);
+void lcd_set_bg_color(gfx_rgb565 color, bool immediate);
 
 // Get the background pixel color.
-extern gfx_rgb565 lcd_bg_color(void);
+gfx_rgb565 lcd_bg_color(void);
 
 // Backlight control
-extern void lcd_bl_on(void);
-extern void lcd_bl_off(void);
-extern void lcd_bl_toggle(void);
+void lcd_bl_on(void);
+void lcd_bl_off(void);
+void lcd_bl_toggle(void);
 
 #endif /* !LCD_H */
