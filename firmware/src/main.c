@@ -29,6 +29,7 @@
 #include "systick.h"
 #include "math-util.h"
 #include "button_boot.h"
+#include "gamepad.h"
 
 /* "Apps" */
 #include "munch_app.h"
@@ -65,6 +66,11 @@ enum app_ids {
     end_app
 } active_app = 0;
 
+static void handle_systick(uint32_t millis)
+{
+    button_pressed_debounce();
+}
+
 static void setup(void)
 {
     rcc_clock_setup_hse_3v3(&MY_CLOCK);
@@ -73,9 +79,12 @@ static void setup(void)
     flash_dcache_enable();
 
     setup_systick(MY_CLOCK.ahb_frequency);
+    register_systick_handler(handle_systick);
 
     lcd_set_bg_color(BG_COLOR, false);
     lcd_init();
+
+    gamepad_init();
 
     /* Toggles with every frame */
     gpio_mode_setup(GPIOA, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO1);

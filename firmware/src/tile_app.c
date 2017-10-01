@@ -101,8 +101,6 @@ void tile_init(void)
 	sprites[0].tiles[1] = 64;
 	sprites[0].x = 10;
 	sprites[0].y = 10;
-
-	gamepad_init();
 }
 
 void tile_draw_tile(gfx_pixslice *slice, uint16_t tile_id, int px, int py)
@@ -347,6 +345,9 @@ extern uint32_t fps;
 
 void tile_draw_fps(gfx_pixslice *slice)
 {
+	if (slice->y >= 16)
+		return;
+
 	uint32_t lfps = fps;
 	int pos = 0;
 	char *prefix = "fps: ";
@@ -366,6 +367,9 @@ void tile_draw_fps(gfx_pixslice *slice)
 
 void tile_draw_gamepad(gfx_pixslice *slice)
 {
+	if (slice->y >= 32)
+		return;
+
 	char *prefix = "gamepad: ";
 	uint16_t gamepad = gamepad_get();
 
