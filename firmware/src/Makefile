@@ -19,8 +19,8 @@
 
 BINARY = 1up-native
 
-OBJS = main.o systick.o lcd.o gfx-pixslice.o gpio.o button_boot.o \
-       munch_app.o tile_app.o gamepad.o
+OBJS = main.o audio.o systick.o lcd.o gfx-pixslice.o gpio.o button_boot.o \
+       munch_app.o tile_app.o audio_app.o gamepad.o volume.o text.o
 
 LDSCRIPT = 1bitsy-stm32f415rgt-gfx.ld
 

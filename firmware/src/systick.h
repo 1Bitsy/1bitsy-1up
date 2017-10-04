@@ -28,7 +28,7 @@ extern "C" {
 
 typedef void systick_handler(uint32_t millis);
 
-volatile uint32_t system_millis;
+extern volatile uint32_t system_millis;
 
 
 void setup_systick(uint32_t cpu_freq);

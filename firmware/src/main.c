@@ -24,21 +24,29 @@
 #include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/gpio.h>
 
-#include "lcd.h"
-
-#include "systick.h"
-#include "math-util.h"
 #include "button_boot.h"
 #include "gamepad.h"
+#include "lcd.h"
+#include "math-util.h"
+#include "systick.h"
+#include "text.h"
 
 /* "Apps" */
 #include "munch_app.h"
 #include "tile_app.h"
+#include "audio_app.h"
 
 #define MY_CLOCK (rcc_hse_25mhz_3v3[RCC_CLOCK_3V3_168MHZ])
 #define BG_COLOR 0x0000         // black
 
 uint32_t   fps;
+
+enum app_ids {
+    munch_app,
+    tile_app,
+    audio_app,
+    end_app
+} active_app = munch_app;
 
 /* Function pointers to available apps. The first one executes by default.
  * Do not forget to adjust the enum if you are messing around with this list.
@@ -48,23 +56,22 @@ struct app {
 	void (*animate)(void);
 	void (*render)(void);
 } apps[] = {
-	{
+	[munch_app] = {
 		.init = munch_init,
 		.animate = munch_animate,
 		.render = munch_render
 	},
-	{
+	[tile_app] = {
 		.init = tile_init,
 		.animate = tile_animate,
 		.render = tile_render
-	}
+	},
+	[audio_app] = {
+		.init = audio_app_init,
+		.animate = audio_animate,
+		.render = audio_render
+	},
 };
-
-enum app_ids {
-    munch_app,
-    tile_app,
-    end_app
-} active_app = 0;
 
 static void handle_systick(uint32_t millis)
 {
@@ -83,6 +90,8 @@ static void setup(void)
 
     lcd_set_bg_color(BG_COLOR, false);
     lcd_init();
+
+    text_init();
 
     gamepad_init();
 

@@ -22,9 +22,10 @@
 
 #include "tile_app.h"
 
+#include "gamepad.h"
 #include "lcd.h"
 #include "math-util.h"
-#include "gamepad.h"
+#include "text.h"
 
 #include "assets/assets.h"
 
@@ -313,34 +314,6 @@ void tile_draw_char8(gfx_pixslice *slice, char ch, int x, int y, gfx_rgb565 colo
 	}
 }
 
-void tile_draw_char16(gfx_pixslice *slice, char ch, int x, int y, gfx_rgb565 color)
-{
-	int xoff = x * 8;
-	int yoff = y * 16;
-
-	if ((ch < MINIWI_FONT_OFFSET) || (ch > (MINIWI_FONT_OFFSET + MINIWI_FONT_GLYPH_COUNT))) {
-		return;
-	}
-
-	for (int py = 0; py < 8; py++) {
-		gfx_rgb565 *px0 =
-			gfx_pixel_address_unchecked(slice, xoff, yoff + (py * 2));
-		gfx_rgb565 *px1 =
-			gfx_pixel_address_unchecked(slice, xoff, yoff + (py * 2) + 1);
-		for (int px = 0; px < 4; px++) {
-			if ((miniwi_font[(int)ch - MINIWI_FONT_OFFSET][px] & (1 << py)) != 0) {
-				*px0++ = color;
-				*px0++ = color;
-				*px1++ = color;
-				*px1++ = color;
-			} else {
-				px0+=2;
-				px1+=2;
-			}
-		}
-	}
-}
-
 extern uint32_t fps;
 
 void tile_draw_fps(gfx_pixslice *slice)
@@ -354,13 +327,13 @@ void tile_draw_fps(gfx_pixslice *slice)
 
 	for (; lfps > 0; lfps /= 10) {
 		//tile_draw_char8(slice, (lfps % 10) + '0', LCD_WIDTH / 4 - (pos + 1), 0, 0x0000);
-		tile_draw_char16(slice, (lfps % 10) + '0', LCD_WIDTH / 8 - (pos + 1), 0, 0x0000);
+		text_draw_char16(slice, (lfps % 10) + '0', LCD_WIDTH / 8 - (pos + 1), 0, 0x0000);
 		pos++;
 	}
 
 	for (int i = 0; i < 5; i++) {
 		//tile_draw_char8(slice, prefix[4 - i], LCD_WIDTH / 4 - (pos + 1), 0, 0x0000);
-		tile_draw_char16(slice, prefix[4 -i], LCD_WIDTH / 8 - (pos + 1), 0, 0x0000);
+		text_draw_char16(slice, prefix[4 - i], LCD_WIDTH / 8 - (pos + 1), 0, 0x0000);
 		pos++;
 	}
 }
@@ -376,17 +349,17 @@ void tile_draw_gamepad(gfx_pixslice *slice)
 	for (int i = 0; i < 16; i++) {
 		if ((gamepad & (1 << i)) != 0) {
 			//tile_draw_char8(slice, '1', LCD_WIDTH / 4 - (i + 1), 1, 0x0000);
-			tile_draw_char16(slice, '1', LCD_WIDTH / 8 - (i + 1), 1, 0x0000);
+			text_draw_char16(slice, '1', LCD_WIDTH / 8 - (i + 1), 1, 0x0000);
 		} else {
 			//tile_draw_char8(slice, '0', LCD_WIDTH / 4 - (i + 1), 1, 0x0000);
-			tile_draw_char16(slice, '0', LCD_WIDTH / 8 - (i + 1), 1, 0x0000);
+			text_draw_char16(slice, '0', LCD_WIDTH / 8 - (i + 1), 1, 0x0000);
 		}
 	}
 
 	for (int i = 0; prefix[i] != 0; i++) {
 		//tile_draw_char8(slice, prefix[i],
 		//	LCD_WIDTH / 4 - (16 + strlen(prefix)) + i, 1, 0x0000);
-		tile_draw_char16(slice, prefix[i],
+		text_draw_char16(slice, prefix[i],
 			LCD_WIDTH / 8 - (16 + strlen(prefix)) + i, 1, 0x0000);
 	}
 }
