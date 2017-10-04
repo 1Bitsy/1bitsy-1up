@@ -2,3 +2,4 @@
 _autosave-*
 *.net
 *.zip
+.gdbinit
