@@ -25,8 +25,6 @@
 #include "text.h"
 #include "volume.h"
 
-#define TILE_SLICE_MAX_H (uint32_t)80 /* max height of a pixslice to procees in the renderer */
-
 const gfx_rgb565 bg_color  = 0xF81F;
 const gfx_rgb565 vol_color = 0x07E0;
 
@@ -117,7 +115,7 @@ void audio_render(void)
     }
 
     for (size_t y = 0, h; y < LCD_HEIGHT; y += h) {
-        h = MIN(TILE_SLICE_MAX_H, LCD_HEIGHT - y);
+        h = MIN(LCD_MAX_SLICE_ROWS, LCD_HEIGHT - y);
         gfx_pixslice *slice = lcd_alloc_pixslice(0, y, LCD_WIDTH, h);
         audio_render_slice(slice);
         lcd_send_pixslice(slice);
