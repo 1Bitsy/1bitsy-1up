@@ -19,19 +19,91 @@
 
 #include "audio_app.h"
 
+#include "audio.h"
 #include "gamepad.h"
 #include "lcd.h"
 #include "math-util.h"
 #include "text.h"
 #include "volume.h"
 
+// Define these to test other audio paths.
+//#define MONO
+//#define BIT8
+
+#define Fs (44100.0)
+#define FREQ0 (440.0 / 8) // A1, 55Hz
+#define FREQ1 (523.3 / 8) // C2, 64 Hz
+
+#ifdef MONO
+    #define ACC  ACC_MONO
+#else
+    #define ACC  ACC_STEREO
+#endif
+
+#ifdef BIT8
+    typedef uint8_t sample;
+    #define SAMP_MAX 255
+    #define ASD  ASD_8BIT
+#else
+    typedef uint16_t sample;
+    #define SAMP_MAX 4095
+    #define ASD  ASD_12BIT
+#endif
+
 const gfx_rgb565 bg_color  = 0xF81F;
 const gfx_rgb565 vol_color = 0x07E0;
 
 bool vol_is_visible;
 
+char abuf[704] __attribute__((section(".sram2")));
+
+#ifdef MONO
+
+static void audio_callback(void *buf, size_t frame_count)
+{
+    sample *frames = buf;
+    static float phase;
+
+    for (size_t i = 0; i < frame_count; i++) {
+        frames[i] = phase * SAMP_MAX;
+        phase += FREQ0 / Fs;
+        if (phase >= 1.0)
+            phase -= 1.0;
+    }
+}
+
+#else
+
+static void audio_callback(void *buf, size_t frame_count)
+{
+    sample (*frames)[2] = buf;
+    static float phase[2];
+
+    for (size_t i = 0; i < frame_count; i++) {
+        frames[i][0] = phase[0] * SAMP_MAX;
+        frames[i][1] = SAMP_MAX - phase[1] * SAMP_MAX;
+        phase[0] += FREQ0 / Fs;
+        phase[1] += FREQ1 / Fs;
+        if (phase[0] >= 1.0)
+            phase[0] -= 1.0;
+        if (phase[1] >= 1.0)
+            phase[1] -= 1.0;
+    }
+}
+
+#endif
+
 void audio_app_init(void)
-{}
+{
+    audio_init(44100, ACC, ASD, abuf, sizeof abuf);
+    audio_register_callback(audio_callback);
+    audio_start();
+}
+
+void audio_app_end(void)
+{
+    audio_stop();
+}
 
 void audio_animate(void)
 {
@@ -51,7 +123,7 @@ void audio_draw_vol(gfx_pixslice *slice)
 
     char *prefix = "vol: ";
 
-    int xoff = 4;
+   int xoff = 4;
     for (const char *p = prefix; *p; p++) {
         text_draw_char16(slice, *p, xoff, text_y, vol_color);
         xoff++;

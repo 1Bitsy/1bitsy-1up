@@ -19,8 +19,9 @@
 
 BINARY = 1up-native
 
-OBJS = main.o audio.o systick.o lcd.o gfx-pixslice.o gpio.o button_boot.o \
-       munch_app.o tile_app.o audio_app.o gamepad.o volume.o text.o
+OBJS := main.o audio.o audio_app.o button_boot.o gamepad.o		\
+        gfx-pixslice.o gpio.o lcd.o munch_app.o systick.o text.o	\
+        tile_app.o volume.o
 
 LDSCRIPT = 1bitsy-stm32f415rgt-gfx.ld
 
@@ -41,7 +42,7 @@ CFLAGS	 = $(cflags) $(OPT)
 
 lcd.o: OPT := -O0
 
-tile_app.o: assets/assets.h
+text.o tile_app.o: assets/assets.h
 
 assets/assets.h: assets/gen-assets.py assets/*.png
 	@printf "  ASSETS  $?\n"

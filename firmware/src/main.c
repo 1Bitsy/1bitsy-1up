@@ -55,21 +55,25 @@ struct app {
 	void (*init)(void);
 	void (*animate)(void);
 	void (*render)(void);
+	void (*end)(void);
 } apps[] = {
 	[munch_app] = {
 		.init = munch_init,
 		.animate = munch_animate,
-		.render = munch_render
+		.render = munch_render,
+                .end = NULL,
 	},
 	[tile_app] = {
 		.init = tile_init,
 		.animate = tile_animate,
-		.render = tile_render
+		.render = tile_render,
+                .end = NULL,
 	},
 	[audio_app] = {
 		.init = audio_app_init,
 		.animate = audio_animate,
-		.render = audio_render
+		.render = audio_render,
+                .end = audio_app_end,
 	},
 };
 
@@ -120,11 +124,16 @@ static void check_app_switch(void)
 
     if (!state) {
         if (button_pressed_debounce()) {
+            if (apps[active_app].end) {
+                apps[active_app].end();
+            }
             active_app++;
             if (active_app == end_app) {
                 active_app = 0;
             }
-            apps[active_app].init();
+            if (apps[active_app].init) {
+                apps[active_app].init();
+            }
             state = true;
             gpio_clear(GPIOA, GPIO8);
         }
@@ -138,6 +147,9 @@ static void check_app_switch(void)
 
 static void run(void)
 {
+    if (apps[active_app].init) {
+        apps[active_app].init();
+    }
     while (true) {
         apps[active_app].animate();
         apps[active_app].render();

@@ -3,6 +3,11 @@
 #include <libopencm3/cm3/nvic.h>
 
 #include <libopencm3/stm32/dac.h>
+#ifndef DAC_SR                  // XXX DAC_SR is missing?
+    #define DAC_SR MMIO32(DAC_BASE + 0x34)
+    #define DAC_SR_DMAUDR2 (1 << 29)
+    #define DAC_SR_DMAUDR1 (1 << 13)
+#endif
 #include <libopencm3/stm32/dma.h>
 #include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/timer.h>
@@ -25,9 +30,11 @@ static audio_sample_depth  sample_depth;
 static void               *sample_buffer;
 static size_t              buffer_bytes;
 
-static audio_callback     *registered_callback;
+static audio_callback_fn  *registered_callback;
+
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  -
+
 
 uint32_t audio_get_sample_rate(void)
 {
@@ -64,12 +71,13 @@ size_t audio_get_byte_count(void)
     return buffer_bytes;
 }
 
+
 // --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  -
+
 
 static void init_timer(void)
 {
-    // XXX Is this right?
-    uint32_t period = (rcc_apb1_frequency + sample_rate / 2) / sample_rate;
+    uint32_t period = (rcc_apb2_frequency + sample_rate / 2) / sample_rate;
 
     /* Enable TIM6 clock. */
     rcc_periph_clock_enable(RCC_TIM6);
@@ -93,29 +101,42 @@ static void stop_timer(void)
     timer_disable_counter(TIM6);
 }
 
+
 // --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  -
+
 
 static void init_dma(void)
 {
+    uint32_t mono_msize = 0, mono_psize = 0;
+    uint32_t stereo_msize = 0, stereo_psize = 0;
     uint32_t cr_msize = 0, cr_psize = 0;
     volatile void *dhr1a = 0, *dhr2a = 0, *dhrda = 0;
 
     if (sample_depth == ASD_8BIT) {
-        cr_msize = DMA_SxCR_MSIZE_8BIT;
-        cr_psize = DMA_SxCR_PSIZE_8BIT;
-        dhr1a    = &DAC_DHR8R1;
-        dhr2a    = &DAC_DHR8R2;
-        dhrda    = &DAC_DHR8RD;
+        mono_msize   = DMA_SxCR_MSIZE_8BIT;
+        mono_psize   = DMA_SxCR_PSIZE_8BIT;
+        stereo_msize = DMA_SxCR_MSIZE_16BIT;
+        stereo_psize = DMA_SxCR_PSIZE_16BIT;
+        dhr1a        = &DAC_DHR8R1;
+        dhr2a        = &DAC_DHR8R2;
+        dhrda        = &DAC_DHR8RD;
     } else if (sample_depth == ASD_12BIT) {
-        cr_msize = DMA_SxCR_MSIZE_16BIT;
-        cr_psize = DMA_SxCR_PSIZE_16BIT;
-        dhr1a    = &DAC_DHR8R1;
-        dhr2a    = &DAC_DHR8R2;
-        dhrda    = &DAC_DHR8RD;
+        mono_msize   = DMA_SxCR_MSIZE_16BIT;
+        mono_psize   = DMA_SxCR_PSIZE_16BIT;
+        stereo_msize = DMA_SxCR_MSIZE_32BIT;
+        stereo_psize = DMA_SxCR_PSIZE_32BIT;
+        dhr1a        = &DAC_DHR12R1;
+        dhr2a        = &DAC_DHR12R2;
+        dhrda        = &DAC_DHR12RD;
     }
 
     if (channel_count == ACC_STEREO) {
         dhr1a    = dhrda;
+        cr_msize = stereo_msize;
+        cr_psize = stereo_psize;
+    } else if (channel_count == ACC_MONO) {
+        cr_msize = mono_msize;
+        cr_psize = mono_psize;
     }
 
     /* DAC channel 1 uses DMA controller 1 Stream 5 Channel 7. */
@@ -143,8 +164,8 @@ static void init_dma(void)
         /* Setup Stream6 Channel7 for DAC2 */
         dma_stream_reset(DMA1, DMA_STREAM6);
         dma_set_priority(DMA1, DMA_STREAM6, DMA_SxCR_PL_LOW);
-        dma_set_memory_size(DMA1, DMA_STREAM6, DMA_SxCR_MSIZE_8BIT);
-        dma_set_peripheral_size(DMA1, DMA_STREAM6, DMA_SxCR_PSIZE_8BIT);
+        dma_set_memory_size(DMA1, DMA_STREAM6, cr_msize);
+        dma_set_peripheral_size(DMA1, DMA_STREAM6, cr_psize);
         dma_enable_memory_increment_mode(DMA1, DMA_STREAM6);
         dma_enable_circular_mode(DMA1, DMA_STREAM6);
         dma_set_transfer_mode(DMA1, DMA_STREAM6,
@@ -163,7 +184,22 @@ static void stop_dma(void)
     dma_disable_stream(DMA1, DMA_STREAM6);
 }
 
+void dma1_stream5_isr(void)
+{
+    size_t half_frames = audio_get_frame_count() / 2;
+    if (dma_get_interrupt_flag(DMA1, DMA_STREAM5, DMA_HTIF)) {
+        dma_clear_interrupt_flags(DMA1, DMA_STREAM5, DMA_HTIF);
+        (*registered_callback)(sample_buffer, half_frames);
+    }
+    if (dma_get_interrupt_flag(DMA1, DMA_STREAM5, DMA_TCIF)) {
+        dma_clear_interrupt_flags(DMA1, DMA_STREAM5, DMA_TCIF);
+        (*registered_callback)(sample_buffer + buffer_bytes / 2, half_frames);
+    }
+}
+
+
 // --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  -
+
 
 static void init_dac()
 {
@@ -181,13 +217,10 @@ static void init_dac()
     rcc_periph_clock_enable(RCC_DAC);
 
     /* Setup the DAC channel 1 with timer 6 as trigger source. */
-    /* Enable 1 LSB of noise. */
-    // XXX in 8 bit mode, increase noise level to fill low-order 4 bits.
     dac_trigger_enable(CHANNEL_1);
     dac_set_trigger_source(DAC_CR_TSEL1_T6);
     dac_dma_enable(CHANNEL_1);
     dac_enable(CHANNEL_1);
-    DAC_CR |= DAC_CR_DMAUDRIE1;
     dac_set_waveform_generation(DAC_CR_WAVE1_NOISE);
     dac_set_waveform_characteristics(mamp1);
 
@@ -196,7 +229,6 @@ static void init_dac()
     dac_set_trigger_source(DAC_CR_TSEL2_T6);
     dac_dma_enable(CHANNEL_2);
     dac_enable(CHANNEL_2);
-    DAC_CR |= DAC_CR_DMAUDRIE2;
     dac_set_waveform_generation(DAC_CR_WAVE2_NOISE);
     dac_set_waveform_characteristics(mamp2);
 }
@@ -224,12 +256,11 @@ void audio_init(uint32_t            Fs,
         sample_buffer = buffer;
         buffer_bytes = byte_count;
     }
-
 }
 
-audio_callback *audio_register_callback(audio_callback *new)
+audio_callback_fn *audio_register_callback(audio_callback_fn *new)
 {
-    audio_callback *prev = registered_callback;
+    audio_callback_fn *prev = registered_callback;
     registered_callback = new;
     return prev;
 }

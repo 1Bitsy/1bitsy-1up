@@ -23,5 +23,6 @@
 extern void audio_app_init(void);
 extern void audio_animate(void);
 extern void audio_render(void);
+extern void audio_app_end(void);
 
 #endif /* AUDIO_APP_H */

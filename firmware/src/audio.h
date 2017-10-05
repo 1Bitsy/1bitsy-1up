@@ -44,7 +44,7 @@ typedef enum audio_sample_depth {
 //         12               2                 4
 
 
-typedef void audio_callback(void *frames_out, size_t frame_count);
+typedef void audio_callback_fn(void *frames_out, size_t frame_count);
 
 // Pass NULL for buffer to reuse existing buffer.
 extern void                audio_init              (uint32_t sample_rate,
@@ -62,7 +62,7 @@ extern size_t              audio_get_frame_count   (void);
 extern size_t              audio_get_byte_count    (void);
 
 /* returns previous callback. */
-extern audio_callback     *audio_register_callback (audio_callback *);
+extern audio_callback_fn  *audio_register_callback (audio_callback_fn *);
 
 extern void                audio_start             (void);
 extern void                audio_stop              (void);
