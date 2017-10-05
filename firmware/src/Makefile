@@ -24,6 +24,7 @@ OBJS = main.o systick.o lcd.o gfx-pixslice.o gpio.o button_boot.o \
 
 LDSCRIPT = 1bitsy-stm32f415rgt-gfx.ld
 
+V = 1
 include ../libopencm3.target.mk
 
 # You can enable size optimization for project deployment, but it can get

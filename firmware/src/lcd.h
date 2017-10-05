@@ -26,9 +26,9 @@
 
 #define LCD_WIDTH              320
 #define LCD_HEIGHT             240
-#define LCD_MAX_SLICE_BYTES   65536
-#define LCD_MAX_SLICE_PIXELS  (LCD_MAX_SLICE_BYTES / sizeof (gfx_rgb565))
-#define LCD_MAX_SLICE_ROWS    (LCD_MAX_SLICE_PIXELS / LCD_WIDTH)
+#define LCD_MAX_SLICE_ROWS    (LCD_HEIGHT / 5)
+#define LCD_MAX_SLICE_PIXELS  (LCD_MAX_SLICE_ROWS * LCD_WIDTH)
+#define LCD_MAX_SLICE_BYTES   (LCD_MAX_SLICE_PIXELS * sizeof (gfx_rgb565))
 
 // Init the clocks, GPIO pins, timer, DMA controller, ILI9341 chip,
 // and pixslice DMA buffers.
