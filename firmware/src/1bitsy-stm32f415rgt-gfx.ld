@@ -23,9 +23,24 @@
 /* Define memory regions. */
 MEMORY
 {
-	rom (rx) : ORIGIN = 0x08000000, LENGTH = 1024K
-	ram (rwx) : ORIGIN = 0x10000000, LENGTH = 64K /* Core Coupled RAM */
-	/*ram (rwx) : ORIGIN = 0x20000000, LENGTH = 128K*/ /* SRAM - Reserved for dynamic graphics and audio buffers. */
+	rom   (rx)  : ORIGIN = 0x08000000, LENGTH = 1024K
+	ram   (rwx) : ORIGIN = 0x10000000, LENGTH =   64K /* Core Coupled RAM */
+        sram1 (rwx) : ORIGIN = 0x20000000, LENGTH =  112K /* System RAM 1 */
+        sram2 (rwx) : ORIGIN = 0x2001C000, LENGTH =   16K /* System RAM 2 */
+}
+
+SECTIONS
+{
+	.sram1 (NOLOAD) : {
+		sram1_start = .;
+		sram1_end = . + 112K;
+		*(.sram1)
+	} >sram1
+	.sram2 (NOLOAD) : {
+		sram2_start = .;
+		sram2_end = . + 16K;
+		*(.sram2)
+	} >sram2
 }
 
 /* Include the common ld script. */

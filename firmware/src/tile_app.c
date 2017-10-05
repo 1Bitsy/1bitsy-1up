@@ -29,8 +29,6 @@
 
 #include "assets/assets.h"
 
-#define TILE_SLICE_MAX_H (uint32_t)80 /* max height of a pixslice to procees in the renderer */
-
 gfx_rgb565 color = 0;
 
 static int16_t map_x_off = 0;
@@ -142,21 +140,25 @@ void tile_draw_tile(gfx_pixslice *slice, uint16_t tile_id, int px, int py)
 
 	for (int y = tile_y0; y < tile_h; y++) {
 		gfx_rgb565 *px0 =
-			gfx_pixel_address_unchecked(slice, px, py + ((y - tile_y0) * 2));
+			gfx_pixel_address(slice, px, py + ((y - tile_y0) * 2));
 		gfx_rgb565 *px1 =
-			gfx_pixel_address_unchecked(slice, px, py + ((y - tile_y0) * 2) + 1);
+			gfx_pixel_address(slice, px, py + ((y - tile_y0) * 2) + 1);
 
 		for (int x = tile_x0; x < tile_w; x++) {
 			uint16_t c = ts_pixmap[tile_y + y][tile_x + x];
 
 			if (c != 0xF81F) {
-				*px0++ = c;
-				*px0++ = c;
-				*px1++ = c;
-				*px1++ = c;
+				if (px0) {
+					*px0++ = c;
+					*px0++ = c;
+				}
+				if (px1) {
+					*px1++ = c;
+					*px1++ = c;
+				}
 			} else {
-				px0+=2;
-				px1+=2;
+				if (px0) px0+=2;
+				if (px1) px1+=2;
 			}
 		}
 	}
@@ -231,21 +233,25 @@ void tile_draw_sprite_tile(gfx_pixslice *slice, uint16_t tile_id, int px, int py
 	/* Draw tile. */
 	for (int y = tile_y0; y < tile_h; y++) {
 		gfx_rgb565 *px0 =
-			gfx_pixel_address_unchecked(slice, px, py + ((y - tile_y0) * 2));
+			gfx_pixel_address(slice, px, py + ((y - tile_y0) * 2));
 		gfx_rgb565 *px1 =
-			gfx_pixel_address_unchecked(slice, px, py + ((y - tile_y0) * 2) + 1);
+			gfx_pixel_address(slice, px, py + ((y - tile_y0) * 2) + 1);
 
 		for (int x = tile_x0; x < tile_w; x++) {
 			uint16_t c = ss_pixmap[tile_y + y][tile_x + x];
 
 			if (c != 0xF81F) {
-				*px0++ = c;
-				*px0++ = c;
-				*px1++ = c;
-				*px1++ = c;
+				if (px0) {
+					*px0++ = c;
+					*px0++ = c;
+				}
+				if (px1) {
+					*px1++ = c;
+                                        *px1++ = c;
+				}
 			} else {
-				px0+=2;
-				px1+=2;
+				if (px0) px0+=2;
+				if (px1) px1+=2;
 			}
 		}
 	}
@@ -483,11 +489,13 @@ static void tile_render_slice(gfx_pixslice *slice)
 
 #if 0
 	/* Draw some lines to indicate drawing direction and pixslice start/end */
+	XXX must check pixel address.  NULL is out of bounds.
 	gfx_rgb565 *px =
 		gfx_pixel_address_unchecked(slice, 0, slice->y);
 	for (size_t x = 0; x < 10; x++) {
 		*px++ = 0xFFFF;
 	}
+	XXX must check pixel address.  NULL is out of bounds.
 	px =
 		gfx_pixel_address_unchecked(slice, 0, slice->y + slice->h - 2);
 	for (size_t x = 0; x < 10; x++) {
@@ -500,6 +508,7 @@ static void tile_render_slice(gfx_pixslice *slice)
             	int32_t yy = (int32_t)y - tile_y;
                 if (yy < 0 || yy >= (TS_PIXMAP_HEIGHT*2))
                     continue;
+		XXX must check pixel address.  NULL is out of bounds.
 		gfx_rgb565 *px =
 			gfx_pixel_address_unchecked(slice, 0, y);
 		for (size_t x = 0; x < slice->w; x++) {
@@ -549,7 +558,7 @@ static void tile_render_slice(gfx_pixslice *slice)
 void tile_render(void)
 {
 	size_t h;
-
+        size_t slice_max_h = LCD_MAX_SLICE_ROWS;
 	color = 0;
 
 	if (lcd_bg_color() != TML1_TILEMAP_BG_COLOR) {
@@ -557,7 +566,7 @@ void tile_render(void)
 	}
 
     for (size_t y = 0; y < LCD_HEIGHT; y += h) {
-        h = MIN(TILE_SLICE_MAX_H, LCD_HEIGHT - y);
+        h = MIN(slice_max_h, LCD_HEIGHT - y);
         gfx_pixslice *slice = lcd_alloc_pixslice(0, y, LCD_WIDTH, h);
         tile_render_slice(slice);
         lcd_send_pixslice(slice);

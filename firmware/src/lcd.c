@@ -46,7 +46,6 @@
 // --  Pixslice  -  --  --  --  --  --  --  --  --  --  --  --  --  --  -
 
 #define PIXSLICE_COUNT          2
-#define PIXSLICE_MAX_SIZE_BYTES (RAM_SIZE / PIXSLICE_COUNT)
 
 typedef enum pixslice_state {
     TS_CLEARED,
@@ -63,7 +62,10 @@ typedef struct pixslice_impl {
     void                  *buffer;
 } pixslice_impl;
 
+static gfx_rgb565 pixslice_buffers[PIXSLICE_COUNT][LCD_MAX_SLICE_PIXELS]
+                                  __attribute__((section(".sram1")));
 static pixslice_impl pixslices[PIXSLICE_COUNT];
+
 static volatile gfx_rgb565 bg_color = 0x0000;
 
 static inline size_t pixslice_size_bytes(const gfx_pixslice *slice)
@@ -675,12 +677,11 @@ static void init_video_dma(void)
 
 // --  Pixslice DMA buffers --  --  --  --  --  --  --  --  --  --  --  -
 
-static void init_pixslices(void)
+static void init_pixslices()
 {
     for (size_t i = 0; i < PIXSLICE_COUNT; i++) {
         pixslice_impl *impl = pixslices + i;
-        uintptr_t addr = RAM_BASE + i * PIXSLICE_MAX_SIZE_BYTES;
-        impl->buffer = (void *)addr;
+        impl->buffer = pixslice_buffers[i];
         clear_pixslice(&impl->slice);
     }
 }
