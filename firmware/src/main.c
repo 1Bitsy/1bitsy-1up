@@ -21,13 +21,16 @@
 #include <stdbool.h>
 
 #include <libopencm3/stm32/flash.h>
+#include <libopencm3/stm32/i2c.h>
 #include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/gpio.h>
 
 #include "button_boot.h"
 #include "gamepad.h"
+#include "i2c.h"
 #include "lcd.h"
 #include "math-util.h"
+#include "volume.h"
 #include "systick.h"
 #include "text.h"
 
@@ -38,6 +41,34 @@
 
 #define MY_CLOCK (rcc_hse_25mhz_3v3[RCC_CLOCK_3V3_168MHZ])
 #define BG_COLOR 0x0000         // black
+
+static const i2c_config i2c_cfg = {
+    .i_base_address    = I2C1,
+    .i_own_address     = 32,
+    .i_pins = {
+        {                   // SCL: pin PB6, AF4
+            .gp_port   = GPIOB,
+            .gp_pin    = GPIO6,
+            .gp_mode   = GPIO_MODE_AF,
+            .gp_pupd   = GPIO_PUPD_NONE,
+            .gp_af     = GPIO_AF4,
+            .gp_ospeed = GPIO_OSPEED_50MHZ,
+            .gp_otype  = GPIO_OTYPE_OD,
+            .gp_level  = 1,
+
+        },
+        {                   // SDA: pin PB7, AF4
+            .gp_port   = GPIOB,
+            .gp_pin    = GPIO7,
+            .gp_mode   = GPIO_MODE_AF,
+            .gp_pupd   = GPIO_PUPD_NONE,
+            .gp_af     = GPIO_AF4,
+            .gp_ospeed = GPIO_OSPEED_50MHZ,
+            .gp_otype  = GPIO_OTYPE_OD,
+            .gp_level  = 1,
+        },
+    },
+};
 
 uint32_t   fps;
 
@@ -94,6 +125,9 @@ static void setup(void)
 
     lcd_set_bg_color(BG_COLOR, false);
     lcd_init();
+
+    i2c_init(&i2c_cfg);
+    volume_init();
 
     text_init();
 

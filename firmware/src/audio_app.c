@@ -19,10 +19,13 @@
 
 #include "audio_app.h"
 
+#include <assert.h>
+
 #include "audio.h"
 #include "gamepad.h"
 #include "lcd.h"
 #include "math-util.h"
+#include "systick.h"
 #include "text.h"
 #include "volume.h"
 
@@ -105,12 +108,156 @@ void audio_app_end(void)
     audio_stop();
 }
 
-void audio_animate(void)
+static void increment_volume(void)
 {
-    vol_is_visible = true;
+    uint8_t vol = volume_get();
+    if (vol < VOLUME_MAX) {
+        volume_set(vol + 1);
+    }
 }
 
-void audio_draw_vol(gfx_pixslice *slice)
+static void decrement_volume(void)
+{
+    uint8_t vol = volume_get();
+    if (vol > 0) {
+        volume_set(vol - 1);
+    }
+}
+
+void audio_animate(void)
+{
+    uint16_t buttons = gamepad_get();
+    static uint16_t prev_buttons;
+
+    // Volume control is visible if button pressed in last 800 msec.
+    const uint32_t VOL_FADE_TIME = 800;
+    static uint32_t button_time;
+    if (buttons & (GAMEPAD_BVOLP | GAMEPAD_BVOLM)) {
+        button_time = system_millis;
+    }
+    vol_is_visible = system_millis - button_time < VOL_FADE_TIME;
+
+    if (buttons & GAMEPAD_BVOLP) {
+        static uint32_t press_time, repeat_time, repeat_ivl;
+        if (!(prev_buttons & GAMEPAD_BVOLP)) {
+            // Initial button press.
+            press_time = system_millis;
+            repeat_ivl = 800;
+            repeat_time = press_time + repeat_ivl;
+            increment_volume();
+        } else {
+            if (((int32_t)repeat_time - (int32_t)system_millis) < 0) {
+                // repeat button
+                if (repeat_ivl > 50)
+                    repeat_ivl /= 2;
+                repeat_time += repeat_ivl;
+                increment_volume();
+            }
+        }
+    }
+    if (buttons & GAMEPAD_BVOLM) {
+        static uint32_t press_time, repeat_time, repeat_ivl;
+        if (!(prev_buttons & GAMEPAD_BVOLM)) {
+            // Initial button press.
+            press_time = system_millis;
+            repeat_ivl = 800;
+            repeat_time = press_time + repeat_ivl;
+            decrement_volume();
+        } else {
+            if (((int32_t)repeat_time - (int32_t)system_millis) < 0) {
+                // repeat button
+                if (repeat_ivl > 50)
+                    repeat_ivl /= 2;
+                repeat_time += repeat_ivl;
+                decrement_volume();
+            }
+        }
+    }
+    prev_buttons = buttons;
+}
+
+static void audio_draw_vol(gfx_pixslice *slice)
+{
+    const int text_y = 10;
+    const int bar_x = 48;
+    const int bar_y = 11 * 16;
+    const int bar_h = 16;
+
+    if (!vol_is_visible) {
+        return;
+    }
+
+    char *prefix = "volume: ";
+
+    int xoff = bar_x / 8;
+    for (const char *p = prefix; *p; p++) {
+        text_draw_char16(slice, *p, xoff, text_y, vol_color);
+        xoff++;
+    }
+
+    uint8_t vol = volume_get();
+
+    /* Draw "-NN dB". */
+    if (vol == 0) {
+        xoff = text_draw_str16(slice, "mute", xoff, text_y, vol_color);
+    } else {
+        int dB = VOLUME_MAX - (int)vol;
+        assert(0 <= dB && dB < 100);
+        if (dB < 10) {
+            xoff++;
+        }
+        /* sign or blank for "0 dB" */
+        if (dB != 0) {
+            text_draw_char16(slice, '-', xoff, text_y, vol_color);
+        }
+        xoff++;
+        if (dB >= 10) {
+            /* tens place */
+            char t = dB / 10 + '0';
+            text_draw_char16(slice, t, xoff, text_y, vol_color);
+            xoff++;
+        }
+        char o = '0' + dB % 10;
+        text_draw_char16(slice, o, xoff, text_y, vol_color);
+        xoff++;
+
+        /* "dB" */
+        xoff++;
+        xoff = text_draw_str16(slice, "dB", xoff, text_y, vol_color);
+    }
+
+    /* outline volume bar */
+    for (int y = bar_y; y < bar_y + bar_h; y++) {
+        gfx_rgb565 *px = gfx_pixel_address(slice, bar_x, y);
+        px[0] = px[VOLUME_MAX * 6] = vol_color;
+    }
+    gfx_rgb565 *px0 = gfx_pixel_address(slice, bar_x, bar_y);
+    gfx_rgb565 *px1 = gfx_pixel_address(slice, bar_x, bar_y + bar_h - 1);
+    if (px0) {
+        for (int x = 6 * vol + 1; x < 6 * VOLUME_MAX; x++) {
+            px0[x] = vol_color;
+        }
+    }
+    if (px1) {
+        for (int x = 6 * vol + 1; x < 6 * VOLUME_MAX; x++) {
+            px1[x] = vol_color;
+        }
+    }
+
+    /* fill volume bar */
+    for (int y = bar_y; y < bar_y + bar_h; y++) {
+        gfx_rgb565 *px = gfx_pixel_address(slice, bar_x, y);
+        if (px) {
+            for (int x = 0; x < vol * 6; x++) {
+                if (x % 6) {
+                    px[x] = vol_color;
+                }
+            }
+        }
+    }
+}
+
+static void audio_draw_raw_vol(gfx_pixslice *slice)
 {
     const int text_y = 12;
     const int bar_x = 32;
@@ -121,21 +268,21 @@ void audio_draw_vol(gfx_pixslice *slice)
         return;
     }
 
-    char *prefix = "vol: ";
+    char *prefix = "raw vol: ";
 
-   int xoff = 4;
+    int xoff = 4;
     for (const char *p = prefix; *p; p++) {
         text_draw_char16(slice, *p, xoff, text_y, vol_color);
         xoff++;
     }
 
-    uint16_t vol = volume_get();
+    uint16_t vol = volume_get_raw();
 
-     /* hundreds place */
+    /* hundreds place */
     char h = vol < 100 ? ' ' : '0' + vol / 100 % 10;
     text_draw_char16(slice, h, xoff, text_y, vol_color);
     xoff++;
-
+ 
     /* tens place */
     char t = vol < 10 ? ' ' : '0' + vol / 10 % 10;
     text_draw_char16(slice, t, xoff, text_y, vol_color);
@@ -149,17 +296,17 @@ void audio_draw_vol(gfx_pixslice *slice)
     /* outline volume bar */
     for (int y = bar_y; y < bar_y + bar_h; y++) {
         gfx_rgb565 *px = gfx_pixel_address(slice, bar_x, y);
-        px[0] = px[VOLUME_MAX] = vol_color;
+        px[0] = px[VOLUME_RAW_MAX] = vol_color;
     }
     gfx_rgb565 *px0 = gfx_pixel_address(slice, bar_x, bar_y);
     gfx_rgb565 *px1 = gfx_pixel_address(slice, bar_x, bar_y + bar_h - 1);
     if (px0) {
-        for (int x = 1; x < VOLUME_MAX; x++) {
+        for (int x = 1; x < VOLUME_RAW_MAX; x++) {
             px0[x] = vol_color;
         }
     }
     if (px1) {
-        for (int x = 1; x < VOLUME_MAX; x++) {
+        for (int x = 1; x < VOLUME_RAW_MAX; x++) {
             px1[x] = vol_color;
         }
     }
@@ -178,6 +325,7 @@ void audio_draw_vol(gfx_pixslice *slice)
 void audio_render_slice(gfx_pixslice *slice)
 {
     audio_draw_vol(slice);
+    audio_draw_raw_vol(slice);
 }
 
 void audio_render(void)

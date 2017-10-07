@@ -6,6 +6,19 @@ void text_init(void)
 {
 }
 
+int text_draw_str16(gfx_pixslice *slice,
+                    const char *str,
+                    int x, int y,
+                    gfx_rgb565 color)
+{
+    while (*str) {
+        text_draw_char16(slice, *str, x, y, color);
+        x++;
+        str++;
+    }
+    return x;
+}
+
 void text_draw_char16(gfx_pixslice *slice,
                       char ch,
                       int x, int y,
