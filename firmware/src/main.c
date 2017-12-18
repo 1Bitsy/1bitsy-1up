@@ -27,6 +27,7 @@
 
 #include "button_boot.h"
 #include "gamepad.h"
+#include "touch.h"
 #include "i2c.h"
 #include "lcd.h"
 #include "math-util.h"
@@ -132,6 +133,7 @@ static void setup(void)
     text_init();
 
     gamepad_init();
+    touch_init();
 
     /* Toggles with every frame */
     gpio_mode_setup(GPIOA, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO1);
