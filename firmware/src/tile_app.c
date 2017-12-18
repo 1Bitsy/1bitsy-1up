@@ -19,10 +19,12 @@
 
 #include <libopencm3/stm32/gpio.h>
 #include <string.h>
+#include <stdio.h>
 
 #include "tile_app.h"
 
 #include "gamepad.h"
+#include "touch.h"
 #include "lcd.h"
 #include "math-util.h"
 #include "text.h"
@@ -370,6 +372,25 @@ void tile_draw_gamepad(gfx_pixslice *slice)
 	}
 }
 
+void tile_draw_touch(gfx_pixslice *slice)
+{
+	if (slice->y >= 48)
+		return;
+
+	int tx, ty;
+	bool touched = touch_get(&tx, &ty);
+	if (!touched)
+		return;
+
+	char text[16];
+	sprintf(text, "touch: %3d, %3d", tx, ty);
+
+	for (int i = 0; text[i] != 0; i++) {
+		text_draw_char16(slice, text[i],
+			LCD_WIDTH / 8 - (strlen(text)) + i, 2, 0x0000);
+	}
+}
+
 void tile_animate(void)
 {
 #if 0
@@ -385,9 +406,26 @@ void tile_animate(void)
 	static uint16_t delay = 0;
 	static uint16_t stay = 0;
 	uint16_t gamepad = gamepad_get();
+	int tx, ty;
+	bool touched = touch_get(&tx, &ty);
 
-	if (gamepad != 0x0000) {
+	if (gamepad != 0x0000 || touched) {
 		tile_video_state.idle = 0;
+	}
+
+	if (touched) {
+		spr_x = tx - 4;
+		spr_y = ty - 4;
+		if (spr_x < 0) {
+			spr_x = 0;
+		} else if (spr_x > (19 * 8 * 2)) {
+			spr_x = 19 * 8 * 2;
+		}
+		if (spr_y < 0) {
+			spr_y = 0;
+		} else if (spr_y > (19 * 8 * 2)) {
+			spr_y = 13 * 8 * 2;
+		}
 	}
 
 	if ((gamepad != 0xFFFF) && (tile_video_state.idle < (80 * 10))) {
@@ -550,6 +588,7 @@ static void tile_render_slice(gfx_pixslice *slice)
 	if(slice->y == 0) {
 		tile_draw_fps(slice);
 		tile_draw_gamepad(slice);
+		tile_draw_touch(slice);
 	}
 
 	/* gpio_clear(GPIOA, GPIO3); */

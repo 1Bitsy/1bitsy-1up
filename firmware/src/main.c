@@ -27,6 +27,7 @@
 
 #include "button_boot.h"
 #include "gamepad.h"
+#include "touch.h"
 #include "i2c.h"
 #include "lcd.h"
 #include "led.h"
@@ -107,6 +108,7 @@ static void setup(void)
     text_init();
 
     gamepad_init();
+    touch_init();
 
     /* Disabling debug outputs, as the audio repair board uses these pins.
      * At present (11/2017), the pins PC5 and PC13 are available for debug.
