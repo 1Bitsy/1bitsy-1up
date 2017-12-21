@@ -38,6 +38,7 @@
 #include "munch_app.h"
 #include "tile_app.h"
 #include "audio_app.h"
+#include "fblocks_app.h"
 
 #define MY_CLOCK (rcc_hse_25mhz_3v3[RCC_CLOCK_3V3_168MHZ])
 #define BG_COLOR 0x0000         // black
@@ -76,6 +77,7 @@ enum app_ids {
     munch_app,
     tile_app,
     audio_app,
+    fblocks_app,
     end_app
 } active_app = munch_app;
 
@@ -105,6 +107,12 @@ struct app {
 		.animate = audio_animate,
 		.render = audio_render,
                 .end = audio_app_end,
+	},
+	[fblocks_app] = {
+		.init = fblocks_init,
+		.animate = fblocks_animate,
+		.render = fblocks_render,
+                .end = NULL,
 	},
 };
 
