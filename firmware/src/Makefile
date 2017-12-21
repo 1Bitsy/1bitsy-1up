@@ -44,11 +44,12 @@ lcd.o: OPT := -O0
 
 text.o tile_app.o: assets/assets.h
 
-assets/assets.h: assets/gen-assets.py assets/*.png
+assets/assets.h: assets/gen-assets.py assets/*.png assets/*.tmx assets/*/*.bdf
 	@printf "  ASSETS  $?\n"
-	$(Q)cd assets; python3 ./gen-assets.py > assets.h
+	$(Q)cd assets; python3 ./gen-assets.py > assets.h.new
+	$(Q)mv assets/assets.h.new assets/assets.h
 
 clean::
-	$(Q)$(RM) -f assets/assets.h
+	$(Q)$(RM) -f assets/assets.h assets/assets.h.new
 
 
