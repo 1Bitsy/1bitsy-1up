@@ -77,7 +77,7 @@ enum app_ids {
     tile_app,
     audio_app,
     end_app
-} active_app = munch_app;
+} active_app = audio_app;
 
 /* Function pointers to available apps. The first one executes by default.
  * Do not forget to adjust the enum if you are messing around with this list.
@@ -133,10 +133,22 @@ static void setup(void)
 
     gamepad_init();
 
+#if 1
+    /* Disabling debug outputs, as the audio repair board uses these pins.
+     * At present (11/2017), the pins PC5 and PC13 are available for debug.
+     */
+
+    /* Raise ~SHUTDOWN to enable audio output. */
+    gpio_mode_setup(GPIOA, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO3);
+    gpio_set(GPIOA, GPIO3);
+    gpio_mode_setup(GPIOA, GPIO_MODE_INPUT, GPIO_PUPD_NONE, GPIO0);
+
+#else
     /* Toggles with every frame */
     gpio_mode_setup(GPIOA, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO1);
     /* Is high when a slice is being rendered by the app. */
     gpio_mode_setup(GPIOA, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO3);
+#endif
 }
 
 static void calc_fps(void)
@@ -144,7 +156,7 @@ static void calc_fps(void)
     static uint32_t next_time;
     static uint32_t frame_count;
     frame_count++;
-    gpio_toggle(GPIOA, GPIO1);
+    /* gpio_toggle(GPIOA, GPIO1); */
     if (system_millis >= next_time) {
         fps = frame_count;
         frame_count = 0;

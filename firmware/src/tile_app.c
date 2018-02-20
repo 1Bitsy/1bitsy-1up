@@ -527,7 +527,7 @@ static void tile_render_slice(gfx_pixslice *slice)
 //		tile_draw_tile(slice, 1, 10, 10);
 //	}
 
-	gpio_set(GPIOA, GPIO3);
+	/* gpio_set(GPIOA, GPIO3); */
 
 	/* Tilemap */
 	for (size_t y = slice->y / 16; y <= (slice->y + slice->h)/16; y++) {
@@ -552,7 +552,7 @@ static void tile_render_slice(gfx_pixslice *slice)
 		tile_draw_gamepad(slice);
 	}
 
-	gpio_clear(GPIOA, GPIO3);
+	/* gpio_clear(GPIOA, GPIO3); */
 }
 
 void tile_render(void)

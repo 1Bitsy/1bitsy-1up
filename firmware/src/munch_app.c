@@ -58,7 +58,7 @@ static void munch_render_slice(gfx_pixslice *slice)
     const int y_off = -8;
     const int x_off = 32;
 
-    gpio_set(GPIOA, GPIO3);
+    /* gpio_set(GPIOA, GPIO3); */
 
     int y0 = MAX(0, slice->y - y_off);
     int y1 = MIN(256, slice->y + (int)slice->h - y_off);
@@ -76,7 +76,7 @@ static void munch_render_slice(gfx_pixslice *slice)
         tile_draw_fps(slice);
     }
 
-    gpio_clear(GPIOA, GPIO3);
+    /* gpio_clear(GPIOA, GPIO3); */
 }
 
 void munch_render(void)
