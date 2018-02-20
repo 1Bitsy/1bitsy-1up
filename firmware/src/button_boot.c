@@ -17,28 +17,44 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "button_boot.h"        // module's own include is always first.
+
 #include <stdbool.h>
 
 #include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/gpio.h>
 #include <libopencm3/cm3/scb.h>
 
-#include "button_boot.h"
+#include "gpio.h"
 
 #define BLDR_ADDRESS	0x1FFF0000
 
-uint32_t button_debounce = 0;
+static const gpio_pin button_pin = {
+	.gp_port = GPIOC,
+	.gp_pin  = GPIO1,
+	.gp_mode = GPIO_MODE_INPUT,
+};
+
+static uint32_t button_debounce = 0;
 
 void button_boot(void) {
-  /* Enable GPIOC clock. */
+#if 0
+	/* Enable GPIOC clock. */
 	rcc_periph_clock_enable(RCC_GPIOC);
 	rcc_periph_clock_enable(RCC_GPIOA);
 	/* Set GPIO1 (in GPIO port C) to 'input open-drain'. */
 	gpio_mode_setup(GPIOC, GPIO_MODE_INPUT, GPIO_PUPD_NONE, GPIO1);
 	gpio_mode_setup(GPIOA, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO8);
+#else
+        gpio_init_pin(&button_pin);
+#endif
 
   /* Check if the user button is depressed, if so launch the factory bootloader */
-  if ((GPIOC_IDR & (1 << 1)) == 0) {
+#if 0
+	if ((GPIOC_IDR & (1 << 1)) == 0) {
+#else
+	if (button_pressed()) {
+#endif
 		/* Set vector table base address. */
 		SCB_VTOR = BLDR_ADDRESS & 0xFFFF;
 		/* Initialise master stack pointer. */
@@ -50,7 +66,7 @@ void button_boot(void) {
 }
 
 bool button_pressed(void) {
-	return ((GPIOC_IDR & (1 << 1)) == 0);
+	return gpio_get(button_pin.gp_port, button_pin.gp_pin) == 0;
 }
 
 bool button_pressed_debounce(void) {

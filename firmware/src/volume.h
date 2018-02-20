@@ -1,6 +1,8 @@
 #ifndef VOLUME_included
 #define VOLUME_included
 
+#ifndef AUDIO_REPAIR
+
 #include <stdint.h>
 
 #define VOLUME_MIN 0
@@ -13,5 +15,7 @@ extern void     volume_set     (uint8_t);
 
 extern uint16_t volume_get_raw (void);
 extern void     volume_set_raw (uint16_t);
+
+#endif /* !AUDIO_REPAIR */
 
 #endif /* !VOLUME_included */

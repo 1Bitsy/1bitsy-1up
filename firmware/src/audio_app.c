@@ -22,9 +22,12 @@
 #include <assert.h>
 
 #include "audio.h"
+#include "button_boot.h"
 #include "gamepad.h"
 #include "lcd.h"
+#include "led.h"
 #include "math-util.h"
+#include "pam8019.h"
 #include "systick.h"
 #include "text.h"
 #include "volume.h"
@@ -100,28 +103,38 @@ void audio_app_init(void)
 {
     audio_init(44100, ACC, ASD, abuf, sizeof abuf);
     audio_register_callback(audio_callback);
+#ifdef AUDIO_REPAIR
+    pam8019_set_mode(PM_NORMAL);
+#endif
     audio_start();
 }
 
 void audio_app_end(void)
 {
     audio_stop();
+#ifdef AUDIO_REPAIR
+    pam8019_set_mode(PM_SHUTDOWN);
+#endif
 }
 
 static void increment_volume(void)
 {
+#ifndef AUDIO_REPAIR
     uint8_t vol = volume_get();
     if (vol < VOLUME_MAX) {
         volume_set(vol + 1);
     }
+#endif
 }
 
 static void decrement_volume(void)
 {
+#ifndef AUDIO_REPAIR
     uint8_t vol = volume_get();
     if (vol > 0) {
         volume_set(vol - 1);
     }
+#endif
 }
 
 void audio_animate(void)
@@ -174,10 +187,31 @@ void audio_animate(void)
         }
     }
     prev_buttons = buttons;
+
+#ifdef AUDIO_REPAIR
+
+    if (button_pressed_debounce())
+        pam8019_set_mode(PM_MUTED);
+    else
+        pam8019_set_mode(PM_NORMAL);
+
+    switch (pam8019_get_mode()) {
+
+    case PM_MUTED:
+        led_set(system_millis & 0x80); // fast blink
+        break;
+
+    default:
+        led_set(pam8019_output_is_headphones());
+        break;
+    }
+
+#endif
 }
 
 static void audio_draw_vol(gfx_pixslice *slice)
 {
+#ifndef AUDIO_REPAIR
     const int text_y = 10;
     const int bar_x = 48;
     const int bar_y = 11 * 16;
@@ -255,10 +289,12 @@ static void audio_draw_vol(gfx_pixslice *slice)
             }
         }
     }
+#endif
 }
 
 static void audio_draw_raw_vol(gfx_pixslice *slice)
 {
+#ifndef AUDIO_REPAIR
     const int text_y = 12;
     const int bar_x = 32;
     const int bar_y = 13 * 16;
@@ -320,6 +356,7 @@ static void audio_draw_raw_vol(gfx_pixslice *slice)
             }
         }
     }
+#endif
 }
 
 void audio_render_slice(gfx_pixslice *slice)

@@ -29,7 +29,9 @@
 #include "gamepad.h"
 #include "i2c.h"
 #include "lcd.h"
+#include "led.h"
 #include "math-util.h"
+#include "pam8019.h"
 #include "volume.h"
 #include "systick.h"
 #include "text.h"
@@ -41,6 +43,8 @@
 
 #define MY_CLOCK (rcc_hse_25mhz_3v3[RCC_CLOCK_3V3_168MHZ])
 #define BG_COLOR 0x0000         // black
+
+#ifndef AUDIO_REPAIR
 
 static const i2c_config i2c_cfg = {
     .i_base_address    = I2C1,
@@ -69,6 +73,8 @@ static const i2c_config i2c_cfg = {
         },
     },
 };
+
+#endif
 
 uint32_t   fps;
 
@@ -123,25 +129,32 @@ static void setup(void)
     setup_systick(MY_CLOCK.ahb_frequency);
     register_systick_handler(handle_systick);
 
+    led_init();
+
     lcd_set_bg_color(BG_COLOR, false);
     lcd_init();
 
+#ifdef AUDIO_REPAIR
+    pam8019_init();
+#else
     i2c_init(&i2c_cfg);
     volume_init();
+#endif
 
     text_init();
 
     gamepad_init();
 
-#if 1
+#ifdef AUDIO_REPAIR
     /* Disabling debug outputs, as the audio repair board uses these pins.
      * At present (11/2017), the pins PC5 and PC13 are available for debug.
      */
 
     /* Raise ~SHUTDOWN to enable audio output. */
-    gpio_mode_setup(GPIOA, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO3);
-    gpio_set(GPIOA, GPIO3);
-    gpio_mode_setup(GPIOA, GPIO_MODE_INPUT, GPIO_PUPD_NONE, GPIO0);
+    pam8019_set_mode(PM_SHUTDOWN);
+    // gpio_mode_setup(GPIOA, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO3);
+    // gpio_set(GPIOA, GPIO3);
+    // gpio_mode_setup(GPIOA, GPIO_MODE_INPUT, GPIO_PUPD_NONE, GPIO0);
 
 #else
     /* Toggles with every frame */
@@ -166,6 +179,7 @@ static void calc_fps(void)
 
 static void check_app_switch(void)
 {
+#ifndef AUDIO_REPAIR
     static bool state = false;
 
     if (!state) {
@@ -189,6 +203,7 @@ static void check_app_switch(void)
             gpio_set(GPIOA, GPIO8);
         }
     }
+#endif
 }
 
 static void run(void)

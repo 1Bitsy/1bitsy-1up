@@ -20,6 +20,8 @@
 #ifndef COMMON_BUTTON_BOOT_H
 #define COMMON_BUTTON_BOOT_H
 
+#include <stdbool.h>
+
 /* This function sets up and checks the state of the user button.
  * If the user button is depressed the built in factory bootloader is launched.
  */

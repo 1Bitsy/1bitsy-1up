@@ -1,5 +1,7 @@
 #include "volume.h"
 
+#ifndef AUDIO_REPAIR
+
 #include <assert.h>
 
 #include <libopencm3/stm32/i2c.h>
@@ -117,3 +119,5 @@ void volume_set_raw(uint16_t raw_vol)
     mcp4661_write_nonvolatile_wipers(raw_vol, raw_vol);
     saved_raw_vol = raw_vol;
 }
+
+#endif /* !AUDIO_REPAIR */
