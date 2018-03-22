@@ -60,8 +60,9 @@ const gfx_rgb565 bg_color  = 0xF81F;
 const gfx_rgb565 vol_color = 0x07E0;
 
 bool vol_is_visible;
+uint8_t vol;
+uint8_t prev_vol;
 uint16_t raw_vol;
-uint16_t min_vol = UINT16_MAX;
 
 char abuf[704] __attribute__((section(".sram2")));
 
@@ -109,6 +110,7 @@ void audio_app_init(void)
     pam8019_set_mode(PM_NORMAL);
 #endif
     audio_start();
+    prev_vol = volume_get();
 }
 
 void audio_app_end(void)
@@ -119,42 +121,55 @@ void audio_app_end(void)
 #endif
 }
 
+#ifndef AUDIO_REPAIR
+
 static void increment_volume(void)
 {
-#ifndef AUDIO_REPAIR
     uint8_t vol = volume_get();
     if (vol < VOLUME_MAX) {
         volume_set(vol + 1);
     }
-#endif
 }
 
 static void decrement_volume(void)
 {
-#ifndef AUDIO_REPAIR
     uint8_t vol = volume_get();
     if (vol > 0) {
         volume_set(vol - 1);
     }
-#endif
 }
+
+#endif
 
 void audio_animate(void)
 {
+#ifdef AUDIO_REPAIR
+    // Volume control is visible if volume changed in last 800 msec.
+
+    const uint32_t VOL_FADE_TIME = 800;
+    static uint32_t button_time;
+
+    vol = volume_get();
+    raw_vol = volume_get_raw();
+
+    if (prev_vol != vol) {
+        prev_vol =  vol;
+        button_time = system_millis;
+    }
+    vol_is_visible = system_millis - button_time < VOL_FADE_TIME;
+
+#else
     uint16_t buttons = gamepad_get();
     static uint16_t prev_buttons;
 
-    // Volume control is visible if button pressed in last 800 msec.
+    // Volume control is visible if volume changed in last 800 msec.
+
     const uint32_t VOL_FADE_TIME = 800;
     static uint32_t button_time;
     if (buttons & (GAMEPAD_BVOLP | GAMEPAD_BVOLM)) {
         button_time = system_millis;
     }
     vol_is_visible = system_millis - button_time < VOL_FADE_TIME;
-
-    raw_vol = pam8019_get_raw_volume();
-    if (min_vol > raw_vol)
-        min_vol = raw_vol;
 
     if (buttons & GAMEPAD_BVOLP) {
         static uint32_t press_time, repeat_time, repeat_ivl;
@@ -193,6 +208,9 @@ void audio_animate(void)
         }
     }
     prev_buttons = buttons;
+    vol = volume_get();
+    raw_vol = volume_get_raw();
+#endif
 
 #ifdef AUDIO_REPAIR
 
@@ -217,26 +235,36 @@ void audio_animate(void)
 
 static void audio_draw_vol(gfx_pixslice *slice)
 {
-#ifndef AUDIO_REPAIR
     const int text_y = 10;
-    const int bar_x = 48;
+    const int bar_x = 32;
     const int bar_y = 11 * 16;
-    const int bar_h = 16;
+    const int bar_h = 15;
 
     if (!vol_is_visible) {
         return;
     }
 
-    char *prefix = "volume: ";
 
     int xoff = bar_x / 8;
-    for (const char *p = prefix; *p; p++) {
-        text_draw_char16(slice, *p, xoff, text_y, vol_color);
-        xoff++;
-    }
+    xoff = text_draw_str16(slice, "volume: ", xoff, text_y, vol_color);
 
-    uint8_t vol = volume_get();
+#ifdef AUDIO_REPAIR
+    /* hundreds place */
+    char h = vol < 100 ? ' ' : '0' + vol / 100 % 10;
+    text_draw_char16(slice, h, xoff, text_y, vol_color);
+    xoff++;
+ 
+    /* tens place */
+    char t = vol < 10 ? ' ' : '0' + vol / 10 % 10;
+    text_draw_char16(slice, t, xoff, text_y, vol_color);
+    xoff++;
 
+    /* ones place */
+    char o = '0' + vol / 1 % 10;
+    text_draw_char16(slice, o, xoff, text_y, vol_color);
+    xoff++;
+
+#else
     /* Draw "-NN dB". */
     if (vol == 0) {
         xoff = text_draw_str16(slice, "mute", xoff, text_y, vol_color);
@@ -265,21 +293,22 @@ static void audio_draw_vol(gfx_pixslice *slice)
         xoff++;
         xoff = text_draw_str16(slice, "dB", xoff, text_y, vol_color);
     }
+#endif
 
     /* outline volume bar */
     for (int y = bar_y; y < bar_y + bar_h; y++) {
         gfx_rgb565 *px = gfx_pixel_address(slice, bar_x, y);
-        px[0] = px[VOLUME_MAX * 6] = vol_color;
+        px[0] = px[VOLUME_MAX * 4] = vol_color;
     }
     gfx_rgb565 *px0 = gfx_pixel_address(slice, bar_x, bar_y);
     gfx_rgb565 *px1 = gfx_pixel_address(slice, bar_x, bar_y + bar_h - 1);
     if (px0) {
-        for (int x = 6 * vol + 1; x < 6 * VOLUME_MAX; x++) {
+        for (int x = 4 * vol + 1; x < 4 * VOLUME_MAX; x++) {
             px0[x] = vol_color;
         }
     }
     if (px1) {
-        for (int x = 6 * vol + 1; x < 6 * VOLUME_MAX; x++) {
+        for (int x = 4 * vol + 1; x < 4 * VOLUME_MAX; x++) {
             px1[x] = vol_color;
         }
     }
@@ -288,27 +317,25 @@ static void audio_draw_vol(gfx_pixslice *slice)
     for (int y = bar_y; y < bar_y + bar_h; y++) {
         gfx_rgb565 *px = gfx_pixel_address(slice, bar_x, y);
         if (px) {
-            for (int x = 0; x < vol * 6; x++) {
+            for (int x = 0; x < 4 * vol; x++) {
                 if (x % 6) {
                     px[x] = vol_color;
                 }
             }
         }
     }
-#endif
 }
 
 static void audio_draw_raw_vol(gfx_pixslice *slice)
 {
-//#ifndef AUDIO_REPAIR
     const int text_y = 12;
-    // const int bar_x = 32;
-    // const int bar_y = 13 * 16;
-    // const int bar_h = 16;
+    const int bar_x = 32;
+    const int bar_y = 13 * 16;
+    const int bar_h = 15;
 
-    // if (!vol_is_visible) {
-    //     return;
-    // }
+    if (!vol_is_visible) {
+        return;
+    }
 
     char *prefix = "raw vol: ";
 
@@ -317,8 +344,6 @@ static void audio_draw_raw_vol(gfx_pixslice *slice)
         text_draw_char16(slice, *p, xoff, text_y, vol_color);
         xoff++;
     }
-
-    // uint16_t vol = volume_get_raw();
 
     /* thousands place */
     char k = raw_vol < 1000 ? ' ' : '0' + raw_vol / 1000 % 10;
@@ -340,21 +365,20 @@ static void audio_draw_raw_vol(gfx_pixslice *slice)
     text_draw_char16(slice, o, xoff, text_y, vol_color);
     xoff++;
 
-#ifndef AUDIO_REPAIR
     /* outline volume bar */
     for (int y = bar_y; y < bar_y + bar_h; y++) {
         gfx_rgb565 *px = gfx_pixel_address(slice, bar_x, y);
-        px[0] = px[VOLUME_RAW_MAX] = vol_color;
+        px[0] = px[VOLUME_RAW_MAX >> 4] = vol_color;
     }
     gfx_rgb565 *px0 = gfx_pixel_address(slice, bar_x, bar_y);
     gfx_rgb565 *px1 = gfx_pixel_address(slice, bar_x, bar_y + bar_h - 1);
     if (px0) {
-        for (int x = 1; x < VOLUME_RAW_MAX; x++) {
+        for (int x = 1; x < VOLUME_RAW_MAX >> 4; x++) {
             px0[x] = vol_color;
         }
     }
     if (px1) {
-        for (int x = 1; x < VOLUME_RAW_MAX; x++) {
+        for (int x = 1; x < VOLUME_RAW_MAX >> 4; x++) {
             px1[x] = vol_color;
         }
     }
@@ -363,12 +387,11 @@ static void audio_draw_raw_vol(gfx_pixslice *slice)
     for (int y = bar_y + 1; y < bar_y + bar_h - 1; y++) {
         gfx_rgb565 *px = gfx_pixel_address(slice, bar_x, y);
         if (px) {
-            for (int x = 0; x < raw_vol; x++) {
+            for (int x = 0; x < raw_vol >> 4; x++) {
                 px[x] = vol_color;
             }
         }
     }
-#endif
 }
 
 void audio_render_slice(gfx_pixslice *slice)

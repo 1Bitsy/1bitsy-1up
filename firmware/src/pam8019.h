@@ -28,7 +28,6 @@ extern void         pam8019_set_mode               (pam8019_mode);
 extern bool         pam8019_output_is_headphones   (void);
 
 extern uint16_t     pam8019_get_raw_volume         (void);
-// XXX Figure out how to use this.
 
 #endif /* AUDIO_REPAIR */
 
