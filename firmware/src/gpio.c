@@ -41,6 +41,14 @@ void gpio_init_pin(const gpio_pin *pin)
     assert(!(gpio_pins_used[index] & pinmask));
     gpio_pins_used[index] |= pinmask;
 
+    gpio_config_pin(pin);
+}
+
+void gpio_config_pin(const gpio_pin *pin)
+{
+    uint32_t port = pin->gp_port;
+    uint16_t pinmask = pin->gp_pin;
+
     gpio_mode_setup(port,
                     pin->gp_mode,
                     pin->gp_pupd,
@@ -69,4 +77,10 @@ void gpio_init_pins(const gpio_pin *pins, size_t count)
 {
     for (size_t i = 0; i < count; i++)
         gpio_init_pin(&pins[i]);
+}
+
+void gpio_config_pins(const gpio_pin *pins, size_t count)
+{
+    for (size_t i = 0; i < count; i++)
+        gpio_config_pin(&pins[i]);
 }

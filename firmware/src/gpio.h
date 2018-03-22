@@ -26,7 +26,7 @@
 
 typedef struct gpio_pin {
     uint32_t gp_port;           // GPIOA .. GPIOF
-    uint16_t gp_pin;            // GPIO0 .. GPIO15
+    uint16_t gp_pin;            // GPIO0 .. GPIO15 (may OR pins)
     uint8_t  gp_mode   : 2;     // GPIO_MODE_INPUT/OUTPUT/AF/ANALOG
     uint8_t  gp_pupd   : 2;     // GPIO_PUPD_NONE/PULLUP/PULLDOWN
     uint8_t  gp_af     : 4;     // GPIO_AF0 .. GPIO_AF15
@@ -35,8 +35,19 @@ typedef struct gpio_pin {
     uint8_t  gp_level  : 1;     // 0 or 1
 } gpio_pin;
 
-void gpio_init_pin(const gpio_pin *);
+// Initialization asserts that each pin is not yet used and
+// enables RCC peripheral clocks as needed before configuring
+// the pin(s).
+//
+// Configuration just sets the mode and other attributes.
+// Does not init the clock or check for uniqueness.
 
+void gpio_init_pin(const gpio_pin *);
+void gpio_config_pin(const gpio_pin *);
+
+
+// Convenience functions to init/config several pins at once.
 void gpio_init_pins(const gpio_pin *, size_t count);
+void gpio_config_pins(const gpio_pin *, size_t count);
 
 #endif /* GPIO_H */

@@ -60,6 +60,8 @@ const gfx_rgb565 bg_color  = 0xF81F;
 const gfx_rgb565 vol_color = 0x07E0;
 
 bool vol_is_visible;
+uint16_t raw_vol;
+uint16_t min_vol = UINT16_MAX;
 
 char abuf[704] __attribute__((section(".sram2")));
 
@@ -149,6 +151,10 @@ void audio_animate(void)
         button_time = system_millis;
     }
     vol_is_visible = system_millis - button_time < VOL_FADE_TIME;
+
+    raw_vol = pam8019_get_raw_volume();
+    if (min_vol > raw_vol)
+        min_vol = raw_vol;
 
     if (buttons & GAMEPAD_BVOLP) {
         static uint32_t press_time, repeat_time, repeat_ivl;
@@ -294,15 +300,15 @@ static void audio_draw_vol(gfx_pixslice *slice)
 
 static void audio_draw_raw_vol(gfx_pixslice *slice)
 {
-#ifndef AUDIO_REPAIR
+//#ifndef AUDIO_REPAIR
     const int text_y = 12;
-    const int bar_x = 32;
-    const int bar_y = 13 * 16;
-    const int bar_h = 16;
+    // const int bar_x = 32;
+    // const int bar_y = 13 * 16;
+    // const int bar_h = 16;
 
-    if (!vol_is_visible) {
-        return;
-    }
+    // if (!vol_is_visible) {
+    //     return;
+    // }
 
     char *prefix = "raw vol: ";
 
@@ -312,23 +318,29 @@ static void audio_draw_raw_vol(gfx_pixslice *slice)
         xoff++;
     }
 
-    uint16_t vol = volume_get_raw();
+    // uint16_t vol = volume_get_raw();
 
+    /* thousands place */
+    char k = raw_vol < 1000 ? ' ' : '0' + raw_vol / 1000 % 10;
+    text_draw_char16(slice, k, xoff, text_y, vol_color);
+    xoff++;
+ 
     /* hundreds place */
-    char h = vol < 100 ? ' ' : '0' + vol / 100 % 10;
+    char h = raw_vol < 100 ? ' ' : '0' + raw_vol / 100 % 10;
     text_draw_char16(slice, h, xoff, text_y, vol_color);
     xoff++;
  
     /* tens place */
-    char t = vol < 10 ? ' ' : '0' + vol / 10 % 10;
+    char t = raw_vol < 10 ? ' ' : '0' + raw_vol / 10 % 10;
     text_draw_char16(slice, t, xoff, text_y, vol_color);
     xoff++;
 
     /* ones place */
-    char o = '0' + vol / 1 % 10;
+    char o = '0' + raw_vol / 1 % 10;
     text_draw_char16(slice, o, xoff, text_y, vol_color);
     xoff++;
 
+#ifndef AUDIO_REPAIR
     /* outline volume bar */
     for (int y = bar_y; y < bar_y + bar_h; y++) {
         gfx_rgb565 *px = gfx_pixel_address(slice, bar_x, y);
@@ -351,7 +363,7 @@ static void audio_draw_raw_vol(gfx_pixslice *slice)
     for (int y = bar_y + 1; y < bar_y + bar_h - 1; y++) {
         gfx_rgb565 *px = gfx_pixel_address(slice, bar_x, y);
         if (px) {
-            for (int x = 0; x < vol; x++) {
+            for (int x = 0; x < raw_vol; x++) {
                 px[x] = vol_color;
             }
         }

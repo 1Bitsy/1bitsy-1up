@@ -2,12 +2,16 @@
 
 #ifdef AUDIO_REPAIR
 
+#include <libopencm3/stm32/adc.h>
+#include <libopencm3/stm32/rcc.h>
+
 #include "gpio.h"
 
 #define HP_SENSE_PORT GPIOA
 #define HP_SENSE_PIN  GPIO0
 #define VOL_PORT      GPIOA
 #define VOL_PIN       GPIO1
+#define VOL_ADC_CHAN  1
 #define MUTE_PORT     GPIOA
 #define MUTE_PIN      GPIO2
 #define SHUTDOWN_PORT GPIOA
@@ -43,36 +47,49 @@ static const size_t pam8019_pin_count = (&pam8019_pins)[1] - pam8019_pins;
 
 static void enable_override(void)
 {
+#if 0
     gpio_mode_setup(HP_SENSE_PORT,
                     GPIO_MODE_OUTPUT,
                     GPIO_PUPD_NONE,
                     HP_SENSE_PIN);
-    // static const gpio_pin sense_output = {
-    //     .gp_port  = HP_SENSE_PORT,
-    //     .gp_pin   = HP_SENSE_PIN,
-    //     .gp_mode  = GPIO_MODE_OUTPUT,
-    //     .gp_otype = GPIO_OTYPE_OD,
-    // };
-    // gpio_init_pin(&sense_output);
+#else
+    static const gpio_pin sense_output = {
+        .gp_port  = HP_SENSE_PORT,
+        .gp_pin   = HP_SENSE_PIN,
+        .gp_mode  = GPIO_MODE_OUTPUT,
+        .gp_otype = GPIO_OTYPE_OD,
+    };
+    gpio_config_pin(&sense_output);
+#endif
 }
 
 static void disable_override(void)
 {
+#if 0
     gpio_mode_setup(HP_SENSE_PORT,
                     GPIO_MODE_INPUT,
                     GPIO_PUPD_NONE,
                     HP_SENSE_PIN);
-    // static const gpio_pin sense_input = {
-    //     .gp_port  = HP_SENSE_PORT,
-    //     .gp_pin   = HP_SENSE_PIN,
-    //     .gp_mode  = GPIO_MODE_INPUT,
-    // };
-    // gpio_init_pin(&sense_input);
+#else
+    static const gpio_pin sense_input = {
+        .gp_port  = HP_SENSE_PORT,
+        .gp_pin   = HP_SENSE_PIN,
+        .gp_mode  = GPIO_MODE_INPUT,
+    };
+    gpio_config_pin(&sense_input);
+#endif
 }
 
 void pam8019_init(void)
 {
     gpio_init_pins(pam8019_pins, pam8019_pin_count);
+
+    rcc_periph_clock_enable(RCC_ADC1);
+
+    adc_power_off(ADC1);
+    adc_disable_scan_mode(ADC1);
+    adc_set_sample_time_on_all_channels(ADC1, ADC_SMPR_SMP_3CYC);
+    adc_power_on(ADC1);
 }
 
 pam8019_mode pam8019_get_mode(void)
@@ -136,10 +153,14 @@ bool pam8019_output_is_headphones(void)
     return (bool)gpio_get(HP_SENSE_PORT, HP_SENSE_PIN);
 }
 
-uint16_t pam8019_pam8019_get_raw_volume(void)
+uint16_t pam8019_get_raw_volume(void)
 {
-    // XXX Implement later.
-    return 0;
+    uint8_t channel_array[16] = { VOL_ADC_CHAN };
+    adc_set_regular_sequence(ADC1, 1, channel_array);
+    adc_start_conversion_regular(ADC1);
+    while (!adc_eoc(ADC1))
+        continue;
+    return 4095 - adc_read_regular(ADC1);
 }
 
 #endif /* AUDIO_REPAIR */
