@@ -83,7 +83,7 @@ enum app_ids {
     tile_app,
     audio_app,
     end_app
-} active_app = audio_app;
+} active_app = munch_app;
 
 /* Function pointers to available apps. The first one executes by default.
  * Do not forget to adjust the enum if you are messing around with this list.
@@ -179,7 +179,6 @@ static void calc_fps(void)
 
 static void check_app_switch(void)
 {
-#ifndef AUDIO_REPAIR
     static bool state = false;
 
     if (!state) {
@@ -203,7 +202,6 @@ static void check_app_switch(void)
             gpio_set(GPIOA, GPIO8);
         }
     }
-#endif
 }
 
 static void run(void)
