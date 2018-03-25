@@ -1,48 +1,4 @@
-EESchema Schematic File Version 2
-LIBS:power
-LIBS:device
-LIBS:transistors
-LIBS:conn
-LIBS:linear
-LIBS:regul
-LIBS:74xx
-LIBS:cmos4000
-LIBS:adc-dac
-LIBS:memory
-LIBS:xilinx
-LIBS:microcontrollers
-LIBS:dsp
-LIBS:microchip
-LIBS:analog_switches
-LIBS:motorola
-LIBS:texas
-LIBS:intel
-LIBS:audio
-LIBS:interface
-LIBS:digital-audio
-LIBS:philips
-LIBS:display
-LIBS:cypress
-LIBS:siliconi
-LIBS:opto
-LIBS:atmel
-LIBS:contrib
-LIBS:valves
-LIBS:pkl_conn
-LIBS:pkl_device
-LIBS:pkl_ftdi
-LIBS:pkl_linear
-LIBS:pkl_logos
-LIBS:pkl_maxim
-LIBS:pkl_misc
-LIBS:pkl_molex
-LIBS:pkl_power
-LIBS:pkl_sensor
-LIBS:pkl_tag_connect
-LIBS:pkl_texas
-LIBS:1bitsy
-LIBS:pkl_lattice
-LIBS:pkl_memory
+EESchema Schematic File Version 4
 LIBS:1bitsy-1up-cache
 EELAYER 26 0
 EELAYER END
@@ -59,7 +15,7 @@ Comment3 "License: CC-BY-SA 4.0"
 Comment4 ""
 $EndDescr
 $Comp
-L 1bitsy-complete-concise U1
+L 1bitsy:1bitsy-complete-concise U1
 U 1 1 57F4B4DD
 P 4300 2600
 F 0 "U1" H 4300 2700 60  0000 C CNN
@@ -124,7 +80,7 @@ LCD_TE
 Text Label 7100 3400 0    60   ~ 0
 AUDIO_R
 $Comp
-L GND #PWR01
+L power:GND #PWR01
 U 1 1 581E2AB2
 P 7000 4000
 F 0 "#PWR01" H 7000 3750 50  0001 C CNN
@@ -135,7 +91,7 @@ F 3 "" H 7000 4000 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L +3V3 #PWR02
+L power:+3V3 #PWR02
 U 1 1 581E2B3A
 P 7200 1200
 F 0 "#PWR02" H 7200 1050 50  0001 C CNN
@@ -146,7 +102,7 @@ F 3 "" H 7200 1200 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR03
+L power:GND #PWR03
 U 1 1 581E2D0D
 P 1600 4000
 F 0 "#PWR03" H 1600 3750 50  0001 C CNN
@@ -157,7 +113,7 @@ F 3 "" H 1600 4000 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L +3V3 #PWR04
+L power:+3V3 #PWR04
 U 1 1 581E2E1A
 P 1500 1300
 F 0 "#PWR04" H 1500 1150 50  0001 C CNN
@@ -195,7 +151,7 @@ Text Label 15300 3700 0    60   ~ 0
 LCD_CS
 NoConn ~ 15200 4200
 $Comp
-L pkl_R_Small R1
+L pkl_device:pkl_R_Small R1
 U 1 1 581E975A
 P 13200 2500
 F 0 "R1" V 13250 2600 50  0000 L CNN
@@ -209,7 +165,7 @@ F 6 "ANY" H 13200 2500 60  0001 C CNN "Source"
 	0    1    1    0   
 $EndComp
 $Comp
-L pkl_R_Small R2
+L pkl_device:pkl_R_Small R2
 U 1 1 581E9889
 P 13200 2600
 F 0 "R2" V 13250 2700 50  0000 L CNN
@@ -223,7 +179,7 @@ F 6 "ANY" H 13200 2600 60  0001 C CNN "Source"
 	0    1    1    0   
 $EndComp
 $Comp
-L pkl_R_Small R3
+L pkl_device:pkl_R_Small R3
 U 1 1 581E98C3
 P 13200 2700
 F 0 "R3" V 13250 2800 50  0000 L CNN
@@ -237,7 +193,7 @@ F 6 "ANY" H 13200 2700 60  0001 C CNN "Source"
 	0    1    1    0   
 $EndComp
 $Comp
-L pkl_R_Small R4
+L pkl_device:pkl_R_Small R4
 U 1 1 581E9900
 P 13200 2800
 F 0 "R4" V 13250 2900 50  0000 L CNN
@@ -259,7 +215,7 @@ LED3A
 Text Label 13800 2800 2    30   ~ 0
 LED4A
 $Comp
-L +3V3 #PWR05
+L power:+3V3 #PWR05
 U 1 1 581E9E56
 P 12900 2400
 F 0 "#PWR05" H 12900 2250 50  0001 C CNN
@@ -270,7 +226,7 @@ F 3 "" H 12900 2400 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L pkl_Q_NMOS_BD_GSD Q1
+L pkl_device:pkl_Q_NMOS_BD_GSD Q1
 U 1 1 581EB34F
 P 13300 3100
 F 0 "Q1" H 13300 3250 50  0000 R CNN
@@ -285,7 +241,7 @@ $EndComp
 Text Label 13000 3100 2    60   ~ 0
 LCD_BACK_LIGHT
 $Comp
-L LCD_CAP_TOUCH U3
+L pkl_misc:LCD_CAP_TOUCH U3
 U 1 1 581E8601
 P 14700 5300
 F 0 "U3" H 14700 5550 60  0000 C CNN
@@ -298,7 +254,7 @@ F 5 "ANY" H 14700 5300 60  0001 C CNN "Source"
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR06
+L power:GND #PWR06
 U 1 1 581E88F0
 P 15300 5700
 F 0 "#PWR06" H 15300 5450 50  0001 C CNN
@@ -309,7 +265,7 @@ F 3 "" H 15300 5700 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L +3V3 #PWR07
+L power:+3V3 #PWR07
 U 1 1 581E8A0B
 P 15300 5000
 F 0 "#PWR07" H 15300 4850 50  0001 C CNN
@@ -320,7 +276,7 @@ F 3 "" H 15300 5000 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L pkl_R_Small R9
+L pkl_device:pkl_R_Small R9
 U 1 1 581E8CAA
 P 14100 5000
 F 0 "R9" V 14200 5100 50  0000 L CNN
@@ -334,7 +290,7 @@ F 6 "ANY" H 14100 5000 60  0001 C CNN "Source"
 	1    0    0    -1  
 $EndComp
 $Comp
-L pkl_R_Small R8
+L pkl_device:pkl_R_Small R8
 U 1 1 581E910C
 P 13900 5000
 F 0 "R8" V 14000 5100 50  0000 L CNN
@@ -348,7 +304,7 @@ F 6 "ANY" H 13900 5000 60  0001 C CNN "Source"
 	1    0    0    -1  
 $EndComp
 $Comp
-L +3V3 #PWR08
+L power:+3V3 #PWR08
 U 1 1 581EAB05
 P 14000 4700
 F 0 "#PWR08" H 14000 4550 50  0001 C CNN
@@ -367,7 +323,7 @@ VOL/TOUCH_SCL
 Text Label 13800 5200 2    60   ~ 0
 LCD_TOUCH_IRQ
 $Comp
-L GND #PWR09
+L power:GND #PWR09
 U 1 1 581EB02A
 P 7000 10600
 F 0 "#PWR09" H 7000 10350 50  0001 C CNN
@@ -378,7 +334,7 @@ F 3 "" H 7000 10600 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L pkl_C_Small C4
+L pkl_device:pkl_C_Small C4
 U 1 1 581EB1D6
 P 3800 8350
 F 0 "C4" H 3825 8450 50  0000 L CNN
@@ -391,7 +347,7 @@ F 5 "ANY" H 3800 8350 60  0001 C CNN "Source"
 	1    0    0    -1  
 $EndComp
 $Comp
-L pkl_C_Small C5
+L pkl_device:pkl_C_Small C5
 U 1 1 581EB2E0
 P 3600 8350
 F 0 "C5" H 3625 8450 50  0000 L CNN
@@ -408,7 +364,7 @@ AUDIO_R
 Text Label 3800 8050 1    60   ~ 0
 AUDIO_L
 $Comp
-L pkl_Micro_SD CON1
+L pkl_conn:pkl_Micro_SD CON1
 U 1 1 581EC54A
 P 9500 1600
 F 0 "CON1" H 8850 2150 50  0000 C CNN
@@ -421,7 +377,7 @@ F 5 "ANY" H 9500 1600 60  0001 C CNN "Source"
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR010
+L power:GND #PWR010
 U 1 1 581ED057
 P 8500 2200
 F 0 "#PWR010" H 8500 1950 50  0001 C CNN
@@ -432,7 +388,7 @@ F 3 "" H 8500 2200 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR011
+L power:GND #PWR011
 U 1 1 581ED0A4
 P 10500 2200
 F 0 "#PWR011" H 10500 1950 50  0001 C CNN
@@ -443,7 +399,7 @@ F 3 "" H 10500 2200 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L +3V3 #PWR012
+L power:+3V3 #PWR012
 U 1 1 581ED461
 P 8500 1000
 F 0 "#PWR012" H 8500 850 50  0001 C CNN
@@ -468,7 +424,7 @@ SDIO_D0
 Text Label 10600 1400 0    60   ~ 0
 SDIO_CD
 $Comp
-L TACT SW1
+L pkl_misc:TACT SW1
 U 1 1 581EFA75
 P 2200 5100
 F 0 "SW1" H 2350 5025 60  0000 L CNN
@@ -481,7 +437,7 @@ F 5 "ANY" H 2200 5100 60  0001 C CNN "Source"
 	1    0    0    -1  
 $EndComp
 $Comp
-L TACT SW3
+L pkl_misc:TACT SW3
 U 1 1 581EFF62
 P 1600 5700
 F 0 "SW3" H 1750 5625 60  0000 L CNN
@@ -494,7 +450,7 @@ F 5 "ANY" H 1600 5700 60  0001 C CNN "Source"
 	1    0    0    -1  
 $EndComp
 $Comp
-L TACT SW4
+L pkl_misc:TACT SW4
 U 1 1 581EFFE4
 P 2800 5700
 F 0 "SW4" H 2950 5625 60  0000 L CNN
@@ -507,7 +463,7 @@ F 5 "ANY" H 2800 5700 60  0001 C CNN "Source"
 	1    0    0    -1  
 $EndComp
 $Comp
-L TACT SW8
+L pkl_misc:TACT SW8
 U 1 1 581F005D
 P 2200 6300
 F 0 "SW8" H 2350 6225 60  0000 L CNN
@@ -520,7 +476,7 @@ F 5 "ANY" H 2200 6300 60  0001 C CNN "Source"
 	1    0    0    -1  
 $EndComp
 $Comp
-L TACT SW2
+L pkl_misc:TACT SW2
 U 1 1 581F063F
 P 4600 5100
 F 0 "SW2" H 4750 5025 60  0000 L CNN
@@ -533,7 +489,7 @@ F 5 "ANY" H 4600 5100 60  0001 C CNN "Source"
 	1    0    0    -1  
 $EndComp
 $Comp
-L TACT SW5
+L pkl_misc:TACT SW5
 U 1 1 581F0646
 P 4000 5700
 F 0 "SW5" H 4150 5625 60  0000 L CNN
@@ -546,7 +502,7 @@ F 5 "ANY" H 4000 5700 60  0001 C CNN "Source"
 	1    0    0    -1  
 $EndComp
 $Comp
-L TACT SW6
+L pkl_misc:TACT SW6
 U 1 1 581F064D
 P 5200 5700
 F 0 "SW6" H 5350 5625 60  0000 L CNN
@@ -559,7 +515,7 @@ F 5 "ANY" H 5200 5700 60  0001 C CNN "Source"
 	1    0    0    -1  
 $EndComp
 $Comp
-L TACT SW9
+L pkl_misc:TACT SW9
 U 1 1 581F0654
 P 4600 6300
 F 0 "SW9" H 4750 6225 60  0000 L CNN
@@ -572,7 +528,7 @@ F 5 "ANY" H 4600 6300 60  0001 C CNN "Source"
 	1    0    0    -1  
 $EndComp
 $Comp
-L TACT SW7
+L pkl_misc:TACT SW7
 U 1 1 581F0697
 P 3400 6100
 F 0 "SW7" H 3550 6025 60  0000 L CNN
@@ -585,7 +541,7 @@ F 5 "ANY" H 3400 6100 60  0001 C CNN "Source"
 	1    0    0    -1  
 $EndComp
 $Comp
-L TACT SW10
+L pkl_misc:TACT SW10
 U 1 1 581F0783
 P 3400 6600
 F 0 "SW10" H 3550 6525 60  0000 L CNN
@@ -624,7 +580,7 @@ BCLK
 Text Label 7100 3100 0    60   ~ 0
 BLATCH
 $Comp
-L GND #PWR013
+L power:GND #PWR013
 U 1 1 581F5549
 P 3400 7000
 F 0 "#PWR013" H 3400 6750 50  0001 C CNN
@@ -635,7 +591,7 @@ F 3 "" H 3400 7000 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L pkl_R_Small R5
+L pkl_device:pkl_R_Small R5
 U 1 1 581F86BF
 P 15800 3400
 F 0 "R5" V 15900 3500 50  0000 L CNN
@@ -649,7 +605,7 @@ F 6 "ANY" H 15800 3400 60  0001 C CNN "Source"
 	1    0    0    -1  
 $EndComp
 $Comp
-L +3V3 #PWR014
+L power:+3V3 #PWR014
 U 1 1 581FA287
 P 15800 3200
 F 0 "#PWR014" H 15800 3050 50  0001 C CNN
@@ -662,7 +618,7 @@ $EndComp
 Text Label 7100 3600 0    60   ~ 0
 SDIO_CD
 $Comp
-L pkl_C_Small C3
+L pkl_device:pkl_C_Small C3
 U 1 1 581FCB1C
 P 13400 3800
 F 0 "C3" H 13410 3870 50  0000 L CNN
@@ -675,7 +631,7 @@ F 5 "ANY" H 13400 3800 60  0001 C CNN "Source"
 	-1   0    0    1   
 $EndComp
 $Comp
-L pkl_C_Small C2
+L pkl_device:pkl_C_Small C2
 U 1 1 581FCC93
 P 13100 3800
 F 0 "C2" H 13110 3870 50  0000 L CNN
@@ -688,7 +644,7 @@ F 5 "ANY" H 13100 3800 60  0001 C CNN "Source"
 	-1   0    0    1   
 $EndComp
 $Comp
-L pkl_C C1
+L pkl_device:pkl_C C1
 U 1 1 581FCD08
 P 12800 3800
 F 0 "C1" H 12810 3870 50  0000 L CNN
@@ -701,7 +657,7 @@ F 5 "ANY" H 12800 3800 60  0001 C CNN "Source"
 	-1   0    0    1   
 $EndComp
 $Comp
-L GND #PWR015
+L power:GND #PWR015
 U 1 1 59466D84
 P 13500 4400
 F 0 "#PWR015" H 13500 4150 50  0001 C CNN
@@ -716,7 +672,7 @@ LCD_RST
 Text Label 13800 2400 2    30   ~ 0
 LCD_BL
 $Comp
-L lcd_50pin_logic U2
+L pkl_misc:lcd_50pin_logic U2
 U 1 1 5946BD28
 P 14500 2700
 F 0 "U2" H 14500 1050 60  0000 C CNN
@@ -729,7 +685,7 @@ F 5 "ANY" H 14500 2700 60  0001 C CNN "Source"
 	1    0    0    -1  
 $EndComp
 $Comp
-L pkl_jumper J1
+L pkl_misc:pkl_jumper J1
 U 1 1 5946DA06
 P 13300 1900
 F 0 "J1" H 13150 1850 60  0000 C CNN
@@ -742,7 +698,7 @@ F 5 "DNP" H 13300 1900 60  0001 C CNN "DNP"
 	1    0    0    -1  
 $EndComp
 $Comp
-L pkl_jumper J2
+L pkl_misc:pkl_jumper J2
 U 1 1 5946DC83
 P 13300 2000
 F 0 "J2" H 13150 1950 60  0000 C CNN
@@ -755,7 +711,7 @@ F 5 "DNP" H 13300 2000 60  0001 C CNN "DNP"
 	1    0    0    -1  
 $EndComp
 $Comp
-L pkl_jumper J3
+L pkl_misc:pkl_jumper J3
 U 1 1 5946DCF2
 P 13300 2100
 F 0 "J3" H 13150 2050 60  0000 C CNN
@@ -768,7 +724,7 @@ F 5 "DNP" H 13300 2100 60  0001 C CNN "DNP"
 	1    0    0    -1  
 $EndComp
 $Comp
-L pkl_jumper J4
+L pkl_misc:pkl_jumper J4
 U 1 1 5946ED88
 P 13300 2200
 F 0 "J4" H 13150 2150 60  0000 C CNN
@@ -789,7 +745,7 @@ LCD_RST
 Text Label 13100 2100 2    60   ~ 0
 LCD_TOUCH_IRQ
 $Comp
-L GND #PWR016
+L power:GND #PWR016
 U 1 1 594716A4
 P 15300 4400
 F 0 "#PWR016" H 15300 4150 50  0001 C CNN
@@ -814,7 +770,7 @@ NoConn ~ 15200 3200
 NoConn ~ 15200 3300
 NoConn ~ 15200 3400
 $Comp
-L TPA6135A2 U7
+L pkl_misc:TPA6135A2 U7
 U 1 1 594781BC
 P 5900 9700
 F 0 "U7" H 5900 8950 60  0000 C CNN
@@ -827,7 +783,7 @@ F 5 "ANY" H 5900 9700 60  0001 C CNN "Source"
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR017
+L power:GND #PWR017
 U 1 1 59478E7D
 P 4800 10700
 F 0 "#PWR017" H 4800 10450 50  0001 C CNN
@@ -838,7 +794,7 @@ F 3 "" H 4800 10700 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L pkl_R_Small R14
+L pkl_device:pkl_R_Small R14
 U 1 1 5947C498
 P 3800 8650
 F 0 "R14" V 3850 8750 50  0000 L CNN
@@ -852,7 +808,7 @@ F 6 "ANY" H 3800 8650 60  0001 C CNN "Source"
 	-1   0    0    1   
 $EndComp
 $Comp
-L pkl_R_Small R15
+L pkl_device:pkl_R_Small R15
 U 1 1 5947C6A2
 P 3600 8650
 F 0 "R15" V 3650 8750 50  0000 L CNN
@@ -866,7 +822,7 @@ F 6 "ANY" H 3600 8650 60  0001 C CNN "Source"
 	-1   0    0    1   
 $EndComp
 $Comp
-L GND #PWR018
+L power:GND #PWR018
 U 1 1 5947DB29
 P 2200 10700
 F 0 "#PWR018" H 2200 10450 50  0001 C CNN
@@ -877,7 +833,7 @@ F 3 "" H 2200 10700 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L +5V #PWR019
+L power:+5V #PWR019
 U 1 1 5947DF0D
 P 7000 1200
 F 0 "#PWR019" H 7000 1050 50  0001 C CNN
@@ -888,7 +844,7 @@ F 3 "" H 7000 1200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L pkl_C_Small C6
+L pkl_device:pkl_C_Small C6
 U 1 1 5947EB09
 P 6800 10050
 F 0 "C6" H 6825 10150 50  0000 L CNN
@@ -901,7 +857,7 @@ F 5 "ANY" H 6800 10050 60  0001 C CNN "Source"
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR020
+L power:GND #PWR020
 U 1 1 5947F442
 P 6600 10600
 F 0 "#PWR020" H 6600 10350 50  0001 C CNN
@@ -912,7 +868,7 @@ F 3 "" H 6600 10600 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L pkl_R_Small R13
+L pkl_device:pkl_R_Small R13
 U 1 1 5947F950
 P 4500 9000
 F 0 "R13" V 4450 8900 50  0000 R CNN
@@ -926,7 +882,7 @@ F 6 "ANY" H 4500 9000 60  0001 C CNN "Source"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Jumper_Dual J6
+L pkl_misc:Jumper_Dual J6
 U 1 1 5947FF7B
 P 4300 10000
 F 0 "J6" H 4400 9900 60  0000 C CNN
@@ -939,7 +895,7 @@ F 5 "DNP" H 4300 10000 60  0001 C CNN "DNP"
 	0    -1   -1   0   
 $EndComp
 $Comp
-L GND #PWR021
+L power:GND #PWR021
 U 1 1 594818E7
 P 4300 10700
 F 0 "#PWR021" H 4300 10450 50  0001 C CNN
@@ -950,7 +906,7 @@ F 3 "" H 4300 10700 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L +3V3 #PWR022
+L power:+3V3 #PWR022
 U 1 1 59481F1B
 P 4300 8800
 F 0 "#PWR022" H 4300 8650 50  0001 C CNN
@@ -961,7 +917,7 @@ F 3 "" H 4300 8800 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L pkl_R_Small R23
+L pkl_device:pkl_R_Small R23
 U 1 1 594826A6
 P 4500 10300
 F 0 "R23" V 4450 10200 50  0000 R CNN
@@ -975,7 +931,7 @@ F 6 "ANY" H 4500 10300 60  0001 C CNN "Source"
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR023
+L power:GND #PWR023
 U 1 1 59482979
 P 4500 10700
 F 0 "#PWR023" H 4500 10450 50  0001 C CNN
@@ -986,7 +942,7 @@ F 3 "" H 4500 10700 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L +3V3 #PWR024
+L power:+3V3 #PWR024
 U 1 1 594845EE
 P 4700 8800
 F 0 "#PWR024" H 4700 8650 50  0001 C CNN
@@ -997,7 +953,7 @@ F 3 "" H 4700 8800 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L pkl_C_Small C7
+L pkl_device:pkl_C_Small C7
 U 1 1 59485346
 P 4700 10300
 F 0 "C7" V 4750 10350 50  0000 L CNN
@@ -1010,7 +966,7 @@ F 5 "ANY" H 4700 10300 60  0001 C CNN "Source"
 	-1   0    0    1   
 $EndComp
 $Comp
-L +3V3 #PWR025
+L power:+3V3 #PWR025
 U 1 1 59486092
 P 4500 8800
 F 0 "#PWR025" H 4500 8650 50  0001 C CNN
@@ -1021,7 +977,7 @@ F 3 "" H 4500 8800 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L pkl_C_Small C8
+L pkl_device:pkl_C_Small C8
 U 1 1 59487C2A
 P 5000 10400
 F 0 "C8" V 5050 10450 50  0000 L CNN
@@ -1034,7 +990,7 @@ F 5 "ANY" H 5000 10400 60  0001 C CNN "Source"
 	-1   0    0    1   
 $EndComp
 $Comp
-L pkl_C_Small C9
+L pkl_device:pkl_C_Small C9
 U 1 1 59487EDA
 P 5200 10500
 F 0 "C9" V 5250 10550 50  0000 L CNN
@@ -1047,7 +1003,7 @@ F 5 "ANY" H 5200 10500 60  0001 C CNN "Source"
 	-1   0    0    1   
 $EndComp
 $Comp
-L GND #PWR026
+L power:GND #PWR026
 U 1 1 5948830E
 P 5000 10700
 F 0 "#PWR026" H 5000 10450 50  0001 C CNN
@@ -1058,7 +1014,7 @@ F 3 "" H 5000 10700 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR027
+L power:GND #PWR027
 U 1 1 5948839D
 P 5200 10700
 F 0 "#PWR027" H 5200 10450 50  0001 C CNN
@@ -1069,7 +1025,7 @@ F 3 "" H 5200 10700 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L BQ24075 U6
+L pkl_misc:BQ24075 U6
 U 1 1 594B6F1D
 P 13100 7400
 F 0 "U6" H 13100 6750 60  0000 C CNN
@@ -1082,7 +1038,7 @@ F 5 "ANY" H 13100 7400 60  0001 C CNN "Source"
 	1    0    0    -1  
 $EndComp
 $Comp
-L pkl_LED D2
+L pkl_device:pkl_LED D2
 U 1 1 594B82E7
 P 15200 8000
 F 0 "D2" H 15200 8100 50  0000 C CNN
@@ -1095,7 +1051,7 @@ F 5 "ANY" H 15200 8000 60  0001 C CNN "Source"
 	-1   0    0    1   
 $EndComp
 $Comp
-L pkl_LED D1
+L pkl_device:pkl_LED D1
 U 1 1 594B85D2
 P 15200 7700
 F 0 "D1" H 15200 7800 50  0000 C CNN
@@ -1108,35 +1064,35 @@ F 5 "ANY" H 15200 7700 60  0001 C CNN "Source"
 	-1   0    0    1   
 $EndComp
 $Comp
-L pkl_R_Small R21
+L pkl_device:pkl_R_Small R21
 U 1 1 594B9A03
-P 14900 8000
-F 0 "R21" V 15000 8100 50  0000 L CNN
-F 1 "10k" V 15000 8050 50  0000 R CNN
-F 2 "pkl_dipol:R_0402" H 14900 8000 60  0001 C CNN
-F 3 "" H 14900 8000 60  0000 C CNN
-F 4 "res-0402-10k" H 14900 8000 60  0001 C CNN "Key"
-F 5 "0402" H 14900 8000 60  0001 C CNN "Package ID"
-F 6 "ANY" H 14900 8000 60  0001 C CNN "Source"
-	1    14900 8000
+P 14800 8000
+F 0 "R21" V 14900 8100 50  0000 L CNN
+F 1 "1k" V 14900 8050 50  0000 R CNN
+F 2 "pkl_dipol:R_0402" H 14800 8000 60  0001 C CNN
+F 3 "" H 14800 8000 60  0000 C CNN
+F 4 "res-0402-10k" H 14800 8000 60  0001 C CNN "Key"
+F 5 "0402" H 14800 8000 60  0001 C CNN "Package ID"
+F 6 "ANY" H 14800 8000 60  0001 C CNN "Source"
+	1    14800 8000
 	0    1    1    0   
 $EndComp
 $Comp
-L pkl_R_Small R16
+L pkl_device:pkl_R_Small R16
 U 1 1 594BA0BF
-P 14900 7700
-F 0 "R16" V 15000 7800 50  0000 L CNN
-F 1 "10k" V 15000 7750 50  0000 R CNN
-F 2 "pkl_dipol:R_0402" H 14900 7700 60  0001 C CNN
-F 3 "" H 14900 7700 60  0000 C CNN
-F 4 "res-0402-10k" H 14900 7700 60  0001 C CNN "Key"
-F 5 "0402" H 14900 7700 60  0001 C CNN "Package ID"
-F 6 "ANY" H 14900 7700 60  0001 C CNN "Source"
-	1    14900 7700
+P 14800 7700
+F 0 "R16" V 14900 7800 50  0000 L CNN
+F 1 "1k" V 14900 7750 50  0000 R CNN
+F 2 "pkl_dipol:R_0402" H 14800 7700 60  0001 C CNN
+F 3 "" H 14800 7700 60  0000 C CNN
+F 4 "res-0402-10k" H 14800 7700 60  0001 C CNN "Key"
+F 5 "0402" H 14800 7700 60  0001 C CNN "Package ID"
+F 6 "ANY" H 14800 7700 60  0001 C CNN "Source"
+	1    14800 7700
 	0    1    1    0   
 $EndComp
 $Comp
-L pkl_R_Small R22
+L pkl_device:pkl_R_Small R22
 U 1 1 594BB46B
 P 13800 8200
 F 0 "R22" V 13900 8300 50  0000 L CNN
@@ -1150,7 +1106,7 @@ F 6 "ANY" H 13800 8200 60  0001 C CNN "Source"
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR028
+L power:GND #PWR028
 U 1 1 594BB5AC
 P 13800 8400
 F 0 "#PWR028" H 13800 8150 50  0001 C CNN
@@ -1161,7 +1117,7 @@ F 3 "" H 13800 8400 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR029
+L power:GND #PWR029
 U 1 1 594BC07F
 P 12400 8400
 F 0 "#PWR029" H 12400 8150 50  0001 C CNN
@@ -1172,7 +1128,7 @@ F 3 "" H 12400 8400 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L pkl_R_Small R20
+L pkl_device:pkl_R_Small R20
 U 1 1 594BC265
 P 12200 7800
 F 0 "R20" V 12300 7900 50  0000 L CNN
@@ -1186,7 +1142,7 @@ F 6 "ANY" H 12200 7800 60  0001 C CNN "Source"
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR030
+L power:GND #PWR030
 U 1 1 594BC62A
 P 12200 8400
 F 0 "#PWR030" H 12200 8150 50  0001 C CNN
@@ -1199,7 +1155,7 @@ $EndComp
 Text Notes 12200 8400 1    60   ~ 0
 1.5A ILIM
 $Comp
-L pkl_R_Small R19
+L pkl_device:pkl_R_Small R19
 U 1 1 594BC7F6
 P 12000 7800
 F 0 "R19" V 12100 7900 50  0000 L CNN
@@ -1213,7 +1169,7 @@ F 6 "ANY" H 12000 7800 60  0001 C CNN "Source"
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR031
+L power:GND #PWR031
 U 1 1 594BD626
 P 12000 8400
 F 0 "#PWR031" H 12000 8150 50  0001 C CNN
@@ -1226,7 +1182,7 @@ $EndComp
 Text Notes 12000 8400 1    60   ~ 0
 1.5A ISET
 $Comp
-L pkl_R_Small R18
+L pkl_device:pkl_R_Small R18
 U 1 1 594BD7D7
 P 11800 7800
 F 0 "R18" V 11900 7900 50  0000 L CNN
@@ -1240,7 +1196,7 @@ F 6 "ANY" H 11800 7800 60  0001 C CNN "Source"
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR032
+L power:GND #PWR032
 U 1 1 594BE3C9
 P 11800 8400
 F 0 "#PWR032" H 11800 8150 50  0001 C CNN
@@ -1253,7 +1209,7 @@ $EndComp
 Text Notes 11800 8400 1    60   ~ 0
 dis TMR
 $Comp
-L pkl_R_Small R17
+L pkl_device:pkl_R_Small R17
 U 1 1 594BE9A6
 P 11600 7800
 F 0 "R17" V 11700 7900 50  0000 L CNN
@@ -1267,7 +1223,7 @@ F 6 "ANY" H 11600 7800 60  0001 C CNN "Source"
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR033
+L power:GND #PWR033
 U 1 1 594BED62
 P 11600 8400
 F 0 "#PWR033" H 11600 8150 50  0001 C CNN
@@ -1280,7 +1236,7 @@ $EndComp
 Text Notes 11600 8400 1    60   ~ 0
 byp TS
 $Comp
-L GND #PWR034
+L power:GND #PWR034
 U 1 1 594BF477
 P 14000 8400
 F 0 "#PWR034" H 14000 8150 50  0001 C CNN
@@ -1291,45 +1247,45 @@ F 3 "" H 14000 8400 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L pkl_SWITCH-SPDT SW11
+L pkl_misc:pkl_SWITCH-SPDT SW11
 U 1 1 594BFA1E
-P 14400 7400
-F 0 "SW11" H 14550 7325 60  0000 L CNN
-F 1 "pkl_SWITCH-SPDT" H 14550 7475 60  0000 L CNN
-F 2 "pkl_buttons_switches:SW_SPDT_PCM12" H 14400 7375 60  0001 C CNN
-F 3 "" H 14400 7375 60  0000 C CNN
-F 4 "switch-slide-smd-spdt" H 14400 7400 60  0001 C CNN "Key"
-F 5 "ANY" H 14400 7400 60  0001 C CNN "Source"
-	1    14400 7400
+P 14200 6800
+F 0 "SW11" H 14350 6725 60  0000 L CNN
+F 1 "pkl_SWITCH-SPDT" H 14350 6875 60  0000 L CNN
+F 2 "pkl_buttons_switches:SW_SPDT_PCM12" H 14200 6775 60  0001 C CNN
+F 3 "" H 14200 6775 60  0000 C CNN
+F 4 "switch-slide-smd-spdt" H 14200 6800 60  0001 C CNN "Key"
+F 5 "ANY" H 14200 6800 60  0001 C CNN "Source"
+	1    14200 6800
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR035
+L power:GND #PWR035
 U 1 1 594C16EB
-P 14400 8400
-F 0 "#PWR035" H 14400 8150 50  0001 C CNN
-F 1 "GND" H 14400 8250 50  0000 C CNN
-F 2 "" H 14400 8400 50  0000 C CNN
-F 3 "" H 14400 8400 50  0000 C CNN
-	1    14400 8400
+P 14200 8400
+F 0 "#PWR035" H 14200 8150 50  0001 C CNN
+F 1 "GND" H 14200 8250 50  0000 C CNN
+F 2 "" H 14200 8400 50  0000 C CNN
+F 3 "" H 14200 8400 50  0000 C CNN
+	1    14200 8400
 	1    0    0    -1  
 $EndComp
 $Comp
-L pkl_R_Small R12
+L pkl_device:pkl_R_Small R12
 U 1 1 594C179E
-P 14100 7200
-F 0 "R12" V 14200 7300 50  0000 L CNN
-F 1 "10k" V 14200 7250 50  0000 R CNN
-F 2 "pkl_dipol:R_0402" H 14100 7200 60  0001 C CNN
-F 3 "" H 14100 7200 60  0000 C CNN
-F 4 "res-0402-10k" H 14100 7200 60  0001 C CNN "Key"
-F 5 "0402" H 14100 7200 60  0001 C CNN "Package ID"
-F 6 "ANY" H 14100 7200 60  0001 C CNN "Source"
-	1    14100 7200
+P 14200 8200
+F 0 "R12" V 14300 8300 50  0000 L CNN
+F 1 "10k" V 14300 8250 50  0000 R CNN
+F 2 "pkl_dipol:R_0402" H 14200 8200 60  0001 C CNN
+F 3 "" H 14200 8200 60  0000 C CNN
+F 4 "res-0402-10k" H 14200 8200 60  0001 C CNN "Key"
+F 5 "0402" H 14200 8200 60  0001 C CNN "Package ID"
+F 6 "ANY" H 14200 8200 60  0001 C CNN "Source"
+	1    14200 8200
 	1    0    0    -1  
 $EndComp
 $Comp
-L +5V #PWR036
+L power:+5V #PWR036
 U 1 1 594C255F
 P 15600 6700
 F 0 "#PWR036" H 15600 6550 50  0001 C CNN
@@ -1340,7 +1296,7 @@ F 3 "" H 15600 6700 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L +BATT #PWR037
+L power:+BATT #PWR037
 U 1 1 594C3CD5
 P 11950 6800
 F 0 "#PWR037" H 11950 6650 50  0001 C CNN
@@ -1350,17 +1306,6 @@ F 3 "" H 11950 6800 50  0001 C CNN
 	1    11950 6800
 	1    0    0    -1  
 $EndComp
-$Comp
-L +BATT #PWR038
-U 1 1 594C3DF2
-P 14100 6700
-F 0 "#PWR038" H 14100 6550 50  0001 C CNN
-F 1 "+BATT" H 14100 6840 50  0000 C CNN
-F 2 "" H 14100 6700 50  0001 C CNN
-F 3 "" H 14100 6700 50  0001 C CNN
-	1    14100 6700
-	1    0    0    -1  
-$EndComp
 Text Notes 15500 8000 0    60   ~ 0
 POWER ON
 Text Notes 15500 7700 0    60   ~ 0
@@ -1368,7 +1313,7 @@ CHARGING
 Text Notes 5850 1150 2    60   ~ 0
 Modify 1Bitsy by removing the USB V+ to VBUS diode.\nUSB V+ will be tapped off through a single pogo pin.
 $Comp
-L PAD_SMD P1
+L pkl_misc:PAD_SMD P1
 U 1 1 594C60E3
 P 6050 1100
 F 0 "P1" H 6050 950 60  0000 C CNN
@@ -1386,7 +1331,7 @@ $EndComp
 Text Label 6450 1100 0    60   ~ 0
 USB_V+
 $Comp
-L PWR_FLAG #FLG039
+L power:PWR_FLAG #FLG039
 U 1 1 594C6E4F
 P 6350 1000
 F 0 "#FLG039" H 6350 1075 50  0001 C CNN
@@ -1399,7 +1344,7 @@ $EndComp
 Text Label 12400 6800 2    60   ~ 0
 USB_V+
 $Comp
-L 74HC165 U4
+L pkl_misc:74HC165 U4
 U 1 1 594DDD87
 P 9200 5850
 F 0 "U4" H 9200 5050 60  0000 C CNN
@@ -1412,7 +1357,7 @@ F 5 "ANY" H 9200 5850 60  0001 C CNN "Source"
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR040
+L power:GND #PWR040
 U 1 1 594DE6FC
 P 8500 8350
 F 0 "#PWR040" H 8500 8100 50  0001 C CNN
@@ -1423,7 +1368,7 @@ F 3 "" H 8500 8350 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR041
+L power:GND #PWR041
 U 1 1 594DED11
 P 9900 8350
 F 0 "#PWR041" H 9900 8100 50  0001 C CNN
@@ -1434,7 +1379,7 @@ F 3 "" H 9900 8350 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L +3V3 #PWR042
+L power:+3V3 #PWR042
 U 1 1 594DF584
 P 9900 5100
 F 0 "#PWR042" H 9900 4950 50  0001 C CNN
@@ -1445,7 +1390,7 @@ F 3 "" H 9900 5100 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L +3V3 #PWR043
+L power:+3V3 #PWR043
 U 1 1 594E1051
 P 8400 4650
 F 0 "#PWR043" H 8400 4500 50  0001 C CNN
@@ -1550,7 +1495,7 @@ Wire Wire Line
 Wire Wire Line
 	12900 2800 13100 2800
 Wire Wire Line
-	12900 2400 12900 2800
+	12900 2400 12900 2500
 Wire Wire Line
 	13100 2700 12900 2700
 Connection ~ 12900 2700
@@ -1571,9 +1516,9 @@ Wire Wire Line
 Wire Wire Line
 	15300 5500 15300 5700
 Wire Wire Line
-	13800 5400 14200 5400
+	13800 5400 14100 5400
 Wire Wire Line
-	13800 5500 14200 5500
+	13800 5500 13900 5500
 Wire Wire Line
 	14200 5300 13800 5300
 Wire Wire Line
@@ -1587,7 +1532,7 @@ Connection ~ 13900 5500
 Wire Wire Line
 	13900 4900 13900 4800
 Wire Wire Line
-	13900 4800 14100 4800
+	13900 4800 14000 4800
 Wire Wire Line
 	14100 4800 14100 4900
 Wire Wire Line
@@ -1604,7 +1549,7 @@ Wire Wire Line
 Wire Wire Line
 	10400 1800 10500 1800
 Wire Wire Line
-	10500 1500 10500 2200
+	10500 1500 10500 1800
 Wire Wire Line
 	10400 1500 10500 1500
 Connection ~ 10500 1800
@@ -1637,7 +1582,7 @@ Wire Wire Line
 Wire Wire Line
 	2400 6300 2500 6300
 Wire Wire Line
-	2500 5100 2500 6900
+	2500 5100 2500 6300
 Wire Wire Line
 	1800 5700 1900 5700
 Wire Wire Line
@@ -1645,7 +1590,7 @@ Wire Wire Line
 Wire Wire Line
 	3600 6100 3700 6100
 Wire Wire Line
-	3700 6900 3700 6100
+	3700 6900 3700 6600
 Wire Wire Line
 	3600 6600 3700 6600
 Connection ~ 3700 6600
@@ -1656,7 +1601,7 @@ Wire Wire Line
 Wire Wire Line
 	4800 6300 4900 6300
 Wire Wire Line
-	4900 6900 4900 5100
+	4900 6900 4900 6300
 Wire Wire Line
 	2400 5100 2500 5100
 Connection ~ 2500 6300
@@ -1690,7 +1635,7 @@ Wire Wire Line
 Wire Wire Line
 	6900 3100 7100 3100
 Wire Wire Line
-	6400 6900 1900 6900
+	6400 6900 5500 6900
 Connection ~ 2500 6900
 Connection ~ 3100 6900
 Connection ~ 3700 6900
@@ -1713,7 +1658,7 @@ Wire Wire Line
 	13400 4000 13400 3900
 Connection ~ 13400 4000
 Wire Wire Line
-	12800 3500 12800 3700
+	12800 3500 12800 3600
 Wire Wire Line
 	13100 3700 13100 3600
 Connection ~ 13100 3600
@@ -1723,7 +1668,7 @@ Connection ~ 13400 3600
 Wire Wire Line
 	13800 1200 13500 1200
 Wire Wire Line
-	13500 1200 13500 4400
+	13500 1200 13500 1300
 Wire Wire Line
 	13800 1300 13500 1300
 Connection ~ 13500 1300
@@ -1739,7 +1684,7 @@ Wire Wire Line
 	13800 3900 13500 3900
 Connection ~ 13500 3900
 Wire Wire Line
-	12800 4000 13800 4000
+	12800 4000 13100 4000
 Connection ~ 13500 4000
 Wire Wire Line
 	13800 4100 13500 4100
@@ -1767,9 +1712,9 @@ Connection ~ 13500 3400
 Wire Wire Line
 	13800 3500 13700 3500
 Wire Wire Line
-	13700 3500 13700 3700
+	13700 3500 13700 3600
 Wire Wire Line
-	12800 3600 13800 3600
+	12800 3600 13100 3600
 Connection ~ 13700 3600
 Wire Wire Line
 	13700 3700 13800 3700
@@ -1798,7 +1743,7 @@ Wire Wire Line
 Wire Wire Line
 	5300 9400 4800 9400
 Wire Wire Line
-	4800 9400 4800 10700
+	4800 9400 4800 9600
 Wire Wire Line
 	5300 9600 4800 9600
 Connection ~ 4800 9600
@@ -1833,7 +1778,7 @@ Wire Wire Line
 Wire Wire Line
 	6500 9800 6600 9800
 Wire Wire Line
-	6600 9700 6600 10600
+	6600 9700 6600 9800
 Wire Wire Line
 	6500 9700 6600 9700
 Connection ~ 6600 9800
@@ -1842,9 +1787,9 @@ Wire Wire Line
 Wire Wire Line
 	6600 9500 6600 9600
 Wire Wire Line
-	4300 10000 5300 10000
+	4300 10000 4400 10000
 Wire Wire Line
-	4300 8800 4300 10000
+	4300 8800 4300 9800
 Connection ~ 4400 10000
 Connection ~ 4300 9800
 Wire Wire Line
@@ -1856,7 +1801,7 @@ Wire Wire Line
 Wire Wire Line
 	5300 10100 4700 10100
 Wire Wire Line
-	4700 8800 4700 10200
+	4700 8800 4700 10100
 Connection ~ 4700 10100
 Wire Wire Line
 	4700 10400 4700 10500
@@ -1884,13 +1829,11 @@ Wire Wire Line
 Wire Wire Line
 	5000 10500 5000 10700
 Wire Wire Line
-	13700 6800 15600 6800
+	13700 6800 13800 6800
 Wire Wire Line
 	13700 6900 13800 6900
 Wire Wire Line
-	13800 6800 13800 7200
-Connection ~ 13800 6800
-Connection ~ 15500 6800
+	13800 6800 13800 6900
 Wire Wire Line
 	13700 7500 13800 7500
 Wire Wire Line
@@ -1900,7 +1843,7 @@ Wire Wire Line
 Wire Wire Line
 	12500 7800 12400 7800
 Wire Wire Line
-	12400 7800 12400 8400
+	12400 7800 12400 7900
 Wire Wire Line
 	12500 7900 12400 7900
 Connection ~ 12400 7900
@@ -1936,26 +1879,24 @@ Wire Wire Line
 Wire Wire Line
 	14000 7300 14000 8400
 Wire Wire Line
-	13700 7800 14700 7800
+	13700 7800 14600 7800
 Wire Wire Line
-	14700 7800 14700 7700
+	14600 7800 14600 7700
 Wire Wire Line
-	14700 7700 14800 7700
+	14600 7700 14700 7700
 Wire Wire Line
-	13700 7900 14700 7900
+	13700 7900 14600 7900
 Wire Wire Line
-	14700 7900 14700 8000
+	14600 7900 14600 8000
 Wire Wire Line
-	14700 8000 14800 8000
+	14600 8000 14700 8000
 Wire Wire Line
 	15500 8000 15400 8000
 Wire Wire Line
-	15500 6800 15500 8000
+	15500 6800 15500 7100
 Wire Wire Line
 	15400 7700 15500 7700
 Connection ~ 15500 7700
-Wire Wire Line
-	14200 7400 13700 7400
 Wire Wire Line
 	12500 6800 12400 6800
 Wire Wire Line
@@ -1966,38 +1907,34 @@ Wire Wire Line
 	11950 7000 11950 6800
 Connection ~ 12400 7000
 Wire Wire Line
-	14100 7100 14100 6700
-Wire Wire Line
-	14100 7300 14100 7400
-Wire Wire Line
-	6250 1100 6450 1100
+	6250 1100 6350 1100
 Wire Wire Line
 	6350 1000 6350 1100
 Connection ~ 6350 1100
 Wire Wire Line
 	15600 6800 15600 6700
 Wire Wire Line
-	8500 6350 8500 8350
+	8500 6350 8500 6950
 Wire Wire Line
 	8600 6350 8500 6350
 Wire Wire Line
 	9800 5200 9900 5200
 Wire Wire Line
-	9900 5100 9900 5300
+	9900 5100 9900 5200
 Wire Wire Line
 	9800 6500 9900 6500
 Wire Wire Line
-	9900 5500 9900 8350
+	9900 5500 9900 6500
 Wire Wire Line
-	7600 5350 8600 5350
+	7600 5350 8400 5350
 Wire Wire Line
 	8400 5350 8400 5150
 Wire Wire Line
 	7700 4950 7700 4750
 Wire Wire Line
-	7700 4750 8400 4750
+	7700 4750 7800 4750
 Wire Wire Line
-	8400 4650 8400 4950
+	8400 4650 8400 4750
 Wire Wire Line
 	7800 4950 7800 4750
 Connection ~ 7800 4750
@@ -2019,19 +1956,19 @@ Connection ~ 8300 4750
 Connection ~ 8400 4750
 Connection ~ 8400 5350
 Wire Wire Line
-	7600 5450 8600 5450
+	7600 5450 8300 5450
 Wire Wire Line
-	7600 5550 8600 5550
+	7600 5550 8200 5550
 Wire Wire Line
-	7600 5650 8600 5650
+	7600 5650 8100 5650
 Wire Wire Line
-	7600 5750 8600 5750
+	7600 5750 8000 5750
 Wire Wire Line
-	7600 5850 8600 5850
+	7600 5850 7900 5850
 Wire Wire Line
-	7600 5950 8600 5950
+	7600 5950 7800 5950
 Wire Wire Line
-	7600 6050 8600 6050
+	7600 6050 7700 6050
 Wire Wire Line
 	8300 5150 8300 5450
 Connection ~ 8300 5450
@@ -2070,7 +2007,7 @@ BY
 Text Label 7600 6050 2    60   ~ 0
 BB
 $Comp
-L 74HC165 U5
+L pkl_misc:74HC165 U5
 U 1 1 594E456B
 P 9200 7550
 F 0 "U5" H 9200 6750 60  0000 C CNN
@@ -2085,9 +2022,9 @@ $EndComp
 Wire Wire Line
 	9800 6900 10100 6900
 Wire Wire Line
-	10100 6800 10100 7000
+	10100 6800 10100 6900
 $Comp
-L +3V3 #PWR044
+L power:+3V3 #PWR044
 U 1 1 594E987D
 P 10100 6800
 F 0 "#PWR044" H 10100 6650 50  0001 C CNN
@@ -2113,7 +2050,7 @@ Wire Wire Line
 Wire Wire Line
 	8500 5250 8600 5250
 $Comp
-L +3V3 #PWR045
+L power:+3V3 #PWR045
 U 1 1 594EE7B2
 P 8200 6350
 F 0 "#PWR045" H 8200 6200 50  0001 C CNN
@@ -2126,9 +2063,9 @@ $EndComp
 Wire Wire Line
 	7500 6650 7500 6450
 Wire Wire Line
-	7500 6450 8200 6450
+	7500 6450 7600 6450
 Wire Wire Line
-	8200 6350 8200 6650
+	8200 6350 8200 6450
 Wire Wire Line
 	7600 6650 7600 6450
 Connection ~ 7600 6450
@@ -2160,17 +2097,17 @@ Wire Wire Line
 	8600 8050 8500 8050
 Connection ~ 8500 8050
 Wire Wire Line
-	8200 8150 8600 8150
+	8200 8150 8400 8150
 Wire Wire Line
-	8200 7950 8600 7950
+	8200 7950 8300 7950
 Connection ~ 8400 8150
 Connection ~ 8300 7950
 Wire Wire Line
-	7400 7050 8600 7050
+	7400 7050 8200 7050
 Wire Wire Line
 	8200 7050 8200 6850
 Wire Wire Line
-	7400 7150 8600 7150
+	7400 7150 8100 7150
 Wire Wire Line
 	8100 7150 8100 6850
 Wire Wire Line
@@ -2190,9 +2127,9 @@ Wire Wire Line
 Wire Wire Line
 	7700 7550 7700 6850
 Wire Wire Line
-	7400 7650 8600 7650
+	7400 7650 7600 7650
 Wire Wire Line
-	7400 7750 8600 7750
+	7400 7750 7500 7750
 Text Label 7400 7650 2    60   ~ 0
 BX
 Text Label 7400 7750 2    60   ~ 0
@@ -2241,7 +2178,7 @@ Wire Wire Line
 Wire Wire Line
 	1400 2700 1400 1100
 $Comp
-L +BATT #PWR046
+L power:+BATT #PWR046
 U 1 1 594FCBFC
 P 1400 1100
 F 0 "#PWR046" H 1400 950 50  0001 C CNN
@@ -2252,7 +2189,7 @@ F 3 "" H 1400 1100 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L pkl_R4_Small R6
+L pkl_device:pkl_R4_Small R6
 U 1 1 59500A56
 P 7700 5050
 F 0 "R6" V 7650 5150 50  0000 L CNN
@@ -2265,7 +2202,7 @@ F 5 "ANY" H 7700 5050 60  0001 C CNN "Source"
 	-1   0    0    1   
 $EndComp
 $Comp
-L pkl_R4_Small R6
+L pkl_device:pkl_R4_Small R6
 U 2 1 59501680
 P 7800 5050
 F 0 "R6" V 7750 5150 50  0000 L CNN
@@ -2278,7 +2215,7 @@ F 5 "ANY" H 7800 5050 60  0001 C CNN "Source"
 	-1   0    0    1   
 $EndComp
 $Comp
-L pkl_R4_Small R6
+L pkl_device:pkl_R4_Small R6
 U 3 1 59501761
 P 7900 5050
 F 0 "R6" V 7850 5150 50  0000 L CNN
@@ -2291,7 +2228,7 @@ F 5 "ANY" H 7900 5050 60  0001 C CNN "Source"
 	-1   0    0    1   
 $EndComp
 $Comp
-L pkl_R4_Small R6
+L pkl_device:pkl_R4_Small R6
 U 4 1 59501845
 P 8000 5050
 F 0 "R6" V 7950 5150 50  0000 L CNN
@@ -2304,7 +2241,7 @@ F 5 "ANY" H 8000 5050 60  0001 C CNN "Source"
 	-1   0    0    1   
 $EndComp
 $Comp
-L pkl_R4_Small R7
+L pkl_device:pkl_R4_Small R7
 U 1 1 59501930
 P 8100 5050
 F 0 "R7" V 8050 5150 50  0000 L CNN
@@ -2317,7 +2254,7 @@ F 5 "ANY" H 8100 5050 60  0001 C CNN "Source"
 	-1   0    0    1   
 $EndComp
 $Comp
-L pkl_R4_Small R7
+L pkl_device:pkl_R4_Small R7
 U 2 1 59501A22
 P 8200 5050
 F 0 "R7" V 8150 5150 50  0000 L CNN
@@ -2330,7 +2267,7 @@ F 5 "ANY" H 8200 5050 60  0001 C CNN "Source"
 	-1   0    0    1   
 $EndComp
 $Comp
-L pkl_R4_Small R7
+L pkl_device:pkl_R4_Small R7
 U 3 1 59501BFE
 P 8300 5050
 F 0 "R7" V 8250 5150 50  0000 L CNN
@@ -2343,7 +2280,7 @@ F 5 "ANY" H 8300 5050 60  0001 C CNN "Source"
 	-1   0    0    1   
 $EndComp
 $Comp
-L pkl_R4_Small R7
+L pkl_device:pkl_R4_Small R7
 U 4 1 59501CEE
 P 8400 5050
 F 0 "R7" V 8350 5150 50  0000 L CNN
@@ -2356,7 +2293,7 @@ F 5 "ANY" H 8400 5050 60  0001 C CNN "Source"
 	-1   0    0    1   
 $EndComp
 $Comp
-L pkl_R4_Small R10
+L pkl_device:pkl_R4_Small R10
 U 1 1 59502719
 P 7500 6750
 F 0 "R10" V 7450 6850 50  0000 L CNN
@@ -2369,7 +2306,7 @@ F 5 "ANY" H 7500 6750 60  0001 C CNN "Source"
 	-1   0    0    1   
 $EndComp
 $Comp
-L pkl_R4_Small R10
+L pkl_device:pkl_R4_Small R10
 U 2 1 59502720
 P 7600 6750
 F 0 "R10" V 7550 6850 50  0000 L CNN
@@ -2382,7 +2319,7 @@ F 5 "ANY" H 7600 6750 60  0001 C CNN "Source"
 	-1   0    0    1   
 $EndComp
 $Comp
-L pkl_R4_Small R10
+L pkl_device:pkl_R4_Small R10
 U 3 1 59502727
 P 7700 6750
 F 0 "R10" V 7650 6850 50  0000 L CNN
@@ -2395,7 +2332,7 @@ F 5 "ANY" H 7700 6750 60  0001 C CNN "Source"
 	-1   0    0    1   
 $EndComp
 $Comp
-L pkl_R4_Small R10
+L pkl_device:pkl_R4_Small R10
 U 4 1 5950272E
 P 7800 6750
 F 0 "R10" V 7750 6850 50  0000 L CNN
@@ -2408,7 +2345,7 @@ F 5 "ANY" H 7800 6750 60  0001 C CNN "Source"
 	-1   0    0    1   
 $EndComp
 $Comp
-L pkl_R4_Small R11
+L pkl_device:pkl_R4_Small R11
 U 1 1 59502735
 P 7900 6750
 F 0 "R11" V 7850 6850 50  0000 L CNN
@@ -2421,7 +2358,7 @@ F 5 "ANY" H 7900 6750 60  0001 C CNN "Source"
 	-1   0    0    1   
 $EndComp
 $Comp
-L pkl_R4_Small R11
+L pkl_device:pkl_R4_Small R11
 U 2 1 5950273C
 P 8000 6750
 F 0 "R11" V 7950 6850 50  0000 L CNN
@@ -2434,7 +2371,7 @@ F 5 "ANY" H 8000 6750 60  0001 C CNN "Source"
 	-1   0    0    1   
 $EndComp
 $Comp
-L pkl_R4_Small R11
+L pkl_device:pkl_R4_Small R11
 U 3 1 59502743
 P 8100 6750
 F 0 "R11" V 8050 6850 50  0000 L CNN
@@ -2447,7 +2384,7 @@ F 5 "ANY" H 8100 6750 60  0001 C CNN "Source"
 	-1   0    0    1   
 $EndComp
 $Comp
-L pkl_R4_Small R11
+L pkl_device:pkl_R4_Small R11
 U 4 1 5950274A
 P 8200 6750
 F 0 "R11" V 8150 6850 50  0000 L CNN
@@ -2462,7 +2399,7 @@ $EndComp
 Text Notes 14100 6450 0    60   ~ 0
 Not really 5V just the battery voltage\nwhen connected and enabled.
 $Comp
-L MCP4661-ML U8
+L pkl_misc:MCP4661-ML U8
 U 1 1 5951A7AE
 P 2900 9500
 F 0 "U8" H 2900 8850 60  0000 C CNN
@@ -2477,7 +2414,7 @@ $EndComp
 Wire Wire Line
 	2200 9900 2300 9900
 Wire Wire Line
-	2200 9200 2200 10700
+	2200 9200 2200 9300
 Wire Wire Line
 	2300 10000 2200 10000
 Connection ~ 2200 10000
@@ -2485,12 +2422,12 @@ NoConn ~ 3500 9900
 Wire Wire Line
 	3500 9600 3600 9600
 Wire Wire Line
-	3600 9200 3600 10700
+	3600 9200 3600 9600
 Wire Wire Line
 	3500 9200 3600 9200
 Connection ~ 3600 9600
 $Comp
-L GND #PWR047
+L power:GND #PWR047
 U 1 1 5951BBAD
 P 3600 10700
 F 0 "#PWR047" H 3600 10450 50  0001 C CNN
@@ -2501,11 +2438,11 @@ F 3 "" H 3600 10700 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	2100 9000 2300 9000
+	2100 9000 2200 9000
 Wire Wire Line
 	2200 9000 2200 8800
 $Comp
-L +3V3 #PWR048
+L power:+3V3 #PWR048
 U 1 1 5951BFCA
 P 2200 8800
 F 0 "#PWR048" H 2200 8650 50  0001 C CNN
@@ -2537,7 +2474,7 @@ Address is '0101'b + A2:A1:A0\nso in this case it will be 0x50
 Wire Wire Line
 	2300 9700 2100 9700
 Wire Wire Line
-	2100 9000 2100 9800
+	2100 9000 2100 9700
 Connection ~ 2200 9000
 Text Notes 2000 9700 2    60   ~ 0
 Disabled write protect.
@@ -2556,7 +2493,7 @@ Wire Wire Line
 Text Notes 3400 8750 2    60   ~ 0
 10k 257tap dual digital\npotentiometer\n(volume control)
 $Comp
-L TACT SW12
+L pkl_misc:TACT SW12
 U 1 1 5952A274
 P 6000 6200
 F 0 "SW12" H 6150 6125 60  0000 L CNN
@@ -2569,7 +2506,7 @@ F 5 "ANY" H 6000 6200 60  0001 C CNN "Source"
 	1    0    0    -1  
 $EndComp
 $Comp
-L TACT SW13
+L pkl_misc:TACT SW13
 U 1 1 5952A537
 P 6000 6600
 F 0 "SW13" H 6150 6525 60  0000 L CNN
@@ -2588,7 +2525,7 @@ BVol+
 Wire Wire Line
 	6200 6200 6400 6200
 Wire Wire Line
-	6400 6200 6400 6900
+	6400 6200 6400 6600
 Connection ~ 5500 6900
 Wire Wire Line
 	6200 6600 6400 6600
@@ -2604,7 +2541,7 @@ BVol+
 Text Label 7400 7150 2    60   ~ 0
 BVol-
 $Comp
-L GND #PWR049
+L power:GND #PWR049
 U 1 1 594FE2A5
 P 11400 8400
 F 0 "#PWR049" H 11400 8150 50  0001 C CNN
@@ -2616,7 +2553,7 @@ F 3 "" H 11400 8400 50  0000 C CNN
 $EndComp
 Connection ~ 11950 7000
 $Comp
-L pkl_JACK_3C1S J7
+L pkl_conn:pkl_JACK_3C1S J7
 U 1 1 59501D49
 P 7550 9500
 F 0 "J7" H 7200 9200 50  0000 C CNN
@@ -2634,7 +2571,7 @@ Wire Wire Line
 	7000 9300 7000 10600
 Connection ~ 12800 3600
 $Comp
-L +3V3 #PWR050
+L power:+3V3 #PWR050
 U 1 1 5950BB49
 P 12800 3500
 F 0 "#PWR050" H 12800 3350 50  0001 C CNN
@@ -2645,7 +2582,7 @@ F 3 "" H 12800 3500 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Battery_Cell BT1
+L Device:Battery_Cell BT1
 U 1 1 5954BEF7
 P 11400 7500
 F 0 "BT1" H 11500 7600 50  0000 L CNN
@@ -2669,9 +2606,9 @@ Text Label 6600 9400 0    60   ~ 0
 AR_AMP
 Text Label 6600 9600 0    60   ~ 0
 AL_AMP
-Text Label 14500 7800 0    60   ~ 0
+Text Label 14300 7800 0    60   ~ 0
 ~CHG
-Text Label 14500 7900 0    60   ~ 0
+Text Label 14300 7900 0    60   ~ 0
 ~PGOOD
 Wire Wire Line
 	6500 10300 6600 10300
@@ -2758,7 +2695,7 @@ Wire Notes Line
 Wire Notes Line
 	500  11000 500  7600
 $Comp
-L pkl_C_Small C10
+L pkl_device:pkl_C_Small C10
 U 1 1 59592889
 P 9900 5400
 F 0 "C10" H 9910 5470 50  0000 L CNN
@@ -2773,7 +2710,7 @@ $EndComp
 Connection ~ 9900 6500
 Connection ~ 9900 5200
 $Comp
-L pkl_C_Small C11
+L pkl_device:pkl_C_Small C11
 U 1 1 59594508
 P 10100 7100
 F 0 "C11" H 10110 7170 50  0000 L CNN
@@ -2792,7 +2729,7 @@ Wire Wire Line
 Connection ~ 9900 7300
 Connection ~ 10100 6900
 $Comp
-L pkl_C_Small C12
+L pkl_device:pkl_C_Small C12
 U 1 1 59594FFF
 P 2100 9900
 F 0 "C12" H 2110 9970 50  0000 L CNN
@@ -2811,7 +2748,7 @@ Wire Wire Line
 	2100 10100 2200 10100
 Connection ~ 2200 10100
 $Comp
-L pkl_R_Small R25
+L pkl_device:pkl_R_Small R25
 U 1 1 596CB51B
 P 800 4000
 F 0 "R25" V 900 4100 50  0000 L CNN
@@ -2829,7 +2766,7 @@ Wire Wire Line
 Text Label 1500 3800 2    60   ~ 0
 V_BATT
 $Comp
-L pkl_R_Small R24
+L pkl_device:pkl_R_Small R24
 U 1 1 596CC8CE
 P 800 3600
 F 0 "R24" V 900 3700 50  0000 L CNN
@@ -2843,7 +2780,7 @@ F 6 "ANY" H 800 3600 60  0001 C CNN "Source"
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR051
+L power:GND #PWR051
 U 1 1 596CF707
 P 800 4100
 F 0 "#PWR051" H 800 3850 50  0001 C CNN
@@ -2854,12 +2791,12 @@ F 3 "" H 800 4100 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	800  3700 800  3900
+	800  3700 800  3800
 Connection ~ 800  3800
 Wire Wire Line
 	800  3400 800  3500
 $Comp
-L +5V #PWR052
+L power:+5V #PWR052
 U 1 1 596D0DD3
 P 800 3400
 F 0 "#PWR052" H 800 3250 50  0001 C CNN
@@ -2869,12 +2806,225 @@ F 3 "" H 800 3400 50  0001 C CNN
 	1    800  3400
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	14400 7600 14400 8400
-Text Label 13700 7400 0    60   ~ 0
+Text Label 14200 7400 0    60   ~ 0
 SYSOFF
 Wire Wire Line
-	11400 7000 12500 7000
-Connection ~ 14100 7400
-NoConn ~ 14400 7200
+	11400 7000 11950 7000
+NoConn ~ 14200 6600
+Wire Wire Line
+	12900 2700 12900 2800
+Wire Wire Line
+	12900 2600 12900 2700
+Wire Wire Line
+	12900 2500 12900 2600
+Wire Wire Line
+	14100 5400 14200 5400
+Wire Wire Line
+	13900 5500 14200 5500
+Wire Wire Line
+	14000 4800 14100 4800
+Wire Wire Line
+	10500 1800 10500 2200
+Wire Wire Line
+	3700 6600 3700 6100
+Wire Wire Line
+	2500 6300 2500 6900
+Wire Wire Line
+	4900 6300 4900 5100
+Wire Wire Line
+	2500 6900 1900 6900
+Wire Wire Line
+	3100 6900 2500 6900
+Wire Wire Line
+	3700 6900 3400 6900
+Wire Wire Line
+	4300 6900 3700 6900
+Wire Wire Line
+	3400 6900 3100 6900
+Wire Wire Line
+	13100 4000 13400 4000
+Wire Wire Line
+	13400 4000 13500 4000
+Wire Wire Line
+	13100 3600 13400 3600
+Wire Wire Line
+	13400 3600 13700 3600
+Wire Wire Line
+	13500 1300 13500 1400
+Wire Wire Line
+	13500 1400 13500 1500
+Wire Wire Line
+	13500 1500 13500 3400
+Wire Wire Line
+	13500 3900 13500 4000
+Wire Wire Line
+	13500 4000 13800 4000
+Wire Wire Line
+	13500 4000 13500 4100
+Wire Wire Line
+	13500 4100 13500 4200
+Wire Wire Line
+	13500 4200 13500 4400
+Wire Wire Line
+	13500 3400 13500 3900
+Wire Wire Line
+	13700 3600 13700 3700
+Wire Wire Line
+	13700 3600 13800 3600
+Wire Wire Line
+	4800 9600 4800 10500
+Wire Wire Line
+	6600 9800 6600 10300
+Wire Wire Line
+	4400 10000 5300 10000
+Wire Wire Line
+	4300 9800 4300 10000
+Wire Wire Line
+	4700 10100 4700 10200
+Wire Wire Line
+	4800 10500 4800 10700
+Wire Wire Line
+	15500 6800 15600 6800
+Wire Wire Line
+	12400 7900 12400 8400
+Wire Wire Line
+	13800 6900 13800 7200
+Wire Wire Line
+	15500 7700 15500 8000
+Wire Wire Line
+	12400 7000 12500 7000
+Wire Wire Line
+	6350 1100 6450 1100
+Wire Wire Line
+	7800 4750 7900 4750
+Wire Wire Line
+	7900 4750 8000 4750
+Wire Wire Line
+	8000 4750 8100 4750
+Wire Wire Line
+	8100 4750 8200 4750
+Wire Wire Line
+	8200 4750 8300 4750
+Wire Wire Line
+	8300 4750 8400 4750
+Wire Wire Line
+	8400 4750 8400 4950
+Wire Wire Line
+	8400 5350 8600 5350
+Wire Wire Line
+	8300 5450 8600 5450
+Wire Wire Line
+	8200 5550 8600 5550
+Wire Wire Line
+	8100 5650 8600 5650
+Wire Wire Line
+	8000 5750 8600 5750
+Wire Wire Line
+	7900 5850 8600 5850
+Wire Wire Line
+	7800 5950 8600 5950
+Wire Wire Line
+	7700 6050 8600 6050
+Wire Wire Line
+	8500 6950 8500 8050
+Wire Wire Line
+	7600 6450 7700 6450
+Wire Wire Line
+	7700 6450 7800 6450
+Wire Wire Line
+	7800 6450 7900 6450
+Wire Wire Line
+	7900 6450 8000 6450
+Wire Wire Line
+	8000 6450 8100 6450
+Wire Wire Line
+	8100 6450 8200 6450
+Wire Wire Line
+	8200 6450 8200 6650
+Wire Wire Line
+	8500 8050 8500 8350
+Wire Wire Line
+	8400 8150 8600 8150
+Wire Wire Line
+	8300 7950 8600 7950
+Wire Wire Line
+	7600 7650 8600 7650
+Wire Wire Line
+	7500 7750 8600 7750
+Wire Wire Line
+	9900 8200 9900 8350
+Wire Wire Line
+	4900 6900 4300 6900
+Wire Wire Line
+	2200 10000 2200 10100
+Wire Wire Line
+	3600 9600 3600 10000
+Wire Wire Line
+	2200 9900 2200 10000
+Wire Wire Line
+	2200 9300 2200 9400
+Wire Wire Line
+	2200 9400 2200 9900
+Wire Wire Line
+	2200 9000 2300 9000
+Wire Wire Line
+	5500 6900 4900 6900
+Wire Wire Line
+	6400 6600 6400 6900
+Wire Wire Line
+	8200 7050 8600 7050
+Wire Wire Line
+	8100 7150 8600 7150
+Wire Wire Line
+	11950 7000 12400 7000
+Wire Wire Line
+	12800 3600 12800 3700
+Wire Wire Line
+	6600 10300 6600 10600
+Wire Wire Line
+	3600 10000 3600 10700
+Wire Wire Line
+	9900 6500 9900 7300
+Wire Wire Line
+	9900 5200 9900 5300
+Wire Wire Line
+	9900 7300 9900 8200
+Wire Wire Line
+	10100 6900 10100 7000
+Wire Wire Line
+	2100 9700 2100 9800
+Wire Wire Line
+	2200 10100 2200 10700
+Wire Wire Line
+	800  3800 800  3900
+Wire Wire Line
+	14200 7400 14200 8100
+Wire Wire Line
+	13700 7400 14200 7400
+Wire Wire Line
+	14200 8300 14200 8400
+Text Label 13800 7600 0    60   ~ 0
+~CE
+Text Label 12500 7600 2    60   ~ 0
+ILIM
+Text Label 12500 7500 2    60   ~ 0
+ISET
+Text Label 12500 7400 2    60   ~ 0
+TMR
+Text Label 12500 7200 2    60   ~ 0
+TS
+Wire Wire Line
+	13800 6800 14000 6800
+Connection ~ 13800 6800
+Wire Wire Line
+	14200 7000 14200 7100
+Wire Wire Line
+	14200 7100 15500 7100
+Connection ~ 15500 7100
+Wire Wire Line
+	15500 7100 15500 7700
+Wire Wire Line
+	14900 7700 15000 7700
+Wire Wire Line
+	14900 8000 15000 8000
 $EndSCHEMATC
