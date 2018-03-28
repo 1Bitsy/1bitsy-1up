@@ -56,13 +56,29 @@
     #define ASD  ASD_12BIT
 #endif
 
-const gfx_rgb565 bg_color  = 0xF81F;
-const gfx_rgb565 vol_color = 0x07E0;
+typedef enum text_row {
+    TR_HEADER = 3,
+    TR_INSTR  = 5,
+    TR_MODE   = 7,
+    TR_OUTPUT = 8,
+    TR_VOL    = 10,
+    TR_VOLBAR = 11,
+    TR_RAWVOL = 12,
+    TR_RVBAR  = 13,
+} text_row;
 
-bool vol_is_visible;
-uint8_t vol;
-uint8_t prev_vol;
-uint16_t raw_vol;
+typedef enum text_col {
+    TC_LEFT   = 4,
+} text_col;
+
+static const gfx_rgb565 bg_color  = 0xF81F;
+static const gfx_rgb565 vol_color = 0x07E0;
+
+static bool vol_is_visible;
+static pam8019_mode cur_mode;
+static uint8_t vol;
+static uint8_t prev_vol;
+static uint16_t raw_vol;
 
 char abuf[704] __attribute__((section(".sram2")));
 
@@ -147,16 +163,29 @@ void audio_animate(void)
     // Volume control is visible if volume changed in last 800 msec.
 
     const uint32_t VOL_FADE_TIME = 800;
-    static uint32_t button_time;
+    static uint32_t vol_change_time = 0xF0000000; // large negative
 
+    cur_mode = pam8019_get_mode();
     vol = volume_get();
     raw_vol = volume_get_raw();
 
     if (prev_vol != vol) {
-        prev_vol =  vol;
-        button_time = system_millis;
+        prev_vol = vol;
+        vol_change_time = system_millis;
     }
-    vol_is_visible = system_millis - button_time < VOL_FADE_TIME;
+    vol_is_visible = system_millis - vol_change_time < VOL_FADE_TIME;
+
+    uint16_t buttons = gamepad_get();
+    static uint16_t prev_buttons;
+    
+    if ((buttons & ~prev_buttons) & GAMEPAD_BSELECT) {
+    
+        cur_mode = pam8019_get_mode() + 1;
+        if (cur_mode == PM_END)
+            cur_mode = PM_START;
+        pam8019_set_mode(cur_mode);
+    }
+    prev_buttons = buttons;
 
 #else
     uint16_t buttons = gamepad_get();
@@ -211,33 +240,14 @@ void audio_animate(void)
     vol = volume_get();
     raw_vol = volume_get_raw();
 #endif
-
-#ifdef AUDIO_REPAIR
-
-    if (button_pressed_debounce())
-        pam8019_set_mode(PM_MUTED);
-    else
-        pam8019_set_mode(PM_NORMAL);
-
-    switch (pam8019_get_mode()) {
-
-    case PM_MUTED:
-        led_set(system_millis & 0x80); // fast blink
-        break;
-
-    default:
-        led_set(pam8019_output_is_headphones());
-        break;
-    }
-
-#endif
 }
 
 static void audio_draw_vol(gfx_pixslice *slice)
 {
-    const int text_y = 10;
-    const int bar_x = 32;
-    const int bar_y = 11 * 16;
+    const int text_y = TR_VOL;
+    const int text_x = TC_LEFT;
+    const int bar_x = 8 * text_x;
+    const int bar_y = TR_VOLBAR * 16;
     const int bar_h = 15;
 
     if (!vol_is_visible) {
@@ -245,8 +255,8 @@ static void audio_draw_vol(gfx_pixslice *slice)
     }
 
 
-    int xoff = bar_x / 8;
-    xoff = text_draw_str16(slice, "volume: ", xoff, text_y, vol_color);
+    int xoff = text_x;
+    xoff = text_draw_str16(slice, "Volume: ", xoff, text_y, vol_color);
 
 #ifdef AUDIO_REPAIR
     /* hundreds place */
@@ -328,9 +338,10 @@ static void audio_draw_vol(gfx_pixslice *slice)
 
 static void audio_draw_raw_vol(gfx_pixslice *slice)
 {
-    const int text_y = 12;
-    const int bar_x = 32;
-    const int bar_y = 13 * 16;
+    const int text_y = TR_RAWVOL;
+    const int text_x = TC_LEFT;
+    const int bar_x = 8 * text_x;
+    const int bar_y = TR_RVBAR * 16;
     const int bar_h = 15;
 
     if (!vol_is_visible) {
@@ -339,7 +350,7 @@ static void audio_draw_raw_vol(gfx_pixslice *slice)
 
     char *prefix = "raw vol: ";
 
-    int xoff = 4;
+    int xoff = text_x;
     for (const char *p = prefix; *p; p++) {
         text_draw_char16(slice, *p, xoff, text_y, vol_color);
         xoff++;
@@ -394,8 +405,70 @@ static void audio_draw_raw_vol(gfx_pixslice *slice)
     }
 }
 
-void audio_render_slice(gfx_pixslice *slice)
+static void audio_draw_header(gfx_pixslice *slice)
 {
+    int text_y = TR_HEADER;
+    int text_x = TC_LEFT;
+    text_draw_str16(slice, "Audio Saw Test", text_x, text_y, vol_color);
+}
+
+static void audio_draw_instructions(gfx_pixslice *slice)
+{
+    int text_y = TR_INSTR;
+    int text_x = TC_LEFT;
+    text_draw_str16(slice, "Press SELECT to change mode.",
+                    text_x, text_y, vol_color);
+}
+
+static void audio_draw_mode(gfx_pixslice *slice)
+{
+    const char *mode_str;
+    switch (cur_mode) {
+    case PM_SHUTDOWN:
+        mode_str = "Shutdown";
+        break;
+
+    case PM_MUTED:
+        mode_str = "Muted";
+        break;
+
+    case PM_NORMAL:
+        mode_str = "Normal";
+        break;
+
+    case PM_OVERRIDE_HP:
+        mode_str = "Force Headphones";
+        break;
+
+    case PM_OVERRIDE_SPKR:
+        mode_str = "Force Speaker";
+        break;
+
+    default:
+        assert(false);
+    }
+    int text_y = TR_MODE;
+    int text_x = TC_LEFT;
+    int xoff = text_draw_str16(slice, "Mode:    ", text_x, text_y, vol_color);
+    xoff = text_draw_str16(slice, mode_str, xoff, text_y, vol_color);
+
+}
+
+static void audio_draw_output(gfx_pixslice *slice)
+{
+    int text_y = TR_OUTPUT;
+    int text_x = TC_LEFT;
+    int xoff = text_draw_str16(slice, "Output:  ", text_x, text_y, vol_color);
+    const char *out = pam8019_output_is_headphones() ? "Headphones" : "Speaker";
+    xoff = text_draw_str16(slice, out, xoff, text_y, vol_color);
+}
+
+static void audio_render_slice(gfx_pixslice *slice)
+{
+    audio_draw_header(slice);
+    audio_draw_instructions(slice);
+    audio_draw_mode(slice);
+    audio_draw_output(slice);
     audio_draw_vol(slice);
     audio_draw_raw_vol(slice);
 }

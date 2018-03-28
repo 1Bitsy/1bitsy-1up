@@ -2,6 +2,8 @@
 
 #ifdef AUDIO_REPAIR
 
+#include <assert.h>
+
 #include <libopencm3/stm32/adc.h>
 #include <libopencm3/stm32/rcc.h>
 
@@ -57,7 +59,7 @@ static void enable_override(void)
         .gp_port  = HP_SENSE_PORT,
         .gp_pin   = HP_SENSE_PIN,
         .gp_mode  = GPIO_MODE_OUTPUT,
-        .gp_otype = GPIO_OTYPE_OD,
+        .gp_otype = GPIO_OTYPE_PP,
     };
     gpio_config_pin(&sense_output);
 #endif
@@ -100,9 +102,9 @@ pam8019_mode pam8019_get_mode(void)
     if (gpio_get(MUTE_PORT, MUTE_PIN))
         return PM_MUTED;
 
-    uint32_t mode = GPIO_MODER(HP_SENSE_PORT) & GPIO_MODE_MASK(HP_SENSE_PIN);
+    uint32_t mode = GPIO_MODER(HP_SENSE_PORT);
     mode /= HP_SENSE_PIN * HP_SENSE_PIN;
-    if (mode == GPIO_MODE_INPUT)
+    if ((mode & 0x03) == GPIO_MODE_INPUT)
         return PM_NORMAL;
 
     if (gpio_get(HP_SENSE_PORT, HP_SENSE_PIN))
@@ -145,6 +147,9 @@ void pam8019_set_mode(pam8019_mode new_mode)
         enable_override();
         gpio_clear(HP_SENSE_PORT, HP_SENSE_PIN);
         break;
+
+    default:
+        assert(false);
     }
 }
 
