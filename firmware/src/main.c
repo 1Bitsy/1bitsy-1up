@@ -44,38 +44,6 @@
 #define MY_CLOCK (rcc_hse_25mhz_3v3[RCC_CLOCK_3V3_168MHZ])
 #define BG_COLOR 0x0000         // black
 
-#ifndef AUDIO_REPAIR
-
-static const i2c_config i2c_cfg = {
-    .i_base_address    = I2C1,
-    .i_own_address     = 32,
-    .i_pins = {
-        {                   // SCL: pin PB6, AF4
-            .gp_port   = GPIOB,
-            .gp_pin    = GPIO6,
-            .gp_mode   = GPIO_MODE_AF,
-            .gp_pupd   = GPIO_PUPD_NONE,
-            .gp_af     = GPIO_AF4,
-            .gp_ospeed = GPIO_OSPEED_50MHZ,
-            .gp_otype  = GPIO_OTYPE_OD,
-            .gp_level  = 1,
-
-        },
-        {                   // SDA: pin PB7, AF4
-            .gp_port   = GPIOB,
-            .gp_pin    = GPIO7,
-            .gp_mode   = GPIO_MODE_AF,
-            .gp_pupd   = GPIO_PUPD_NONE,
-            .gp_af     = GPIO_AF4,
-            .gp_ospeed = GPIO_OSPEED_50MHZ,
-            .gp_otype  = GPIO_OTYPE_OD,
-            .gp_level  = 1,
-        },
-    },
-};
-
-#endif
-
 uint32_t   fps;
 
 enum app_ids {
@@ -134,18 +102,12 @@ static void setup(void)
     lcd_set_bg_color(BG_COLOR, false);
     lcd_init();
 
-#ifdef AUDIO_REPAIR
     pam8019_init();
-#else
-    i2c_init(&i2c_cfg);
-    volume_init();
-#endif
 
     text_init();
 
     gamepad_init();
 
-#ifdef AUDIO_REPAIR
     /* Disabling debug outputs, as the audio repair board uses these pins.
      * At present (11/2017), the pins PC5 and PC13 are available for debug.
      */
@@ -155,13 +117,6 @@ static void setup(void)
     // gpio_mode_setup(GPIOA, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO3);
     // gpio_set(GPIOA, GPIO3);
     // gpio_mode_setup(GPIOA, GPIO_MODE_INPUT, GPIO_PUPD_NONE, GPIO0);
-
-#else
-    /* Toggles with every frame */
-    gpio_mode_setup(GPIOA, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO1);
-    /* Is high when a slice is being rendered by the app. */
-    gpio_mode_setup(GPIOA, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO3);
-#endif
 }
 
 static void calc_fps(void)

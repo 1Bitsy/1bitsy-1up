@@ -1,8 +1,6 @@
 #ifndef PAM8019_included
 #define PAM8019_included
 
-#ifdef AUDIO_REPAIR
-
 // Driver for PAM8019 audio and headphone amplifier by Diodes
 // Incorporated, as found on the 1UP audio repair board.
 
@@ -30,7 +28,5 @@ extern void         pam8019_set_mode             (pam8019_mode);
 extern bool         pam8019_output_is_headphones (void);
 
 extern uint16_t     pam8019_get_raw_volume       (void);
-
-#endif /* AUDIO_REPAIR */
 
 #endif /* !PAM8019_included */

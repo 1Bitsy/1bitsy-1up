@@ -1,7 +1,5 @@
 #include "pam8019.h"
 
-#ifdef AUDIO_REPAIR
-
 #include <assert.h>
 
 #include <libopencm3/stm32/adc.h>
@@ -167,5 +165,3 @@ uint16_t pam8019_get_raw_volume(void)
         continue;
     return 4095 - adc_read_regular(ADC1);
 }
-
-#endif /* AUDIO_REPAIR */

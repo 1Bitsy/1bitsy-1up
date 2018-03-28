@@ -122,9 +122,7 @@ void audio_app_init(void)
 {
     audio_init(44100, ACC, ASD, abuf, sizeof abuf);
     audio_register_callback(audio_callback);
-#ifdef AUDIO_REPAIR
     pam8019_set_mode(PM_NORMAL);
-#endif
     audio_start();
     prev_vol = volume_get();
 }
@@ -132,34 +130,11 @@ void audio_app_init(void)
 void audio_app_end(void)
 {
     audio_stop();
-#ifdef AUDIO_REPAIR
     pam8019_set_mode(PM_SHUTDOWN);
-#endif
 }
-
-#ifndef AUDIO_REPAIR
-
-static void increment_volume(void)
-{
-    uint8_t vol = volume_get();
-    if (vol < VOLUME_MAX) {
-        volume_set(vol + 1);
-    }
-}
-
-static void decrement_volume(void)
-{
-    uint8_t vol = volume_get();
-    if (vol > 0) {
-        volume_set(vol - 1);
-    }
-}
-
-#endif
 
 void audio_animate(void)
 {
-#ifdef AUDIO_REPAIR
     // Volume control is visible if volume changed in last 800 msec.
 
     const uint32_t VOL_FADE_TIME = 800;
@@ -186,60 +161,6 @@ void audio_animate(void)
         pam8019_set_mode(cur_mode);
     }
     prev_buttons = buttons;
-
-#else
-    uint16_t buttons = gamepad_get();
-    static uint16_t prev_buttons;
-
-    // Volume control is visible if volume changed in last 800 msec.
-
-    const uint32_t VOL_FADE_TIME = 800;
-    static uint32_t button_time;
-    if (buttons & (GAMEPAD_BVOLP | GAMEPAD_BVOLM)) {
-        button_time = system_millis;
-    }
-    vol_is_visible = system_millis - button_time < VOL_FADE_TIME;
-
-    if (buttons & GAMEPAD_BVOLP) {
-        static uint32_t press_time, repeat_time, repeat_ivl;
-        if (!(prev_buttons & GAMEPAD_BVOLP)) {
-            // Initial button press.
-            press_time = system_millis;
-            repeat_ivl = 800;
-            repeat_time = press_time + repeat_ivl;
-            increment_volume();
-        } else {
-            if (((int32_t)repeat_time - (int32_t)system_millis) < 0) {
-                // repeat button
-                if (repeat_ivl > 50)
-                    repeat_ivl /= 2;
-                repeat_time += repeat_ivl;
-                increment_volume();
-            }
-        }
-    }
-    if (buttons & GAMEPAD_BVOLM) {
-        static uint32_t press_time, repeat_time, repeat_ivl;
-        if (!(prev_buttons & GAMEPAD_BVOLM)) {
-            // Initial button press.
-            press_time = system_millis;
-            repeat_ivl = 800;
-            repeat_time = press_time + repeat_ivl;
-            decrement_volume();
-        } else {
-            if (((int32_t)repeat_time - (int32_t)system_millis) < 0) {
-                // repeat button
-                if (repeat_ivl > 50)
-                    repeat_ivl /= 2;
-                repeat_time += repeat_ivl;
-                decrement_volume();
-            }
-        }
-    }
-    prev_buttons = buttons;
-    vol = volume_get();
-    raw_vol = volume_get_raw();
-#endif
 }
 
 static void audio_draw_vol(gfx_pixslice *slice)
@@ -258,7 +179,6 @@ static void audio_draw_vol(gfx_pixslice *slice)
     int xoff = text_x;
     xoff = text_draw_str16(slice, "Volume: ", xoff, text_y, vol_color);
 
-#ifdef AUDIO_REPAIR
     /* hundreds place */
     char h = vol < 100 ? ' ' : '0' + vol / 100 % 10;
     text_draw_char16(slice, h, xoff, text_y, vol_color);
@@ -273,37 +193,6 @@ static void audio_draw_vol(gfx_pixslice *slice)
     char o = '0' + vol / 1 % 10;
     text_draw_char16(slice, o, xoff, text_y, vol_color);
     xoff++;
-
-#else
-    /* Draw "-NN dB". */
-    if (vol == 0) {
-        xoff = text_draw_str16(slice, "mute", xoff, text_y, vol_color);
-    } else {
-        int dB = VOLUME_MAX - (int)vol;
-        assert(0 <= dB && dB < 100);
-        if (dB < 10) {
-            xoff++;
-        }
-        /* sign or blank for "0 dB" */
-        if (dB != 0) {
-            text_draw_char16(slice, '-', xoff, text_y, vol_color);
-        }
-        xoff++;
-        if (dB >= 10) {
-            /* tens place */
-            char t = dB / 10 + '0';
-            text_draw_char16(slice, t, xoff, text_y, vol_color);
-            xoff++;
-        }
-        char o = '0' + dB % 10;
-        text_draw_char16(slice, o, xoff, text_y, vol_color);
-        xoff++;
-
-        /* "dB" */
-        xoff++;
-        xoff = text_draw_str16(slice, "dB", xoff, text_y, vol_color);
-    }
-#endif
 
     /* outline volume bar */
     for (int y = bar_y; y < bar_y + bar_h; y++) {

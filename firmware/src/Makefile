@@ -28,8 +28,6 @@ LDSCRIPT = 1bitsy-stm32f415rgt-gfx.ld
 V = 1
 include ../libopencm3.target.mk
 
-CPPFLAGS += -DAUDIO_REPAIR
-
 # You can enable size optimization for project deployment, but it can get
 # in the way of debugging your code
 cflags := $(filter_out -O%, $(CFLAGS)) -Werror -g
