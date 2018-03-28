@@ -73,7 +73,7 @@ endif
 
 INCLUDE_DIR	= $(OPENCM3_DIR)/include
 LIB_DIR		= $(OPENCM3_DIR)/lib
-SCRIPT_DIR	= ../libopencm3/scripts
+SCRIPT_DIR	= ../scripts
 
 ###############################################################################
 # C flags

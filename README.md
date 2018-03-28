@@ -17,6 +17,10 @@ around the following __semi arbitrary constraints and requirements.__
   bit more of a challenge in the style of classic conloles and 8bit computers
   because it does not have enough memory for a full framebuffer. ("racing the
   beam" FTW)
+* Main CPU Mounting: The board contains the 1Bitsy compatible low profile
+  socket using [SL-115-TT-19](https://www.samtec.com/products/sl-115-tt-19)
+  and [BBL-115-T-E](https://www.samtec.com/products/bbl-115-t-e) Samtec
+  connectors as well as one MillMax PogoPin spring loaded SMD connector.
 * LCD: The LCD is a 240x320 TFT display with capacitive touch, connected
   through the 8bit parallel interface to the 1Bitsy. This allows us to push the
   data speed to the display quite high and reach good framerates that would not
