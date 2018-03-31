@@ -14,19 +14,6 @@ Comment2 "(C) 2017 1BitSquared LLC <info@1bitsquared.com>"
 Comment3 "License: CC-BY-SA 4.0"
 Comment4 ""
 $EndDescr
-$Comp
-L 1bitsy:1bitsy-complete-concise U1
-U 1 1 57F4B4DD
-P 4300 2600
-F 0 "U1" H 4300 2700 60  0000 C CNN
-F 1 "1bitsy-complete-concise" H 4300 2600 60  0000 C CNN
-F 2 "1bitsy:1bitsy-sl-1xx-xx-19" H 4300 2700 60  0001 C CNN
-F 3 "" H 4300 2700 60  0001 C CNN
-F 4 "1bitsy" H 4300 2600 60  0001 C CNN "Key"
-F 5 "ANY" H 4300 2600 60  0001 C CNN "Source"
-	1    4300 2600
-	1    0    0    -1  
-$EndComp
 Text Label 1300 2300 2    60   ~ 0
 LCD_D0
 Text Label 1300 2400 2    60   ~ 0
@@ -1045,12 +1032,12 @@ $EndComp
 $Comp
 L power:+5V #PWR036
 U 1 1 594C255F
-P 15600 6700
-F 0 "#PWR036" H 15600 6550 50  0001 C CNN
-F 1 "+5V" H 15600 6840 50  0000 C CNN
-F 2 "" H 15600 6700 50  0001 C CNN
-F 3 "" H 15600 6700 50  0001 C CNN
-	1    15600 6700
+P 15500 6700
+F 0 "#PWR036" H 15500 6550 50  0001 C CNN
+F 1 "+5V" H 15500 6840 50  0000 C CNN
+F 2 "" H 15500 6700 50  0001 C CNN
+F 3 "" H 15500 6700 50  0001 C CNN
+	1    15500 6700
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -1563,8 +1550,6 @@ Wire Wire Line
 Wire Wire Line
 	15500 8000 15400 8000
 Wire Wire Line
-	15500 6800 15500 7100
-Wire Wire Line
 	15400 7700 15500 7700
 Connection ~ 15500 7700
 Wire Wire Line
@@ -1581,8 +1566,6 @@ Wire Wire Line
 Wire Wire Line
 	6350 1000 6350 1100
 Connection ~ 6350 1100
-Wire Wire Line
-	15600 6800 15600 6700
 Wire Wire Line
 	8500 6350 8500 6950
 Wire Wire Line
@@ -1773,11 +1756,7 @@ Wire Wire Line
 Connection ~ 8400 8150
 Connection ~ 8300 7950
 Wire Wire Line
-	7400 7050 8200 7050
-Wire Wire Line
 	8200 7050 8200 6850
-Wire Wire Line
-	7400 7150 8100 7150
 Wire Wire Line
 	8100 7150 8100 6850
 Wire Wire Line
@@ -1837,10 +1816,6 @@ BE2
 NoConn ~ 9800 7950
 NoConn ~ 9800 6250
 NoConn ~ 6900 3000
-NoConn ~ 1700 3000
-NoConn ~ 1700 3100
-NoConn ~ 1700 3200
-NoConn ~ 1700 3300
 NoConn ~ 1700 3600
 NoConn ~ 1700 3700
 Wire Wire Line
@@ -2109,12 +2084,6 @@ Connection ~ 6400 6600
 Wire Wire Line
 	5800 6600 5400 6600
 Text Label 5400 6600 2    60   ~ 0
-BVol-
-Connection ~ 8200 7050
-Connection ~ 8100 7150
-Text Label 7400 7050 2    60   ~ 0
-BVol+
-Text Label 7400 7150 2    60   ~ 0
 BVol-
 $Comp
 L power:GND #PWR049
@@ -2389,8 +2358,6 @@ Wire Wire Line
 	13700 3600 13700 3700
 Wire Wire Line
 	13700 3600 13800 3600
-Wire Wire Line
-	15500 6800 15600 6800
 Wire Wire Line
 	12400 7900 12400 8400
 Wire Wire Line
@@ -3021,7 +2988,7 @@ U 1 1 5C8868C4
 P 1300 8800
 F 0 "RV1" H 1230 8847 50  0000 R CNN
 F 1 "50k" H 1230 8754 50  0000 R CNN
-F 2 "" H 1300 8800 50  0001 C CNN
+F 2 "pkl_misc:Potentiometer_Bourns_3352T_Horizontal" H 1300 8800 50  0001 C CNN
 F 3 "~" H 1300 8800 50  0001 C CNN
 F 4 "ANY" H 1300 8800 50  0001 C CNN "Source"
 	1    1300 8800
@@ -3160,4 +3127,39 @@ Wire Wire Line
 Connection ~ 3600 7900
 Wire Wire Line
 	3600 7900 3600 8300
+Text Notes 7400 7150 2    60   ~ 0
+BE3
+Text Notes 7400 7050 2    60   ~ 0
+BE4
+Wire Wire Line
+	15500 6700 15500 7100
+$Comp
+L 1bitsy:1bitsy-complete-concise U1
+U 1 1 57F4B4DD
+P 4300 2600
+F 0 "U1" H 4300 2700 60  0000 C CNN
+F 1 "1bitsy-complete-concise" H 4300 2600 60  0000 C CNN
+F 2 "1bitsy:1bitsy-sl-1xx-xx-19" H 4300 2700 60  0001 C CNN
+F 3 "" H 4300 2700 60  0001 C CNN
+F 4 "1bitsy" H 4300 2600 60  0001 C CNN "Key"
+F 5 "ANY" H 4300 2600 60  0001 C CNN "Source"
+	1    4300 2600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1700 3000 1400 3000
+Wire Wire Line
+	1700 3100 1400 3100
+Wire Wire Line
+	1700 3200 1400 3200
+Wire Wire Line
+	1700 3300 1400 3300
+Text Label 1400 3300 2    60   ~ 0
+~SHUTDOWN
+Text Label 1400 3200 2    60   ~ 0
+MUTE
+Text Label 1400 3100 2    60   ~ 0
+VOL_SENSE
+Text Label 1400 3000 2    60   ~ 0
+TIP_SW
 $EndSCHEMATC
