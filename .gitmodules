@@ -13,3 +13,6 @@
 [submodule "firmware/src/assets/miniwi"]
 	path = firmware/src/assets/miniwi
 	url = https://github.com/josuah/miniwi.git
+[submodule "hardware/lib/stm32"]
+	path = hardware/lib/stm32
+	url = https://github.com/esden/stm32-kicad-lib.git
