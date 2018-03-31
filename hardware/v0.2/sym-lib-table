@@ -15,4 +15,5 @@
   (lib (name 1bitsy)(type Legacy)(uri ${KIPRJMOD}/../lib/1bitsy/kicad/1bitsy.lib)(options "")(descr ""))
   (lib (name pkl_lattice)(type Legacy)(uri ${KIPRJMOD}/../lib/pkl/pkl_lattice.lib)(options "")(descr ""))
   (lib (name pkl_memory)(type Legacy)(uri ${KIPRJMOD}/../lib/pkl/pkl_memory.lib)(options "")(descr ""))
+  (lib (name stm32)(type Legacy)(uri ${KIPRJMOD}/../lib/stm32/stm32.lib)(options "")(descr ""))
 )

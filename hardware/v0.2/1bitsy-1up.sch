@@ -4,7 +4,7 @@ EELAYER 26 0
 EELAYER END
 $Descr A3 16535 11693
 encoding utf-8
-Sheet 1 1
+Sheet 1 2
 Title "1Bitsy 1UP Retro Inspired Handheld Console"
 Date ""
 Rev "V0.1a"
@@ -14,102 +14,58 @@ Comment2 "(C) 2017 1BitSquared LLC <info@1bitsquared.com>"
 Comment3 "License: CC-BY-SA 4.0"
 Comment4 ""
 $EndDescr
-Text Label 1300 2300 2    60   ~ 0
+Text Label 5700 2800 0    60   ~ 0
 LCD_D0
-Text Label 1300 2400 2    60   ~ 0
+Text Label 5700 2900 0    60   ~ 0
 LCD_D1
-Text Label 7000 2500 0    60   ~ 0
+Text Label 5700 3000 0    60   ~ 0
 LCD_D2
-Text Label 7000 2400 0    60   ~ 0
+Text Label 5700 3100 0    60   ~ 0
 LCD_D3
-Text Label 7000 2300 0    60   ~ 0
+Text Label 5700 3200 0    60   ~ 0
 LCD_D4
-Text Label 7000 2200 0    60   ~ 0
+Text Label 5700 3300 0    60   ~ 0
 LCD_D5
-Text Label 7000 2100 0    60   ~ 0
+Text Label 5700 3400 0    60   ~ 0
 LCD_D6
-Text Label 7000 2000 0    60   ~ 0
+Text Label 5700 3500 0    60   ~ 0
 LCD_D7
-Text Label 1300 2100 2    60   ~ 0
-VOL/TOUCH_SCL
-Text Label 1300 2200 2    60   ~ 0
-VOL/TOUCH_SDA
-Text Label 1400 3400 2    60   ~ 0
+Text Label 5700 2600 0    60   ~ 0
+TOUCH_SCL
+Text Label 5700 2700 0    60   ~ 0
+TOUCH_SDA
+Text Label 4000 2000 2    60   ~ 0
 AUDIO_L
-Text Label 1300 1500 2    60   ~ 0
+Text Label 4000 3600 2    60   ~ 0
 SDIO_D2
-Text Label 1300 1600 2    60   ~ 0
+Text Label 4000 3700 2    60   ~ 0
 SDIO_D3
-Text Label 1300 1700 2    60   ~ 0
+Text Label 4000 3800 2    60   ~ 0
 SDIO_CK
-Text Label 1300 1800 2    60   ~ 0
+Text Label 5700 3700 0    60   ~ 0
 SDIO_CMD
-Text Label 7000 1600 0    60   ~ 0
+Text Label 4000 3500 2    60   ~ 0
 SDIO_D1
-Text Label 7000 1700 0    60   ~ 0
+Text Label 4000 3400 2    60   ~ 0
 SDIO_D0
-Text Label 1300 2000 2    60   ~ 0
+Text Label 5700 2500 0    60   ~ 0
 LCD_TOUCH_IRQ
-Text Label 1300 1900 2    60   ~ 0
+Text Label 5700 2400 0    60   ~ 0
 LCD_BACK_LIGHT
-Text Label 1200 2500 2    60   ~ 0
+Text Label 4000 2800 2    60   ~ 0
 LCD_RST
-Text Label 7100 2700 0    60   ~ 0
+Text Label 5700 2000 0    60   ~ 0
 LCD_RD
-Text Label 7100 2600 0    60   ~ 0
+Text Label 5700 2100 0    60   ~ 0
 LCD_WR
-Text Label 7100 1900 0    60   ~ 0
-LCD_C/D
-Text Label 1200 2600 2    60   ~ 0
+Text Label 4000 3200 2    60   ~ 0
+LCD_C-D
+Text Label 4000 2900 2    60   ~ 0
 LCD_CS
-Text Label 7100 1800 0    60   ~ 0
+Text Label 4000 3300 2    60   ~ 0
 LCD_TE
-Text Label 7100 3400 0    60   ~ 0
+Text Label 4000 2100 2    60   ~ 0
 AUDIO_R
-$Comp
-L power:GND #PWR01
-U 1 1 581E2AB2
-P 7000 4000
-F 0 "#PWR01" H 7000 3750 50  0001 C CNN
-F 1 "GND" H 7000 3850 50  0000 C CNN
-F 2 "" H 7000 4000 50  0000 C CNN
-F 3 "" H 7000 4000 50  0000 C CNN
-	1    7000 4000
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+3V3 #PWR02
-U 1 1 581E2B3A
-P 7200 1200
-F 0 "#PWR02" H 7200 1050 50  0001 C CNN
-F 1 "+3V3" H 7200 1340 50  0000 C CNN
-F 2 "" H 7200 1200 50  0000 C CNN
-F 3 "" H 7200 1200 50  0000 C CNN
-	1    7200 1200
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR03
-U 1 1 581E2D0D
-P 1600 4000
-F 0 "#PWR03" H 1600 3750 50  0001 C CNN
-F 1 "GND" H 1600 3850 50  0000 C CNN
-F 2 "" H 1600 4000 50  0000 C CNN
-F 3 "" H 1600 4000 50  0000 C CNN
-	1    1600 4000
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+3V3 #PWR04
-U 1 1 581E2E1A
-P 1500 1300
-F 0 "#PWR04" H 1500 1150 50  0001 C CNN
-F 1 "+3V3" H 1500 1440 50  0000 C CNN
-F 2 "" H 1500 1300 50  0000 C CNN
-F 3 "" H 1500 1300 50  0000 C CNN
-	1    1500 1300
-	1    0    0    -1  
-$EndComp
 Text Label 15300 3600 0    60   ~ 0
 LCD_TE
 Text Label 15400 1900 0    60   ~ 0
@@ -133,7 +89,7 @@ LCD_WR
 Text Label 15300 4000 0    60   ~ 0
 LCD_RD
 Text Label 15300 3800 0    60   ~ 0
-LCD_C/D
+LCD_C-D
 Text Label 15300 3700 0    60   ~ 0
 LCD_CS
 NoConn ~ 15200 4200
@@ -304,9 +260,9 @@ $EndComp
 Text Label 13800 5300 2    60   ~ 0
 LCD_RST
 Text Label 13800 5500 2    60   ~ 0
-VOL/TOUCH_SDA
+TOUCH_SDA
 Text Label 13800 5400 2    60   ~ 0
-VOL/TOUCH_SCL
+TOUCH_SCL
 Text Label 13800 5200 2    60   ~ 0
 LCD_TOUCH_IRQ
 $Comp
@@ -342,62 +298,62 @@ AUDIO_L
 $Comp
 L pkl_conn:pkl_Micro_SD CON1
 U 1 1 581EC54A
-P 9500 1600
-F 0 "CON1" H 8850 2150 50  0000 C CNN
-F 1 "pkl_Micro_SD" H 10100 1050 50  0000 C CNN
-F 2 "pkl_misc:SCHA4B0419" H 9650 1900 50  0001 C CNN
-F 3 "" H 9500 1600 60  0000 C CNN
-F 4 "conn-micro-sd-smd-push-push" H 9500 1600 60  0001 C CNN "Description"
-F 5 "ANY" H 9500 1600 60  0001 C CNN "Source"
-	1    9500 1600
+P 9400 1600
+F 0 "CON1" H 8750 2150 50  0000 C CNN
+F 1 "pkl_Micro_SD" H 10000 1050 50  0000 C CNN
+F 2 "pkl_misc:SCHA4B0419" H 9550 1900 50  0001 C CNN
+F 3 "" H 9400 1600 60  0000 C CNN
+F 4 "conn-micro-sd-smd-push-push" H 9400 1600 60  0001 C CNN "Description"
+F 5 "ANY" H 9400 1600 60  0001 C CNN "Source"
+	1    9400 1600
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR010
 U 1 1 581ED057
-P 8500 2200
-F 0 "#PWR010" H 8500 1950 50  0001 C CNN
-F 1 "GND" H 8500 2050 50  0000 C CNN
-F 2 "" H 8500 2200 50  0000 C CNN
-F 3 "" H 8500 2200 50  0000 C CNN
-	1    8500 2200
+P 8400 2200
+F 0 "#PWR010" H 8400 1950 50  0001 C CNN
+F 1 "GND" H 8400 2050 50  0000 C CNN
+F 2 "" H 8400 2200 50  0000 C CNN
+F 3 "" H 8400 2200 50  0000 C CNN
+	1    8400 2200
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR011
 U 1 1 581ED0A4
-P 10500 2200
-F 0 "#PWR011" H 10500 1950 50  0001 C CNN
-F 1 "GND" H 10500 2050 50  0000 C CNN
-F 2 "" H 10500 2200 50  0000 C CNN
-F 3 "" H 10500 2200 50  0000 C CNN
-	1    10500 2200
+P 10400 2200
+F 0 "#PWR011" H 10400 1950 50  0001 C CNN
+F 1 "GND" H 10400 2050 50  0000 C CNN
+F 2 "" H 10400 2200 50  0000 C CNN
+F 3 "" H 10400 2200 50  0000 C CNN
+	1    10400 2200
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:+3V3 #PWR012
 U 1 1 581ED461
-P 8500 1000
-F 0 "#PWR012" H 8500 850 50  0001 C CNN
-F 1 "+3V3" H 8500 1140 50  0000 C CNN
-F 2 "" H 8500 1000 50  0000 C CNN
-F 3 "" H 8500 1000 50  0000 C CNN
-	1    8500 1000
+P 8400 1000
+F 0 "#PWR012" H 8400 850 50  0001 C CNN
+F 1 "+3V3" H 8400 1140 50  0000 C CNN
+F 2 "" H 8400 1000 50  0000 C CNN
+F 3 "" H 8400 1000 50  0000 C CNN
+	1    8400 1000
 	1    0    0    -1  
 $EndComp
-Text Label 8400 1300 2    60   ~ 0
+Text Label 8300 1300 2    60   ~ 0
 SDIO_D2
-Text Label 8400 1400 2    60   ~ 0
+Text Label 8300 1400 2    60   ~ 0
 SDIO_D3
-Text Label 8400 1700 2    60   ~ 0
+Text Label 8300 1700 2    60   ~ 0
 SDIO_CK
-Text Label 8400 1500 2    60   ~ 0
+Text Label 8300 1500 2    60   ~ 0
 SDIO_CMD
-Text Label 8400 2000 2    60   ~ 0
+Text Label 8300 2000 2    60   ~ 0
 SDIO_D1
-Text Label 8400 1900 2    60   ~ 0
+Text Label 8300 1900 2    60   ~ 0
 SDIO_D0
-Text Label 10600 1400 0    60   ~ 0
+Text Label 10500 1400 0    60   ~ 0
 SDIO_CD
 $Comp
 L pkl_misc:TACT SW1
@@ -549,11 +505,11 @@ Text Label 1900 5100 2    60   ~ 0
 BUP
 Text Label 1300 5700 2    60   ~ 0
 BLEFT
-Text Label 7100 3300 0    60   ~ 0
+Text Label 4000 2200 2    60   ~ 0
 BDAT
-Text Label 7100 3200 0    60   ~ 0
+Text Label 4000 2300 2    60   ~ 0
 BCLK
-Text Label 7100 3100 0    60   ~ 0
+Text Label 4000 3000 2    60   ~ 0
 BLATCH
 $Comp
 L power:GND #PWR013
@@ -591,7 +547,7 @@ F 3 "" H 15800 3200 50  0000 C CNN
 	1    15800 3200
 	1    0    0    -1  
 $EndComp
-Text Label 7100 3600 0    60   ~ 0
+Text Label 5700 2200 0    60   ~ 0
 SDIO_CD
 $Comp
 L pkl_device:pkl_C_Small C3
@@ -713,9 +669,9 @@ F 5 "DNP" H 13300 2200 60  0001 C CNN "DNP"
 	1    0    0    -1  
 $EndComp
 Text Label 13100 1900 2    60   ~ 0
-VOL/TOUCH_SCL
+TOUCH_SCL
 Text Label 13100 2000 2    60   ~ 0
-VOL/TOUCH_SDA
+TOUCH_SDA
 Text Label 13100 2200 2    60   ~ 0
 LCD_RST
 Text Label 13100 2100 2    60   ~ 0
@@ -748,12 +704,12 @@ NoConn ~ 15200 3400
 $Comp
 L power:+5V #PWR019
 U 1 1 5947DF0D
-P 7000 1200
-F 0 "#PWR019" H 7000 1050 50  0001 C CNN
-F 1 "+5V" H 7000 1340 50  0000 C CNN
-F 2 "" H 7000 1200 50  0001 C CNN
-F 3 "" H 7000 1200 50  0001 C CNN
-	1    7000 1200
+P 5600 1400
+F 0 "#PWR019" H 5600 1250 50  0001 C CNN
+F 1 "+5V" H 5600 1540 50  0000 C CNN
+F 2 "" H 5600 1400 50  0001 C CNN
+F 3 "" H 5600 1400 50  0001 C CNN
+	1    5600 1400
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -1055,37 +1011,8 @@ Text Notes 15500 8000 0    60   ~ 0
 POWER ON
 Text Notes 15500 7700 0    60   ~ 0
 CHARGING
-Text Notes 5850 1150 2    60   ~ 0
-Modify 1Bitsy by removing the USB V+ to VBUS diode.\nUSB V+ will be tapped off through a single pogo pin.
-$Comp
-L pkl_misc:PAD_SMD P1
-U 1 1 594C60E3
-P 6050 1100
-F 0 "P1" H 6050 950 60  0000 C CNN
-F 1 "PogoPin" V 6150 1100 60  0000 C CNN
-F 2 "pkl_pads:PAD_MILL-MAX_0906" H 6050 850 60  0001 C CNN
-F 3 "" H 6050 950 60  0000 C CNN
-F 4 "pin-pogo-millmax-0906-1-15-20-75-14-11-0" H 6050 1100 60  0001 C CNN "Key"
-F 5 "SMD with location Pogo Pin" H 6050 1100 60  0001 C CNN "Description"
-F 6 "MillMax" H 6050 1100 60  0001 C CNN "Manufacturer"
-F 7 "0906-1-15-20-75-14-11-0" H 6050 1100 60  0001 C CNN "MFN"
-F 8 "ANY" H 6050 1100 60  0001 C CNN "Source"
-	1    6050 1100
-	-1   0    0    1   
-$EndComp
-Text Label 6450 1100 0    60   ~ 0
+Text Label 5900 1700 0    60   ~ 0
 USB_V+
-$Comp
-L power:PWR_FLAG #FLG039
-U 1 1 594C6E4F
-P 6350 1000
-F 0 "#FLG039" H 6350 1075 50  0001 C CNN
-F 1 "PWR_FLAG" H 6350 1150 50  0000 C CNN
-F 2 "" H 6350 1000 50  0001 C CNN
-F 3 "" H 6350 1000 50  0001 C CNN
-	1    6350 1000
-	1    0    0    -1  
-$EndComp
 Text Label 12400 6800 2    60   ~ 0
 USB_V+
 $Comp
@@ -1146,73 +1073,57 @@ F 3 "" H 8400 4650 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	1700 2300 1300 2300
+	5500 2800 5700 2800
 Wire Wire Line
-	1700 2400 1300 2400
+	5500 2900 5700 2900
 Wire Wire Line
-	6900 2500 7000 2500
+	5500 3000 5700 3000
 Wire Wire Line
-	6900 2400 7000 2400
+	5500 3100 5700 3100
 Wire Wire Line
-	6900 2300 7000 2300
+	5500 3200 5700 3200
 Wire Wire Line
-	6900 2200 7000 2200
+	5500 3300 5700 3300
 Wire Wire Line
-	6900 2100 7000 2100
+	5500 3400 5700 3400
 Wire Wire Line
-	6900 2000 7000 2000
+	5500 3500 5700 3500
 Wire Wire Line
-	1700 2200 1300 2200
+	5500 2700 5700 2700
 Wire Wire Line
-	1700 2100 1300 2100
+	5500 2600 5700 2600
 Wire Wire Line
-	1700 3400 1400 3400
+	4200 2000 4000 2000
 Wire Wire Line
-	6900 3400 7100 3400
+	4200 2100 4000 2100
 Wire Wire Line
-	1700 1800 1300 1800
+	5500 3700 5700 3700
 Wire Wire Line
-	1700 1700 1300 1700
+	4200 3800 4000 3800
 Wire Wire Line
-	1700 1600 1300 1600
+	4200 3700 4000 3700
 Wire Wire Line
-	1700 1500 1300 1500
+	4200 3600 4000 3600
 Wire Wire Line
-	6900 1700 7000 1700
+	4200 3400 4000 3400
 Wire Wire Line
-	6900 1600 7000 1600
+	4200 3500 4000 3500
 Wire Wire Line
-	1700 2000 1300 2000
+	5500 2500 5700 2500
 Wire Wire Line
-	1700 2500 1200 2500
+	4200 2800 4000 2800
 Wire Wire Line
-	1700 2600 1200 2600
+	4200 2900 4000 2900
 Wire Wire Line
-	6900 2700 7100 2700
+	5500 2000 5700 2000
 Wire Wire Line
-	6900 2600 7100 2600
+	5500 2100 5700 2100
 Wire Wire Line
-	6900 1900 7100 1900
+	4200 3200 4000 3200
 Wire Wire Line
-	1700 1900 1300 1900
+	5500 2400 5700 2400
 Wire Wire Line
-	6900 1800 7100 1800
-Wire Wire Line
-	6900 2800 7000 2800
-Wire Wire Line
-	7000 2800 7000 4000
-Wire Wire Line
-	6900 1500 7200 1500
-Wire Wire Line
-	7200 1500 7200 1200
-Wire Wire Line
-	1700 1400 1600 1400
-Wire Wire Line
-	1600 1400 1600 4000
-Wire Wire Line
-	1700 2800 1500 2800
-Wire Wire Line
-	1500 2800 1500 1300
+	4200 3300 4000 3300
 Wire Wire Line
 	15200 1900 15400 1900
 Wire Wire Line
@@ -1288,34 +1199,34 @@ Wire Wire Line
 Wire Wire Line
 	2800 9100 2500 9100
 Wire Wire Line
-	10400 1800 10500 1800
+	10300 1800 10400 1800
 Wire Wire Line
-	10500 1500 10500 1800
+	10400 1500 10400 1800
 Wire Wire Line
-	10400 1500 10500 1500
-Connection ~ 10500 1800
+	10300 1500 10400 1500
+Connection ~ 10400 1800
 Wire Wire Line
-	8600 1600 8500 1600
+	8500 1600 8400 1600
 Wire Wire Line
-	8500 1600 8500 1000
+	8400 1600 8400 1000
 Wire Wire Line
-	8600 1800 8500 1800
+	8500 1800 8400 1800
 Wire Wire Line
-	8500 1800 8500 2200
+	8400 1800 8400 2200
 Wire Wire Line
-	8600 1300 8400 1300
+	8500 1300 8300 1300
 Wire Wire Line
-	8600 1400 8400 1400
+	8500 1400 8300 1400
 Wire Wire Line
-	8600 1500 8400 1500
+	8500 1500 8300 1500
 Wire Wire Line
-	8600 1700 8400 1700
+	8500 1700 8300 1700
 Wire Wire Line
-	8600 1900 8400 1900
+	8500 1900 8300 1900
 Wire Wire Line
-	8600 2000 8400 2000
+	8500 2000 8300 2000
 Wire Wire Line
-	10400 1400 10600 1400
+	10300 1400 10500 1400
 Wire Wire Line
 	3000 5700 3100 5700
 Wire Wire Line
@@ -1370,11 +1281,11 @@ Wire Wire Line
 Wire Wire Line
 	2000 5100 1900 5100
 Wire Wire Line
-	6900 3300 7100 3300
+	4200 2200 4000 2200
 Wire Wire Line
-	6900 3200 7100 3200
+	4200 2300 4000 2300
 Wire Wire Line
-	6900 3100 7100 3100
+	4200 3000 4000 3000
 Wire Wire Line
 	6400 6900 5500 6900
 Connection ~ 2500 6900
@@ -1389,7 +1300,7 @@ Wire Wire Line
 Wire Wire Line
 	15800 3300 15800 3200
 Wire Wire Line
-	6900 3600 7100 3600
+	5500 2200 5700 2200
 Wire Wire Line
 	12800 3900 12800 4000
 Wire Wire Line
@@ -1482,9 +1393,9 @@ Wire Wire Line
 Wire Wire Line
 	15300 4100 15300 4400
 Wire Wire Line
-	6900 1400 7000 1400
+	5500 1600 5600 1600
 Wire Wire Line
-	7000 1400 7000 1200
+	5600 1600 5600 1400
 Wire Wire Line
 	13700 6800 13800 6800
 Wire Wire Line
@@ -1561,11 +1472,6 @@ Wire Wire Line
 Wire Wire Line
 	11950 7000 11950 6800
 Connection ~ 12400 7000
-Wire Wire Line
-	6250 1100 6350 1100
-Wire Wire Line
-	6350 1000 6350 1100
-Connection ~ 6350 1100
 Wire Wire Line
 	8500 6350 8500 6950
 Wire Wire Line
@@ -1798,8 +1704,8 @@ Text Label 8200 7950 2    60   ~ 0
 BCLK
 Text Label 8200 8150 2    60   ~ 0
 BLATCH
-Text Notes 7550 3450 0    60   ~ 0
-We can either bitbang the button shift register read\nor we can output an alternating bit pattern and\nread 4 bits in for every 8 bits shifted out. :)\n(Or maybe generate clock using a timer compare?)\n(Hack oportunity!! WOOO)\n(no there is no SPIxSCK that we can use...)
+Text Notes 3000 2300 2    60   ~ 0
+Gamepad pins: BDAT,BCLK,BLATCH\nWe can either bitbang the button shift register read\nor we can output an alternating bit pattern and\nread 4 bits in for every 8 bits shifted out. :)\n(Or maybe generate clock using a timer compare?)\n(Hack oportunity!! WOOO)\n(no there is no SPIxSCK that we can use...)
 Wire Wire Line
 	5400 5700 5500 5700
 Wire Wire Line
@@ -1815,22 +1721,17 @@ Text Notes 7400 7250 2    60   ~ 0
 BE2
 NoConn ~ 9800 7950
 NoConn ~ 9800 6250
-NoConn ~ 6900 3000
-NoConn ~ 1700 3600
-NoConn ~ 1700 3700
 Wire Wire Line
-	1700 2700 1400 2700
-Wire Wire Line
-	1400 2700 1400 1100
+	5800 1800 5800 1400
 $Comp
 L power:+BATT #PWR046
 U 1 1 594FCBFC
-P 1400 1100
-F 0 "#PWR046" H 1400 950 50  0001 C CNN
-F 1 "+BATT" H 1400 1240 50  0000 C CNN
-F 2 "" H 1400 1100 50  0001 C CNN
-F 3 "" H 1400 1100 50  0001 C CNN
-	1    1400 1100
+P 5800 1400
+F 0 "#PWR046" H 5800 1250 50  0001 C CNN
+F 1 "+BATT" H 5800 1540 50  0000 C CNN
+F 2 "" H 5800 1400 50  0001 C CNN
+F 3 "" H 5800 1400 50  0001 C CNN
+	1    5800 1400
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -2130,16 +2031,16 @@ Text Label 14300 7800 0    60   ~ 0
 ~CHG
 Text Label 14300 7900 0    60   ~ 0
 ~PGOOD
-Text Notes 9150 950  0    100  ~ 20
+Text Notes 9050 950  0    100  ~ 20
 Micro SDCard Slot
 Wire Notes Line
-	7900 700  11050 700 
+	7800 700  10950 700 
 Wire Notes Line
-	11050 700  11050 2500
+	10950 700  10950 2500
 Wire Notes Line
-	11050 2500 7900 2500
+	10950 2500 7800 2500
 Wire Notes Line
-	7900 2500 7900 700 
+	7800 2500 7800 700 
 Text Notes 12500 1000 0    100  ~ 20
 LCD TFT Interface
 Wire Notes Line
@@ -2152,20 +2053,16 @@ Wire Notes Line
 	12200 6000 12200 700 
 Text Notes 12450 5000 0    100  ~ 20
 LCD Capacitive\nTouch Sensor
-Text Notes 1700 1200 0    100  ~ 20
-1Bitsy\nSTM32F415
+Text Notes 600  900  0    100  ~ 20
+1Bitsy STM32F415 Circuit
 Wire Notes Line
 	500  4300 500  700 
 Wire Notes Line
 	500  700  7700 700 
 Wire Notes Line
-	7700 700  7700 2700
+	7700 700  7700 4300
 Wire Notes Line
-	7700 2700 10100 2700
-Wire Notes Line
-	10100 2700 10100 4300
-Wire Notes Line
-	10100 4300 500  4300
+	7700 4300 500  4300
 Text Notes 1100 4750 0    100  ~ 20
 Gamepad Buttons
 Text Notes 8500 4700 0    100  ~ 20
@@ -2237,60 +2134,60 @@ Connection ~ 10100 6900
 $Comp
 L pkl_device:pkl_R_Small R25
 U 1 1 596CB51B
-P 800 4000
-F 0 "R25" V 900 4100 50  0000 L CNN
-F 1 "10k" V 900 4050 50  0000 R CNN
-F 2 "pkl_dipol:R_0402" H 800 4000 60  0001 C CNN
-F 3 "" H 800 4000 60  0000 C CNN
-F 4 "res-0402-10k" H 800 4000 60  0001 C CNN "Key"
-F 5 "0402" H 800 4000 60  0001 C CNN "Package ID"
-F 6 "ANY" H 800 4000 60  0001 C CNN "Source"
-	1    800  4000
+P 3300 2800
+F 0 "R25" V 3400 2900 50  0000 L CNN
+F 1 "10k" V 3400 2850 50  0000 R CNN
+F 2 "pkl_dipol:R_0402" H 3300 2800 60  0001 C CNN
+F 3 "" H 3300 2800 60  0000 C CNN
+F 4 "res-0402-10k" H 3300 2800 60  0001 C CNN "Key"
+F 5 "0402" H 3300 2800 60  0001 C CNN "Package ID"
+F 6 "ANY" H 3300 2800 60  0001 C CNN "Source"
+	1    3300 2800
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	800  3800 1700 3800
-Text Label 1500 3800 2    60   ~ 0
+	3300 2600 4200 2600
+Text Label 4050 2600 2    60   ~ 0
 V_BATT
 $Comp
 L pkl_device:pkl_R_Small R24
 U 1 1 596CC8CE
-P 800 3600
-F 0 "R24" V 900 3700 50  0000 L CNN
-F 1 "4k7" V 900 3650 50  0000 R CNN
-F 2 "pkl_dipol:R_0402" H 800 3600 60  0001 C CNN
-F 3 "" H 800 3600 60  0000 C CNN
-F 4 "res-0402-4k7" H 800 3600 60  0001 C CNN "Key"
-F 5 "0402" H 800 3600 60  0001 C CNN "Package ID"
-F 6 "ANY" H 800 3600 60  0001 C CNN "Source"
-	1    800  3600
+P 3300 2400
+F 0 "R24" V 3400 2500 50  0000 L CNN
+F 1 "4k7" V 3400 2450 50  0000 R CNN
+F 2 "pkl_dipol:R_0402" H 3300 2400 60  0001 C CNN
+F 3 "" H 3300 2400 60  0000 C CNN
+F 4 "res-0402-4k7" H 3300 2400 60  0001 C CNN "Key"
+F 5 "0402" H 3300 2400 60  0001 C CNN "Package ID"
+F 6 "ANY" H 3300 2400 60  0001 C CNN "Source"
+	1    3300 2400
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR051
 U 1 1 596CF707
-P 800 4100
-F 0 "#PWR051" H 800 3850 50  0001 C CNN
-F 1 "GND" H 800 3950 50  0000 C CNN
-F 2 "" H 800 4100 50  0000 C CNN
-F 3 "" H 800 4100 50  0000 C CNN
-	1    800  4100
+P 3300 2900
+F 0 "#PWR051" H 3300 2650 50  0001 C CNN
+F 1 "GND" H 3300 2750 50  0000 C CNN
+F 2 "" H 3300 2900 50  0000 C CNN
+F 3 "" H 3300 2900 50  0000 C CNN
+	1    3300 2900
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	800  3700 800  3800
-Connection ~ 800  3800
+	3300 2500 3300 2600
+Connection ~ 3300 2600
 Wire Wire Line
-	800  3400 800  3500
+	3300 2200 3300 2300
 $Comp
 L power:+5V #PWR052
 U 1 1 596D0DD3
-P 800 3400
-F 0 "#PWR052" H 800 3250 50  0001 C CNN
-F 1 "+5V" H 800 3540 50  0000 C CNN
-F 2 "" H 800 3400 50  0001 C CNN
-F 3 "" H 800 3400 50  0001 C CNN
-	1    800  3400
+P 3300 2200
+F 0 "#PWR052" H 3300 2050 50  0001 C CNN
+F 1 "+5V" H 3300 2340 50  0000 C CNN
+F 2 "" H 3300 2200 50  0001 C CNN
+F 3 "" H 3300 2200 50  0001 C CNN
+	1    3300 2200
 	1    0    0    -1  
 $EndComp
 Text Label 14200 7400 0    60   ~ 0
@@ -2311,7 +2208,7 @@ Wire Wire Line
 Wire Wire Line
 	14000 4800 14100 4800
 Wire Wire Line
-	10500 1800 10500 2200
+	10400 1800 10400 2200
 Wire Wire Line
 	3700 6600 3700 6100
 Wire Wire Line
@@ -2367,7 +2264,7 @@ Wire Wire Line
 Wire Wire Line
 	12400 7000 12500 7000
 Wire Wire Line
-	6350 1100 6450 1100
+	5500 1700 5900 1700
 Wire Wire Line
 	7800 4750 7900 4750
 Wire Wire Line
@@ -2449,7 +2346,7 @@ Wire Wire Line
 Wire Wire Line
 	10100 6900 10100 7000
 Wire Wire Line
-	800  3800 800  3900
+	3300 2600 3300 2700
 Wire Wire Line
 	14200 7400 14200 8100
 Wire Wire Line
@@ -3133,33 +3030,68 @@ Text Notes 7400 7050 2    60   ~ 0
 BE4
 Wire Wire Line
 	15500 6700 15500 7100
-$Comp
-L 1bitsy:1bitsy-complete-concise U1
-U 1 1 57F4B4DD
-P 4300 2600
-F 0 "U1" H 4300 2700 60  0000 C CNN
-F 1 "1bitsy-complete-concise" H 4300 2600 60  0000 C CNN
-F 2 "1bitsy:1bitsy-sl-1xx-xx-19" H 4300 2700 60  0001 C CNN
-F 3 "" H 4300 2700 60  0001 C CNN
-F 4 "1bitsy" H 4300 2600 60  0001 C CNN "Key"
-F 5 "ANY" H 4300 2600 60  0001 C CNN "Source"
-	1    4300 2600
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
-	1700 3000 1400 3000
+	4200 1600 4000 1600
 Wire Wire Line
-	1700 3100 1400 3100
+	4200 1700 4000 1700
 Wire Wire Line
-	1700 3200 1400 3200
+	4200 1800 4000 1800
 Wire Wire Line
-	1700 3300 1400 3300
-Text Label 1400 3300 2    60   ~ 0
+	4200 1900 4000 1900
+Text Label 4000 1900 2    60   ~ 0
 ~SHUTDOWN
-Text Label 1400 3200 2    60   ~ 0
+Text Label 4000 1800 2    60   ~ 0
 MUTE
-Text Label 1400 3100 2    60   ~ 0
+Text Label 4000 1700 2    60   ~ 0
 VOL_SENSE
-Text Label 1400 3000 2    60   ~ 0
+Text Label 4000 1600 2    60   ~ 0
 TIP_SW
+$Sheet
+S 4200 1500 1300 2500
+U 5ADCDD84
+F0 "1bitsy" 60
+F1 "1bitsy.sch" 60
+F2 "PA0" I L 4200 1600 60 
+F3 "PA1" I L 4200 1700 60 
+F4 "PA2" I L 4200 1800 60 
+F5 "PA3" I L 4200 1900 60 
+F6 "PA4" I L 4200 2000 60 
+F7 "PA5" I L 4200 2100 60 
+F8 "PA6" I L 4200 2200 60 
+F9 "PA7" I L 4200 2300 60 
+F10 "PB0" I R 5500 2000 60 
+F11 "PB1" I R 5500 2100 60 
+F12 "PB2" I R 5500 2200 60 
+F13 "PB4" I R 5500 2400 60 
+F14 "PB5" I R 5500 2500 60 
+F15 "PB6" I R 5500 2600 60 
+F16 "PB7" I R 5500 2700 60 
+F17 "PB8" I R 5500 2800 60 
+F18 "PB9" I R 5500 2900 60 
+F19 "PB10" I R 5500 3000 60 
+F20 "PB11" I R 5500 3100 60 
+F21 "PB12" I R 5500 3200 60 
+F22 "PB13" I R 5500 3300 60 
+F23 "PB14" I R 5500 3400 60 
+F24 "PC0" I L 4200 2600 60 
+F25 "PC2" I L 4200 2800 60 
+F26 "PC3" I L 4200 2900 60 
+F27 "PC4" I L 4200 3000 60 
+F28 "PC5" I L 4200 3100 60 
+F29 "PC6" I L 4200 3200 60 
+F30 "PC7" I L 4200 3300 60 
+F31 "PC8" I L 4200 3400 60 
+F32 "PC9" I L 4200 3500 60 
+F33 "PC10" I L 4200 3600 60 
+F34 "PC11" I L 4200 3700 60 
+F35 "PC12" I L 4200 3800 60 
+F36 "PC13" I L 4200 3900 60 
+F37 "PD2" I R 5500 3700 60 
+F38 "VIN" I R 5500 1600 60 
+F39 "USB_VBUS" I R 5500 1700 60 
+F40 "VBAT" I R 5500 1800 60 
+F41 "PB15" I R 5500 3500 60 
+$EndSheet
+Wire Wire Line
+	5500 1800 5800 1800
 $EndSCHEMATC
