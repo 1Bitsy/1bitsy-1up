@@ -1271,8 +1271,6 @@ Wire Wire Line
 	1600 2300 1400 2300
 Wire Wire Line
 	1600 3000 1400 3000
-Wire Wire Line
-	6400 6900 5500 6900
 Connection ~ 2500 6900
 Connection ~ 3100 6900
 Connection ~ 3700 6900
@@ -1923,48 +1921,6 @@ $EndComp
 Text Notes 14100 6450 0    60   ~ 0
 Not really 5V just the battery voltage\nwhen connected and enabled.
 $Comp
-L pkl_misc:TACT SW12
-U 1 1 5952A274
-P 6000 6200
-F 0 "SW12" H 6150 6125 60  0000 L CNN
-F 1 "~" H 6150 6275 60  0000 L CNN
-F 2 "pkl_buttons_switches:Tact_Switch_Side_B3U-3000P" H 6000 6175 60  0001 C CNN
-F 3 "" H 6000 6175 60  0000 C CNN
-F 4 "sw-tact-top-3.0-2.5" H 6000 6200 60  0001 C CNN "Key"
-F 5 "ANY" H 6000 6200 60  0001 C CNN "Source"
-	1    6000 6200
-	1    0    0    -1  
-$EndComp
-$Comp
-L pkl_misc:TACT SW13
-U 1 1 5952A537
-P 6000 6600
-F 0 "SW13" H 6150 6525 60  0000 L CNN
-F 1 "~" H 6150 6675 60  0000 L CNN
-F 2 "pkl_buttons_switches:Tact_Switch_Side_B3U-3000P" H 6000 6575 60  0001 C CNN
-F 3 "" H 6000 6575 60  0000 C CNN
-F 4 "sw-tact-top-3.0-2.5" H 6000 6600 60  0001 C CNN "Key"
-F 5 "ANY" H 6000 6600 60  0001 C CNN "Source"
-	1    6000 6600
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	5800 6200 5400 6200
-Text Label 5400 6200 2    60   ~ 0
-BVol+
-Wire Wire Line
-	6200 6200 6400 6200
-Wire Wire Line
-	6400 6200 6400 6600
-Connection ~ 5500 6900
-Wire Wire Line
-	6200 6600 6400 6600
-Connection ~ 6400 6600
-Wire Wire Line
-	5800 6600 5400 6600
-Text Label 5400 6600 2    60   ~ 0
-BVol-
-$Comp
 L power:GND #PWR049
 U 1 1 594FE2A5
 P 11400 8400
@@ -2301,8 +2257,6 @@ Wire Wire Line
 	4900 6900 4300 6900
 Wire Wire Line
 	5500 6900 4900 6900
-Wire Wire Line
-	6400 6600 6400 6900
 Wire Wire Line
 	8200 7050 8600 7050
 Wire Wire Line
