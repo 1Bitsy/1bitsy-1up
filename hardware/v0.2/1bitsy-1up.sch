@@ -2032,7 +2032,7 @@ Wire Notes Line
 Text Notes 12450 5000 0    100  ~ 20
 LCD Capacitive\nTouch Sensor
 Text Notes 600  900  0    100  ~ 20
-1Bitsy STM32F415 Circuit
+1Bitsy (STM32F415 ARM MCU) Circuit
 Wire Notes Line
 	500  4300 500  700 
 Wire Notes Line
@@ -3116,8 +3116,8 @@ F40 "iCE_CRESET" I L 5400 3700 60
 F41 "IOB_18A_10" B L 5400 2300 60 
 $EndSheet
 Wire Wire Line
-	1600 3100 350  3100
-Text Label 350  3100 2    60   ~ 0
+	1600 3100 1400 3100
+Text Label 1400 3100 2    60   ~ 0
 MIC_IN
 Wire Wire Line
 	1600 2400 1400 2400
@@ -3182,7 +3182,7 @@ xLCD_D6
 Text Label 7900 2400 0    60   ~ 0
 xLCD_D7
 Text Notes 4400 900  0    100  ~ 20
-iCEBreaker-bitsy Circuit
+iCEBreaker-bitsy (iCE40UP5k FPGA) Circuit
 Wire Wire Line
 	5400 1200 5200 1200
 Wire Wire Line
@@ -3259,4 +3259,626 @@ Text Notes 8000 2850 0    60   ~ 0
 TODO: Add RC\nnetwork and\nconnect to the\n audio out. :D
 Wire Notes Line
 	7750 2500 8000 2500
+$Comp
+L pkl_device:pkl_VREG_5PIN_FIXED U?
+U 1 1 5BDDF7F6
+P 10500 1200
+F 0 "U?" H 10350 1000 60  0000 C CNN
+F 1 "3.3V" H 10500 1400 60  0000 C CNN
+F 2 "pkl_housings_sot:SOT-23-5" H 10500 1200 60  0001 C CNN
+F 3 "" H 10500 1200 60  0000 C CNN
+F 4 "ANY" H 10500 1200 60  0001 C CNN "Source"
+F 5 "vreg-sot23-5-3v3" H 8400 -7250 50  0001 C CNN "Key"
+	1    10500 1200
+	1    0    0    -1  
+$EndComp
+$Comp
+L pkl_device:pkl_C C?
+U 1 1 5BDDF7FF
+P 9900 1600
+F 0 "C?" H 9925 1700 50  0000 L CNN
+F 1 "4u7" H 9925 1500 50  0000 L CNN
+F 2 "pkl_dipol:C_0603" H 9938 1450 30  0001 C CNN
+F 3 "" H 9900 1600 60  0000 C CNN
+F 4 "ANY" H 9900 1600 60  0001 C CNN "Source"
+F 5 "cap-cer-0603-4u7" H 8400 -7250 50  0001 C CNN "Key"
+	1    9900 1600
+	1    0    0    -1  
+$EndComp
+$Comp
+L pkl_device:pkl_C_Small C?
+U 1 1 5BDDF808
+P 10100 1600
+F 0 "C?" H 10110 1670 50  0000 L CNN
+F 1 "10n" H 10110 1520 50  0000 L CNN
+F 2 "pkl_dipol:C_0402" H 10100 1600 60  0001 C CNN
+F 3 "" H 10100 1600 60  0000 C CNN
+F 4 "ANY" H 10100 1600 60  0001 C CNN "Source"
+F 5 "cap-cer-0402-10n" H 8400 -7250 50  0001 C CNN "Key"
+	1    10100 1600
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5BDDF80F
+P 10000 1900
+F 0 "#PWR?" H 10000 1650 50  0001 C CNN
+F 1 "GND" H 10000 1750 50  0000 C CNN
+F 2 "" H 10000 1900 50  0001 C CNN
+F 3 "" H 10000 1900 50  0001 C CNN
+	1    10000 1900
+	1    0    0    -1  
+$EndComp
+$Comp
+L pkl_device:pkl_C C?
+U 1 1 5BDDF817
+P 11100 1600
+F 0 "C?" H 11125 1700 50  0000 L CNN
+F 1 "4u7" H 11125 1500 50  0000 L CNN
+F 2 "pkl_dipol:C_0603" H 11138 1450 30  0001 C CNN
+F 3 "" H 11100 1600 60  0000 C CNN
+F 4 "ANY" H 11100 1600 60  0001 C CNN "Source"
+F 5 "cap-cer-0603-4u7" H 8400 -7250 50  0001 C CNN "Key"
+	1    11100 1600
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5BDDF81E
+P 11000 1900
+F 0 "#PWR?" H 11000 1650 50  0001 C CNN
+F 1 "GND" H 11000 1750 50  0000 C CNN
+F 2 "" H 11000 1900 50  0001 C CNN
+F 3 "" H 11000 1900 50  0001 C CNN
+	1    11000 1900
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5BDDF824
+P 10100 1000
+F 0 "#PWR?" H 10100 850 50  0001 C CNN
+F 1 "+5V" H 10100 1140 50  0000 C CNN
+F 2 "" H 10100 1000 50  0001 C CNN
+F 3 "" H 10100 1000 50  0001 C CNN
+	1    10100 1000
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3V3 #PWR?
+U 1 1 5BDDF82A
+P 10900 1000
+F 0 "#PWR?" H 10900 850 50  0001 C CNN
+F 1 "+3V3" H 10900 1140 50  0000 C CNN
+F 2 "" H 10900 1000 50  0001 C CNN
+F 3 "" H 10900 1000 50  0001 C CNN
+	1    10900 1000
+	1    0    0    -1  
+$EndComp
+Text Notes 9000 900  0    100  ~ 20
+3V3 VReg
+Wire Wire Line
+	10200 1200 10100 1200
+Wire Wire Line
+	10100 1200 10100 1500
+Wire Wire Line
+	9900 1100 9900 1500
+Wire Wire Line
+	9900 1700 9900 1800
+Wire Wire Line
+	9900 1800 10000 1800
+Wire Wire Line
+	10100 1800 10100 1700
+Wire Wire Line
+	10000 1800 10000 1900
+Connection ~ 10000 1800
+Wire Wire Line
+	10800 1300 10900 1300
+Wire Wire Line
+	10900 1300 10900 1800
+Wire Wire Line
+	10800 1100 10900 1100
+Wire Wire Line
+	11100 1100 11100 1500
+Wire Wire Line
+	11100 1800 11100 1700
+Wire Wire Line
+	10900 1800 11000 1800
+Wire Wire Line
+	11000 1800 11000 1900
+Connection ~ 11000 1800
+Wire Wire Line
+	10100 1100 10100 1000
+Connection ~ 10100 1100
+Wire Wire Line
+	10900 1100 10900 1000
+Connection ~ 10900 1100
+Wire Notes Line
+	8900 700  11300 700 
+Wire Notes Line
+	11300 700  11300 2200
+Wire Notes Line
+	11300 2200 8900 2200
+Wire Notes Line
+	8900 2200 8900 700 
+Wire Wire Line
+	10000 1800 10100 1800
+Wire Wire Line
+	11000 1800 11100 1800
+Wire Wire Line
+	10100 1100 10200 1100
+Wire Wire Line
+	10900 1100 11100 1100
+$Comp
+L pkl_device:pkl_R_Small R?
+U 1 1 5BDDF84F
+P 9600 1300
+F 0 "R?" V 9500 1300 50  0000 C CNN
+F 1 "10k" V 9700 1300 50  0000 C CNN
+F 2 "pkl_dipol:R_0402" H 9659 1207 60  0001 L CNN
+F 3 "" H 9600 1300 60  0000 C CNN
+F 4 "ANY" H 9600 1300 50  0001 C CNN "Source"
+F 5 "res-0402-10k" H 8400 -7250 50  0001 C CNN "Key"
+	1    9600 1300
+	1    0    0    -1  
+$EndComp
+$Comp
+L pkl_device:pkl_C_Small C?
+U 1 1 5BDDF858
+P 9600 1600
+F 0 "C?" V 9650 1400 50  0000 L CNN
+F 1 "1u" V 9650 1650 50  0000 L CNN
+F 2 "pkl_dipol:C_0402" H 9692 1507 60  0001 L CNN
+F 3 "" H 9600 1600 60  0000 C CNN
+F 4 "ANY" H 9600 1600 50  0001 C CNN "Source"
+F 5 "cap-cer-0402-1u" H 8400 -7250 50  0001 C CNN "Key"
+	1    9600 1600
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	9600 1400 9600 1450
+Wire Wire Line
+	9600 1200 9600 1100
+Wire Wire Line
+	9600 1100 9900 1100
+Connection ~ 9900 1100
+Wire Wire Line
+	9600 1450 9800 1450
+Wire Wire Line
+	9800 1450 9800 1300
+Wire Wire Line
+	9800 1300 10200 1300
+Wire Wire Line
+	9900 1100 10100 1100
+Connection ~ 9600 1450
+Wire Wire Line
+	9600 1450 9600 1500
+Wire Wire Line
+	9600 1700 9600 1800
+Wire Wire Line
+	9600 1800 9900 1800
+Connection ~ 9900 1800
+Text Notes 8950 1650 0    50   ~ 0
+Enable Delay\n~~0.001s\nShould enable\nafter 1v2 rail\n(Test!!!)
+Wire Wire Line
+	11400 3000 11450 3000
+$Comp
+L pkl_misc:TS971ILT U?
+U 1 1 5BF0CA8C
+P 11000 3000
+F 0 "U?" H 11100 3150 60  0000 L CNN
+F 1 "TS971ILT" H 11050 2800 60  0000 L CNN
+F 2 "pkl_housings_sot:SOT-23-5" H 11000 2400 60  0001 C CNN
+F 3 "http://www.st.com/content/ccc/resource/technical/document/datasheet/group1/24/1a/c3/82/35/1f/45/a0/CD00001508/files/CD00001508.pdf/jcr:content/translations/en.CD00001508.pdf" H 11000 2300 60  0001 C CNN
+F 4 "ANY" H 11000 2200 60  0001 C CNN "Source"
+	1    11000 3000
+	1    0    0    -1  
+$EndComp
+Text Label 11800 3000 0    60   ~ 0
+MIC_IN
+Text Notes 9000 2500 0    100  ~ 20
+Microphone
+$Comp
+L pkl_device:pkl_C_Small C?
+U 1 1 5BF5B317
+P 9400 2850
+F 0 "C?" V 9632 2850 50  0000 C CNN
+F 1 "100n" V 9539 2850 50  0000 C CNN
+F 2 "pkl_dipol:C_0402" H 9400 2850 60  0001 C CNN
+F 3 "" H 9400 2850 60  0000 C CNN
+F 4 "cap-cer-0402-100n" H 9400 2850 60  0001 C CNN "Key"
+F 5 "ANY" H 9400 2850 60  0001 C CNN "Source"
+	1    9400 2850
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:+3V3 #PWR?
+U 1 1 5BF5CD31
+P 11000 2500
+F 0 "#PWR?" H 11000 2350 50  0001 C CNN
+F 1 "+3V3" H 11000 2640 50  0000 C CNN
+F 2 "" H 11000 2500 50  0001 C CNN
+F 3 "" H 11000 2500 50  0001 C CNN
+	1    11000 2500
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5BF5CDFC
+P 11000 3300
+F 0 "#PWR?" H 11000 3050 50  0001 C CNN
+F 1 "GND" H 11000 3150 50  0000 C CNN
+F 2 "" H 11000 3300 50  0001 C CNN
+F 3 "" H 11000 3300 50  0001 C CNN
+	1    11000 3300
+	1    0    0    -1  
+$EndComp
+$Comp
+L pkl_misc:Microphone_SPV1840LR5H-B U?
+U 1 1 5C03D5D3
+P 9200 3250
+F 0 "U?" H 9350 3500 60  0000 R CNN
+F 1 "SPV1840LR5H-B" V 8950 3450 30  0000 R CNN
+F 2 "pkl_misc:SPV1840LR5H-B" H 9200 3250 60  0001 C CNN
+F 3 "http://www.knowles.com/eng/content/download/3918/49669/version/8/file/SPV1840LR5H-B+Rev+B+Datasheet.pdf" H 9200 2700 60  0001 C CNN
+F 4 "ANY" H 9200 2600 60  0001 C CNN "Source"
+	1    9200 3250
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3V3 #PWR?
+U 1 1 5C03E076
+P 9200 2750
+F 0 "#PWR?" H 9200 2600 50  0001 C CNN
+F 1 "+3V3" H 9200 2890 50  0000 C CNN
+F 2 "" H 9200 2750 50  0001 C CNN
+F 3 "" H 9200 2750 50  0001 C CNN
+	1    9200 2750
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5C16266F
+P 9200 3750
+F 0 "#PWR?" H 9200 3500 50  0001 C CNN
+F 1 "GND" H 9200 3600 50  0000 C CNN
+F 2 "" H 9200 3750 50  0001 C CNN
+F 3 "" H 9200 3750 50  0001 C CNN
+	1    9200 3750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9500 3250 9700 3250
+$Comp
+L pkl_device:pkl_C_Small C?
+U 1 1 5C1F7465
+P 9800 3250
+F 0 "C?" V 10032 3250 50  0000 C CNN
+F 1 "1u" V 9939 3250 50  0000 C CNN
+F 2 "pkl_dipol:C_0402" H 9800 3250 60  0001 C CNN
+F 3 "" H 9800 3250 60  0000 C CNN
+F 4 "cap-cer-0402-100n" H 9800 3250 60  0001 C CNN "Key"
+F 5 "ANY" H 9800 3250 60  0001 C CNN "Source"
+	1    9800 3250
+	0    -1   -1   0   
+$EndComp
+$Comp
+L pkl_device:pkl_R_Small R?
+U 1 1 5C242389
+P 9600 3950
+F 0 "R?" H 9541 3997 50  0000 R CNN
+F 1 "10k" H 9541 3904 50  0000 R CNN
+F 2 "pkl_dipol:R_0402" H 9659 3857 60  0001 L CNN
+F 3 "" H 9600 3950 60  0000 C CNN
+F 4 "ANY" H 9600 3950 50  0001 C CNN "Source"
+F 5 "res-0402-10k" H 8400 -4600 50  0001 C CNN "Key"
+	1    9600 3950
+	1    0    0    -1  
+$EndComp
+$Comp
+L pkl_device:pkl_R_Small R?
+U 1 1 5C2425DC
+P 9600 3650
+F 0 "R?" V 9500 3650 50  0000 C CNN
+F 1 "10k" V 9700 3650 50  0000 C CNN
+F 2 "pkl_dipol:R_0402" H 9659 3557 60  0001 L CNN
+F 3 "" H 9600 3650 60  0000 C CNN
+F 4 "ANY" H 9600 3650 50  0001 C CNN "Source"
+F 5 "res-0402-10k" H 8400 -4900 50  0001 C CNN "Key"
+	1    9600 3650
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3V3 #PWR?
+U 1 1 5C2427CA
+P 9600 3550
+F 0 "#PWR?" H 9600 3400 50  0001 C CNN
+F 1 "+3V3" H 9600 3690 50  0000 C CNN
+F 2 "" H 9600 3550 50  0001 C CNN
+F 3 "" H 9600 3550 50  0001 C CNN
+	1    9600 3550
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5C2429FB
+P 9600 4050
+F 0 "#PWR?" H 9600 3800 50  0001 C CNN
+F 1 "GND" H 9600 3900 50  0000 C CNN
+F 2 "" H 9600 4050 50  0001 C CNN
+F 3 "" H 9600 4050 50  0001 C CNN
+	1    9600 4050
+	1    0    0    -1  
+$EndComp
+Wire Notes Line
+	8900 2300 12100 2300
+Wire Notes Line
+	12100 2300 12100 4300
+Wire Notes Line
+	12100 4300 8900 4300
+Wire Notes Line
+	8900 4300 8900 2300
+Wire Wire Line
+	9600 3750 9600 3800
+$Comp
+L pkl_device:pkl_C C?
+U 1 1 5C322BBF
+P 9800 3950
+F 0 "C?" H 9915 3997 50  0000 L CNN
+F 1 "22u" H 9915 3904 50  0000 L CNN
+F 2 "pkl_dipol:C_1206" H 9800 3950 60  0001 C CNN
+F 3 "" H 9800 3950 60  0000 C CNN
+F 4 "cap-cer-1206-22u" H 9800 3950 60  0001 C CNN "Key"
+F 5 "ANY" H 9800 3950 60  0001 C CNN "Source"
+	1    9800 3950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9600 3800 9800 3800
+Wire Wire Line
+	9800 3800 9800 3850
+Connection ~ 9600 3800
+Wire Wire Line
+	9600 3800 9600 3850
+$Comp
+L power:GND #PWR?
+U 1 1 5C36E6C2
+P 9800 4050
+F 0 "#PWR?" H 9800 3800 50  0001 C CNN
+F 1 "GND" H 9800 3900 50  0000 C CNN
+F 2 "" H 9800 4050 50  0001 C CNN
+F 3 "" H 9800 4050 50  0001 C CNN
+	1    9800 4050
+	1    0    0    -1  
+$EndComp
+$Comp
+L pkl_device:pkl_R_Small R?
+U 1 1 5C36E799
+P 10000 3800
+F 0 "R?" V 9801 3800 50  0000 C CNN
+F 1 "10k" V 9894 3800 50  0000 C CNN
+F 2 "pkl_dipol:R_0402" H 10059 3707 60  0001 L CNN
+F 3 "" H 10000 3800 60  0000 C CNN
+F 4 "ANY" H 10000 3800 50  0001 C CNN "Source"
+F 5 "res-0402-10k" H 8800 -4750 50  0001 C CNN "Key"
+	1    10000 3800
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	9800 3800 9900 3800
+Connection ~ 9800 3800
+$Comp
+L pkl_device:pkl_C C?
+U 1 1 5C3BA906
+P 10200 3950
+F 0 "C?" H 10315 3997 50  0000 L CNN
+F 1 "10u" H 10315 3904 50  0000 L CNN
+F 2 "pkl_dipol:C_1206" H 10200 3950 60  0001 C CNN
+F 3 "" H 10200 3950 60  0000 C CNN
+F 4 "cap-cer-0603-10u" H 10200 3950 60  0001 C CNN "Key"
+F 5 "ANY" H 10200 3950 60  0001 C CNN "Source"
+	1    10200 3950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10100 3800 10200 3800
+Wire Wire Line
+	10200 3800 10200 3850
+$Comp
+L power:GND #PWR?
+U 1 1 5C408B5A
+P 10200 4050
+F 0 "#PWR?" H 10200 3800 50  0001 C CNN
+F 1 "GND" H 10200 3900 50  0000 C CNN
+F 2 "" H 10200 4050 50  0001 C CNN
+F 3 "" H 10200 4050 50  0001 C CNN
+	1    10200 4050
+	1    0    0    -1  
+$EndComp
+$Comp
+L pkl_device:pkl_R_Small R?
+U 1 1 5C408CBE
+P 10200 3650
+F 0 "R?" V 10100 3650 50  0000 C CNN
+F 1 "10k" V 10300 3650 50  0000 C CNN
+F 2 "pkl_dipol:R_0402" H 10259 3557 60  0001 L CNN
+F 3 "" H 10200 3650 60  0000 C CNN
+F 4 "ANY" H 10200 3650 50  0001 C CNN "Source"
+F 5 "res-0402-10k" H 9000 -4900 50  0001 C CNN "Key"
+	1    10200 3650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10200 3750 10200 3800
+Connection ~ 10200 3800
+Wire Wire Line
+	9900 3250 10200 3250
+Wire Wire Line
+	10200 3250 10200 3550
+Wire Wire Line
+	10200 3250 10200 2900
+Wire Wire Line
+	10200 2900 10800 2900
+Connection ~ 10200 3250
+Wire Wire Line
+	9200 3550 9200 3750
+Wire Wire Line
+	9200 2750 9200 2850
+Wire Wire Line
+	9200 2850 9300 2850
+Connection ~ 9200 2850
+Wire Wire Line
+	9200 2850 9200 2950
+$Comp
+L power:GND #PWR?
+U 1 1 5C5D6F65
+P 9500 2850
+F 0 "#PWR?" H 9500 2600 50  0001 C CNN
+F 1 "GND" H 9500 2700 50  0000 C CNN
+F 2 "" H 9500 2850 50  0001 C CNN
+F 3 "" H 9500 2850 50  0001 C CNN
+	1    9500 2850
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	11000 2500 11000 2600
+$Comp
+L pkl_device:pkl_C_Small C?
+U 1 1 5C670D6B
+P 11200 2600
+F 0 "C?" V 11432 2600 50  0000 C CNN
+F 1 "100n" V 11339 2600 50  0000 C CNN
+F 2 "pkl_dipol:C_0402" H 11200 2600 60  0001 C CNN
+F 3 "" H 11200 2600 60  0000 C CNN
+F 4 "cap-cer-0402-100n" H 11200 2600 60  0001 C CNN "Key"
+F 5 "ANY" H 11200 2600 60  0001 C CNN "Source"
+	1    11200 2600
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5C670D71
+P 11300 2600
+F 0 "#PWR?" H 11300 2350 50  0001 C CNN
+F 1 "GND" H 11300 2450 50  0000 C CNN
+F 2 "" H 11300 2600 50  0001 C CNN
+F 3 "" H 11300 2600 50  0001 C CNN
+	1    11300 2600
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	11000 2600 11100 2600
+Connection ~ 11000 2600
+Wire Wire Line
+	11000 2600 11000 2700
+$Comp
+L pkl_device:pkl_C_Small C?
+U 1 1 5C757EF5
+P 11600 3000
+F 0 "C?" V 11832 3000 50  0000 C CNN
+F 1 "1u" V 11739 3000 50  0000 C CNN
+F 2 "pkl_dipol:C_0402" H 11600 3000 60  0001 C CNN
+F 3 "" H 11600 3000 60  0000 C CNN
+F 4 "cap-cer-0402-100n" H 11600 3000 60  0001 C CNN "Key"
+F 5 "ANY" H 11600 3000 60  0001 C CNN "Source"
+	1    11600 3000
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	11700 3000 11800 3000
+$Comp
+L pkl_device:pkl_R_Small R?
+U 1 1 5C7A58AB
+P 11350 3550
+F 0 "R?" V 11300 3400 50  0000 C CNN
+F 1 "27k" V 11250 3550 50  0000 C CNN
+F 2 "pkl_dipol:R_0402" H 11409 3457 60  0001 L CNN
+F 3 "" H 11350 3550 60  0000 C CNN
+F 4 "res-0402-27k" H 10150 -5000 50  0001 C CNN "Key"
+F 5 "ANY" H 11350 3550 50  0001 C CNN "Source"
+	1    11350 3550
+	0    1    1    0   
+$EndComp
+$Comp
+L pkl_device:pkl_R_Small R?
+U 1 1 5C7A5BB0
+P 10700 3750
+F 0 "R?" H 10641 3703 50  0000 R CNN
+F 1 "820E" H 10641 3796 50  0000 R CNN
+F 2 "pkl_dipol:R_0402" H 10759 3657 60  0001 L CNN
+F 3 "" H 10700 3750 60  0000 C CNN
+F 4 "res-0402-820" H 9500 -4800 50  0001 C CNN "Key"
+F 5 "ANY" H 10700 3750 50  0001 C CNN "Source"
+	1    10700 3750
+	-1   0    0    1   
+$EndComp
+$Comp
+L pkl_device:pkl_C C?
+U 1 1 5C7A62EA
+P 10700 3950
+F 0 "C?" H 10815 3997 50  0000 L CNN
+F 1 "3u3" H 10815 3904 50  0000 L CNN
+F 2 "pkl_dipol:C_1206" H 10700 3950 60  0001 C CNN
+F 3 "" H 10700 3950 60  0000 C CNN
+F 4 "cap-cer-0603-3u3" H 10700 3950 60  0001 C CNN "Key"
+F 5 "ANY" H 10700 3950 60  0001 C CNN "Source"
+	1    10700 3950
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5C7A63EA
+P 10700 4050
+F 0 "#PWR?" H 10700 3800 50  0001 C CNN
+F 1 "GND" H 10700 3900 50  0000 C CNN
+F 2 "" H 10700 4050 50  0001 C CNN
+F 3 "" H 10700 4050 50  0001 C CNN
+	1    10700 4050
+	1    0    0    -1  
+$EndComp
+$Comp
+L pkl_device:pkl_C_Small C?
+U 1 1 5C7A681A
+P 11350 3650
+F 0 "C?" V 11300 3800 50  0000 C CNN
+F 1 "560p" V 11200 3650 50  0000 C CNN
+F 2 "pkl_dipol:C_0402" H 11350 3650 60  0001 C CNN
+F 3 "" H 11350 3650 60  0000 C CNN
+F 4 "cap-cer-0402-560p" H 11350 3650 60  0001 C CNN "Key"
+F 5 "ANY" H 11350 3650 60  0001 C CNN "Source"
+	1    11350 3650
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	10800 3100 10700 3100
+Wire Wire Line
+	10700 3100 10700 3550
+Wire Wire Line
+	11550 3100 11450 3100
+Wire Wire Line
+	11450 3100 11450 3000
+Connection ~ 11450 3000
+Wire Wire Line
+	11450 3000 11500 3000
+Wire Wire Line
+	11250 3550 11150 3550
+Wire Wire Line
+	11150 3550 11150 3650
+Wire Wire Line
+	11150 3650 11250 3650
+Wire Wire Line
+	11550 3100 11550 3550
+Wire Wire Line
+	11550 3650 11450 3650
+Wire Wire Line
+	11450 3550 11550 3550
+Connection ~ 11550 3550
+Wire Wire Line
+	11550 3550 11550 3650
+Wire Wire Line
+	10700 3550 11150 3550
+Connection ~ 10700 3550
+Wire Wire Line
+	10700 3550 10700 3650
+Connection ~ 11150 3550
 $EndSCHEMATC

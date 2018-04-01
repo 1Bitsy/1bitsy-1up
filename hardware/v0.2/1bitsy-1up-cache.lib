@@ -593,6 +593,30 @@ X VDD 6 500 100 200 L 50 50 1 1 I
 ENDDRAW
 ENDDEF
 #
+# pkl_misc_Microphone_SPV1840LR5H-B
+#
+DEF pkl_misc_Microphone_SPV1840LR5H-B U 0 40 Y Y 1 F N
+F0 "U" 100 250 60 H V C CNN
+F1 "pkl_misc_Microphone_SPV1840LR5H-B" 50 -250 60 H V L CNN
+F2 "pkl_misc:SPV1840LR5H-B" 0 -750 60 H I C CNN
+F3 "http://www.knowles.com/eng/content/download/3918/49669/version/8/file/SPV1840LR5H-B+Rev+B+Datasheet.pdf" 0 -550 60 H I C CNN
+F4 "ANY" 0 -650 60 H I C CNN "Source"
+DRAW
+C 0 0 100 1 1 10 N
+S -200 200 200 -200 0 1 0 N
+P 2 0 1 0 0 -200 0 -100 N
+P 2 0 1 0 0 200 0 100 N
+P 2 0 1 0 200 0 100 0 N
+P 3 0 1 0 10 -150 30 -150 25 -150 N
+P 2 1 1 10 -100 100 -100 -100 N
+P 2 1 1 0 10 150 30 150 N
+P 2 1 1 0 20 160 20 140 N
+X ~ 1 0 300 100 D 50 50 1 1 P
+X ~ 2 300 0 100 L 50 50 1 1 P
+X ~ 3 0 -300 100 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
 # pkl_misc_PAM8019
 #
 DEF pkl_misc_PAM8019 U 0 40 Y Y 1 F N
@@ -643,6 +667,24 @@ P 2 0 1 10 100 0 75 0 N
 P 3 0 1 10 -100 0 -75 0 75 50 N
 X ~ 1 -200 0 100 R 50 50 1 1 P
 X ~ 2 200 0 100 L 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# pkl_misc_TS971ILT
+#
+DEF pkl_misc_TS971ILT U 0 40 Y Y 1 F N
+F0 "U" 150 150 60 H V C CNN
+F1 "pkl_misc_TS971ILT" 300 -150 60 H V C CNN
+F2 "pkl_housings_sot:SOT-23-5" 0 -600 60 H I C CNN
+F3 "http://www.st.com/content/ccc/resource/technical/document/datasheet/group1/24/1a/c3/82/35/1f/45/a0/CD00001508/files/CD00001508.pdf/jcr:content/translations/en.CD00001508.pdf" 0 -700 60 H I C CNN
+F4 "ANY" 0 -800 60 H I C CNN "Source"
+DRAW
+P 4 1 1 10 -100 200 300 0 -100 -200 -100 200 f
+X ~ 1 400 0 100 L 50 50 1 1 O
+X V- 2 0 -300 150 U 50 50 1 1 W
+X + 3 -200 100 100 R 50 50 1 1 I
+X - 4 -200 -100 100 R 50 50 1 1 I
+X V+ 5 0 300 150 D 50 50 1 1 W
 ENDDRAW
 ENDDEF
 #
