@@ -4,7 +4,7 @@ EELAYER 26 0
 EELAYER END
 $Descr A3 16535 11693
 encoding utf-8
-Sheet 2 2
+Sheet 2 3
 Title "1BitSy"
 Date ""
 Rev "V1.0d"
@@ -804,7 +804,7 @@ Wire Wire Line
 Wire Wire Line
 	1750 5350 2450 5350
 Wire Wire Line
-	2250 5450 2450 5450
+	1750 5450 2450 5450
 Wire Wire Line
 	2450 5550 2250 5550
 Wire Wire Line
@@ -932,9 +932,9 @@ Wire Wire Line
 Wire Wire Line
 	6350 1000 6450 1000
 Wire Wire Line
-	4750 1100 5600 1100
+	4750 1100 5050 1100
 Wire Wire Line
-	4750 1200 5600 1200
+	4750 1200 5050 1200
 Wire Wire Line
 	9750 2050 9750 2150
 Wire Notes Line
@@ -1129,8 +1129,6 @@ Text Label 2250 5650 2    60   ~ 0
 USB_ID
 Text Label 2250 5550 2    60   ~ 0
 USB_VBUS
-Text Label 2250 5450 2    60   ~ 0
-LED
 Text Label 2150 5350 2    60   ~ 0
 PA7
 Text Label 2150 5250 2    60   ~ 0
@@ -1146,7 +1144,7 @@ PA2
 Text Label 2150 4750 2    60   ~ 0
 PA1
 Wire Wire Line
-	4750 1300 5600 1300
+	4750 1300 5050 1300
 Text Label 5050 1300 0    60   ~ 0
 USB_ID
 $Comp
@@ -1177,7 +1175,7 @@ Wire Wire Line
 Text Label 1750 1150 2    60   ~ 0
 VIN
 Text Label 2350 7750 2    60   ~ 0
-OSC32_IN
+LED
 Text Label 2350 7850 2    60   ~ 0
 OSC32_OUT
 $Comp
@@ -1206,7 +1204,6 @@ Wire Notes Line
 	4050 550  550  550 
 Wire Notes Line
 	550  550  550  2000
-Connection ~ 4850 1400
 Text Label 14600 8250 0    60   ~ 0
 VBAT
 Text Label 13750 6350 0    60   ~ 0
@@ -1302,8 +1299,6 @@ Wire Wire Line
 Wire Wire Line
 	1300 8150 1300 8450
 Wire Wire Line
-	4850 1400 5600 1400
-Wire Wire Line
 	4950 1000 5850 1000
 Text HLabel 1750 4650 0    60   Input ~ 0
 PA0
@@ -1392,8 +1387,6 @@ Text HLabel 1750 7450 0    60   Input ~ 0
 PC11
 Text HLabel 1750 7550 0    60   Input ~ 0
 PC12
-Text HLabel 1750 7650 0    60   Input ~ 0
-PC13
 Text HLabel 14050 6350 2    60   Input ~ 0
 PD2
 Wire Wire Line
@@ -1410,4 +1403,14 @@ Text HLabel 14900 8250 2    60   Input ~ 0
 VBAT
 Text HLabel 14050 6150 2    60   Input ~ 0
 PB15
+Text HLabel 1750 5450 0    60   Input ~ 0
+PA8
+Text HLabel 1750 7650 0    60   Input ~ 0
+PC13
+Text Notes 2150 7750 2    60   ~ 0
+On 1Bitsy: OSC32_IN
+Text Notes 1500 5500 2    60   ~ 0
+On 1Bitsy: LED
+Text Label 2150 5450 2    60   ~ 0
+PA8
 $EndSCHEMATC
