@@ -80,7 +80,9 @@ static uint8_t vol;
 static uint8_t prev_vol;
 static uint16_t raw_vol;
 
-char abuf[704] __attribute__((section(".sram2")));
+// char abuf[704] __attribute__((section(".sram2")));
+#define FRAMES ((int)Fs / 250)
+DEFINE_AUDIO_BUFFER(abuf, FRAMES, ACC, ASD);
 
 #ifdef MONO
 

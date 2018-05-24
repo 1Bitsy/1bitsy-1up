@@ -46,6 +46,10 @@ typedef enum audio_sample_depth {
 
 typedef void audio_callback_fn(void *frames_out, size_t frame_count);
 
+#define DEFINE_AUDIO_BUFFER(name, frames, channels, depth) \
+    static uint8_t name[2 * (frames) * (channels) * (depth)] \
+    __attribute__((section(".sram2")));
+
 // Pass NULL for buffer to reuse existing buffer.
 extern void                audio_init              (uint32_t sample_rate,
                                                     audio_channel_count,
