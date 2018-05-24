@@ -23,23 +23,40 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-/* Snes Controller buttons */
-#define GAMEPAD_BB		(1 << 15)
-#define GAMEPAD_BY		(1 << 14)
-#define GAMEPAD_BSELECT	(1 << 13)
-#define GAMEPAD_BSTART	(1 << 12)
-#define GAMEPAD_BUP		(1 << 11)
-#define GAMEPAD_BDOWN	(1 << 10)
-#define GAMEPAD_BLEFT	(1 << 9)
-#define GAMEPAD_BRIGHT	(1 << 8)
-#define GAMEPAD_BA		(1 << 7)
-#define GAMEPAD_BX		(1 << 6)
-#define GAMEPAD_BL		(1 << 5)
-#define GAMEPAD_BR		(1 << 4)
-#define GAMEPAD_BRES1	(1 << 3)
-#define GAMEPAD_BRES2	(1 << 2)
-#define GAMEPAD_BVOLM	(1 << 1)
-#define GAMEPAD_BVOLP	(1 << 0)
+/* SNES Controller buttons */
+#define GAMEPAD_BB_BIT	    15
+#define GAMEPAD_BY_BIT	    14
+#define GAMEPAD_BSELECT_BIT 13
+#define GAMEPAD_BSTART_BIT  12
+#define GAMEPAD_BUP_BIT	    11
+#define GAMEPAD_BDOWN_BIT   10
+#define GAMEPAD_BLEFT_BIT   9
+#define GAMEPAD_BRIGHT_BIT  8
+#define GAMEPAD_BA_BIT	    7
+#define GAMEPAD_BX_BIT	    6
+#define GAMEPAD_BL_BIT	    5
+#define GAMEPAD_BR_BIT	    4
+#define GAMEPAD_BRES1_BIT   3
+#define GAMEPAD_BRES2_BIT   2
+#define GAMEPAD_BVOLM_BIT   1
+#define GAMEPAD_BVOLP_BIT   0
+
+#define GAMEPAD_BB      (1 << GAMEPAD_BB_BIT)
+#define GAMEPAD_BY      (1 << GAMEPAD_BY_BIT)
+#define GAMEPAD_BSELECT (1 << GAMEPAD_BSELECT_BIT)
+#define GAMEPAD_BSTART  (1 << GAMEPAD_BSTART_BIT)
+#define GAMEPAD_BUP     (1 << GAMEPAD_BUP_BIT)
+#define GAMEPAD_BDOWN   (1 << GAMEPAD_BDOWN_BIT)
+#define GAMEPAD_BLEFT   (1 << GAMEPAD_BLEFT_BIT)
+#define GAMEPAD_BRIGHT  (1 << GAMEPAD_BRIGHT_BIT)
+#define GAMEPAD_BA      (1 << GAMEPAD_BA_BIT)
+#define GAMEPAD_BX      (1 << GAMEPAD_BX_BIT)
+#define GAMEPAD_BL      (1 << GAMEPAD_BL_BIT)
+#define GAMEPAD_BR      (1 << GAMEPAD_BR_BIT)
+#define GAMEPAD_BRES1   (1 << GAMEPAD_BRES1_BIT)
+#define GAMEPAD_BRES2   (1 << GAMEPAD_BRES2_BIT)
+#define GAMEPAD_BVOLM   (1 << GAMEPAD_BVOLM_BIT)
+#define GAMEPAD_BVOLP   (1 << GAMEPAD_BVOLP_BIT)
 
 void gamepad_init(void);
 bool gamepad_present(void);
