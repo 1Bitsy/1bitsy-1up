@@ -77,7 +77,24 @@ size_t audio_get_byte_count(void)
 
 static void init_timer(void)
 {
-    uint32_t period = (rcc_apb2_frequency + sample_rate / 2) / sample_rate;
+    // XXX This happens to work but doesn't take into account all
+    // XXX the ways the clocks could be configured.
+    // XXX RCC_DCKCFGR.TIMPRE description:
+    // XXX
+    // XXX     0: If the APB prescaler (PPRE1, PPRE2 in the RCC_CFGR
+    // XXX        register) is configured to a division factor of 1,
+    // XXX        TIMxCLK = PCLKx.  Otherwise, the timer clock
+    // XXX        frequencies are set to twice the frequency of the
+    // XXX        APB domain to which the timers are connected:
+    // XXX        TIMxCLK = 2xPCLKx.
+    // XXX     1: If the APB prescaler (PPRE1, PPRE2 in the RCC_CFGR
+    // XXX        register) is configured to a division factor of 1,
+    // XXX        2, or 4, TIMxCLK = HCLK.  Otherwise, the timer clock
+    // XXX        frequencies are set to four times to the frequency
+    // XXX        [sic] of the APB domain to which the timers are
+    // XXX        connected: TIMxCLK = 4xPCLKx.
+
+    uint32_t period = (2 * rcc_apb1_frequency + sample_rate / 2) / sample_rate;
 
     /* Enable TIM6 clock. */
     rcc_periph_clock_enable(RCC_TIM6);
